@@ -13,15 +13,16 @@ const Auth = () => {
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { user, signIn, signUp } = useAuth();
+  const { user, session, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
 
+  // Verificação mais robusta do estado de autenticação
   useEffect(() => {
-    if (user) {
-      navigate('/');
+    if (!authLoading && (user || session)) {
+      navigate('/dashboard');
     }
-  }, [user, navigate]);
+  }, [user, session, authLoading, navigate]);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,11 +37,7 @@ const Auth = () => {
         variant: "destructive",
       });
     } else {
-      toast({
-        title: "Welcome back!",
-        description: "You've successfully signed in.",
-      });
-      navigate('/');
+      navigate('/dashboard');
     }
     
     setIsLoading(false);
@@ -59,14 +56,15 @@ const Auth = () => {
         variant: "destructive",
       });
     } else {
-      toast({
-        title: "Account Created!",
-        description: "Please check your email to verify your account.",
-      });
+      navigate('/dashboard');
     }
     
     setIsLoading(false);
   };
+
+  if (authLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-light to-accent flex items-center justify-center p-4">

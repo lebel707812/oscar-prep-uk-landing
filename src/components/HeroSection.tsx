@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
-import heroImage from "@/assets/hero-nurses.jpg";
 
 const HeroSection = () => {
+  const heroImage = "https://images.pexels.com/photos/7084406/pexels-photo-7084406.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-background via-secondary/20 to-primary/5">
       <div className="container mx-auto px-4 py-16 lg:py-24">
