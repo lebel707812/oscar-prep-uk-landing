@@ -17,6 +17,7 @@ export type Database = {
           score: number
           station_name: string
           user_id: string
+          date: string | null;
         }
         Insert: {
           created_at?: string | null
@@ -25,6 +26,7 @@ export type Database = {
           score: number
           station_name: string
           user_id: string
+          date: string | null;
         }
         Update: {
           created_at?: string | null
@@ -33,6 +35,7 @@ export type Database = {
           score?: number
           station_name?: string
           user_id?: string
+          date: string | null;
         }
         Relationships: []
       }
@@ -63,6 +66,46 @@ export type Database = {
         }
         Relationships: []
       }
+Tables: {
+   questions: {
+    Row: {
+      id: string;
+      topic_id: string;
+      question_text: string;
+      option_a: string;
+      option_b: string;
+      option_c: string;
+      option_d: string;
+      correct_option: string;
+      explanation: string;
+    };
+    Insert: {
+      id?: string;
+      topic_id: string;
+      question_text: string;
+      option_a: string;
+      option_b: string;
+      option_c: string;
+      option_d: string;
+      correct_option: string;
+      explanation: string;
+    };
+    Update: {
+      id?: string;
+      topic_id?: string;
+      question_text?: string;
+      option_a?: string;
+      option_b?: string;
+      option_c?: string;
+      option_d?: string;
+      correct_option?: string;
+      explanation?: string;
+    };
+    Relationships: [];
+  };
+}
+
+
     }
     Views: {
       [_ in never]: never
@@ -189,3 +232,5 @@ export const Constants = {
     Enums: {},
   },
 } as const
+
+

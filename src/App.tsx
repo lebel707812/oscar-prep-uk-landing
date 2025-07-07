@@ -13,8 +13,9 @@ import NotFound from "./pages/NotFound";
 import Profile from "@/pages/Profile";
 import MockExams from "@/pages/MockExams";
 import Resources from "./pages/Resources";
-import Settings from "./pages/settings";
+import Settings from "./pages/Settings";
 import { ThemeProvider } from '@/contexts/ThemeContext';
+import MockExamRunner from "@/pages/MockExamRunner";
 
 const queryClient = new QueryClient();
 
@@ -50,7 +51,7 @@ const App = () => {
                   path="/dashboard"
                   element={
                     <ProtectedRoute>
-                      <Dashboard sessions={sessions} setSessions={setSessions} />
+                      <Dashboard />
                     </ProtectedRoute>
                   }
                 />
@@ -78,6 +79,25 @@ const App = () => {
                     </ProtectedRoute>
                   }
                 />
+                <Route
+                  path="/dashboard/mock-exam-runner"
+                  element={
+                    <ProtectedRoute>
+                      <MockExamRunner />
+                    </ProtectedRoute>
+                  }
+                  
+                />
+
+                <Route
+                path="/mock-exam-runner"
+                element={
+                  <ProtectedRoute>
+                    <MockExamRunner />
+                  </ProtectedRoute>
+                }
+                />
+
                 <Route
                   path="/dashboard/settings"
                   element={

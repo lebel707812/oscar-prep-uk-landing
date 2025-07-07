@@ -40,3 +40,18 @@
 .read-the-docs {
   color: #888;
 }
+
+
+/* Azul claro para sessões passadas */
+.past-session {
+  background-color: #a3c4f3 !important; /* azul claro */
+  color: white !important;
+  border-radius: 50% !important;
+}
+
+/* Azul escuro para sessões futuras */
+.future-session {
+  background-color: #1e40af !important; /* azul escuro */
+  color: white !important;
+  border-radius: 50% !important;
+}

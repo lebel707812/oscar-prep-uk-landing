@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/ui/Header";
-import NotificationsContainer from "@/components/ui/NotificationsContainer";
-import { notify } from "@/components/ui/NotificationsContainer";
+
 import {
   LineChart,
   Line,
@@ -16,8 +15,15 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+import {
+  fetchUserSessions,
+  saveSession,
+  checkUser,
+  deleteSession,
+} from "@/integrations/supabase/client";
+
 interface Session {
-  id: number;
+  id: string;
   date: Date;
   stationName: string;
   score?: number;
@@ -41,7 +47,44 @@ const allStations = [
   "Documentation and Professionalism",
 ];
 
+const stationCategories: Record<string, string> = {
+  Cardiology: "Medical",
+  Respiratory: "Medical",
+  Neurology: "Medical",
+  Gastroenterology: "Medical",
+  Musculoskeletal: "Medical",
+  Communication: "Soft Skills",
+  Ethics: "Soft Skills",
+  "Infection Control": "Medical",
+  "Medication Management": "Medical",
+  "Emergency Care": "Medical",
+  "Mental Health Nursing": "Mental Health",
+  "Paediatric Nursing": "Paediatric",
+  "Elderly Care": "Geriatrics",
+  "Documentation and Professionalism": "Professionalism",
+};
+
 const totalSessionsPerSubject = 5;
+
+const Toast: React.FC<{
+  message: string;
+  type: "success" | "error";
+  onClose: () => void;
+}> = ({ message, type, onClose }) => {
+  useEffect(() => {
+    const timer = setTimeout(onClose, 4000);
+    return () => clearTimeout(timer);
+  }, [onClose]);
+  return (
+    <div
+      className={`fixed bottom-5 right-5 px-4 py-3 rounded shadow text-white font-semibold cursor-pointer select-none z-50
+      ${type === "success" ? "bg-green-600" : "bg-red-600"}`}
+      onClick={onClose}
+    >
+      {message}
+    </div>
+  );
+};
 
 interface DashboardProps {
   sessions: Session[];
@@ -55,30 +98,86 @@ const Dashboard: React.FC<DashboardProps> = ({ sessions, setSessions }) => {
   const [score, setScore] = useState("");
   const [feedback, setFeedback] = useState("");
   const [isSaving, setIsSaving] = useState(false);
-  const [activeTab, setActiveTab] = useState<
-    "completed" | "upcoming" | "notes"
-  >("completed");
+  const [activeTab, setActiveTab] = useState<"completed" | "upcoming" | "notes">(
+    "completed"
+  );
   const [notes, setNotes] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingSessionId, setEditingSessionId] = useState<string | null>(null);
+
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [toastType, setToastType] = useState<"success" | "error">("success");
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [sessionIdToDelete, setSessionIdToDelete] = useState<string | null>(null);
+
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  // Cálculo do progresso para cada matéria
-  const subjectProgress = allStations.map((subject) => {
-    const completedCount = sessions.filter(
+  const categories = ["All", ...Array.from(new Set(Object.values(stationCategories)))];
+
+  const parseDateAsLocal = (dateString: string) => {
+    const [year, month, day] = dateString.split("-").map(Number);
+    return new Date(year, month - 1, day);
+  };
+
+  const showToast = (message: string, type: "success" | "error") => {
+    setToastMessage(message);
+    setToastType(type);
+  };
+
+  useEffect(() => {
+    const validateUser = async () => {
+      const user = await checkUser();
+      if (!user) {
+        showToast("You must be logged in to access the dashboard.", "error");
+        setTimeout(() => (window.location.href = "/login"), 2500);
+      }
+    };
+    validateUser();
+  }, []);
+
+  useEffect(() => {
+    const loadSessions = async () => {
+      const sessionsFromDB = await fetchUserSessions();
+
+      const mapped = sessionsFromDB.map((s) => ({
+        id: String(s.id),
+        date: new Date(s.date),
+        stationName: s.station_name,
+        score: s.score,
+        feedback: s.feedback ?? "",
+      }));
+
+      setSessions(mapped);
+    };
+    loadSessions();
+  }, [setSessions]);
+
+  // Garantir que sessions seja sempre array
+  const safeSessions = Array.isArray(sessions) ? sessions : [];
+
+  const filteredStations =
+    selectedCategory === "All"
+      ? allStations
+      : allStations.filter((station) => stationCategories[station] === selectedCategory);
+
+  const filteredSessions = safeSessions.filter((s) =>
+    filteredStations.includes(s.stationName)
+  );
+
+  const completedSessions = filteredSessions.filter((s) => s.date <= today);
+  const upcomingSessions = filteredSessions.filter((s) => s.date > today);
+
+  const subjectProgress = filteredStations.map((subject) => {
+    const completedCount = completedSessions.filter(
       (s) => s.stationName === subject && s.score !== undefined
     ).length;
-
-    const progress = Math.min(
-      (completedCount / totalSessionsPerSubject) * 100,
-      100
-    );
-
+    const progress = Math.min((completedCount / totalSessionsPerSubject) * 100, 100);
     return { subject, progress };
   });
-
-  const completedSessions = sessions.filter((s) => s.date <= today);
-  const upcomingSessions = sessions.filter((s) => s.date > today);
 
   const graphData = completedSessions
     .slice()
@@ -88,9 +187,21 @@ const Dashboard: React.FC<DashboardProps> = ({ sessions, setSessions }) => {
       score: s.score ?? 0,
     }));
 
+  const pastSessionDates = completedSessions.map((s) => {
+    const d = new Date(s.date);
+    d.setHours(0, 0, 0, 0);
+    return d;
+  });
+
+  const futureSessionDates = upcomingSessions.map((s) => {
+    const d = new Date(s.date);
+    d.setHours(0, 0, 0, 0);
+    return d;
+  });
+
   const openAddSessionModal = () => {
     if (!selectedDate) {
-      notify("error", "Please select a date first.");
+      showToast("Please select a date first.", "error");
       return;
     }
 
@@ -98,21 +209,58 @@ const Dashboard: React.FC<DashboardProps> = ({ sessions, setSessions }) => {
     selDateNoTime.setHours(0, 0, 0, 0);
 
     if (activeTab === "completed" && selDateNoTime > today) {
-      notify("error", "Completed sessions must be today or in the past.");
+      showToast("Completed sessions must be today or in the past.", "error");
       return;
     }
 
     if (activeTab === "upcoming" && selDateNoTime <= today) {
-      notify("error", "Upcoming sessions must be in the future.");
+      showToast("Upcoming sessions must be in the future.", "error");
       return;
     }
 
+    if (!isEditing) {
+      setStationName("");
+      setScore("");
+      setFeedback("");
+    }
     setIsModalOpen(true);
   };
 
-  const handleAddSession = async () => {
+  const handleEditSession = (session: Session) => {
+    setSelectedDate(new Date(session.date));
+    setStationName(session.stationName);
+    setScore(session.score?.toString() ?? "");
+    setFeedback(session.feedback ?? "");
+    setIsEditing(true);
+    setEditingSessionId(session.id);
+    setIsModalOpen(true);
+  };
+
+  const confirmDeleteSession = (id: string) => {
+    setSessionIdToDelete(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleDeleteSession = async () => {
+    if (sessionIdToDelete === null) return;
+    setIsDeleteModalOpen(false);
+    try {
+      const result = await deleteSession(sessionIdToDelete);
+      if (result.error) {
+        showToast("Failed to delete session.", "error");
+      } else {
+        setSessions((prev) => prev.filter((s) => s.id !== sessionIdToDelete));
+        showToast("Session deleted.", "success");
+      }
+    } catch {
+      showToast("Failed to delete session.", "error");
+    }
+    setSessionIdToDelete(null);
+  };
+
+  const handleSaveSession = async () => {
     if (!selectedDate) {
-      notify("error", "Please select a date.");
+      showToast("Please select a date.", "error");
       return;
     }
 
@@ -120,63 +268,99 @@ const Dashboard: React.FC<DashboardProps> = ({ sessions, setSessions }) => {
     selDateNoTime.setHours(0, 0, 0, 0);
 
     if (!stationName) {
-      notify("error", "Station name is required.");
+      showToast("Station name is required.", "error");
       return;
     }
 
     if (activeTab === "completed" && (!score || selDateNoTime > today)) {
-      notify("error", "Provide score and select a valid past date.");
+      showToast("Provide score and select a valid past date.", "error");
       return;
     }
 
     if (activeTab === "upcoming" && selDateNoTime <= today) {
-      notify("error", "Upcoming sessions must be in the future.");
+      showToast("Upcoming sessions must be in the future.", "error");
       return;
     }
 
     setIsSaving(true);
     try {
-      const newSession: Session =
-        activeTab === "completed"
-          ? {
-              id: Date.now(),
-              date: selDateNoTime,
-              stationName,
-              score: Number(score),
-              feedback,
-            }
-          : {
-              id: Date.now(),
-              date: selDateNoTime,
-              stationName,
-            };
-      setSessions((prev) => [...prev, newSession]);
+      const sessionToSave = {
+        id: editingSessionId ?? undefined,
+        date: selDateNoTime,
+        stationName,
+        score: activeTab === "completed" ? Number(score) : undefined,
+        feedback: activeTab === "completed" ? feedback : undefined,
+      };
 
-      notify("success", "Session saved successfully.");
+      const result = await saveSession(sessionToSave);
+
+      if (result.error) {
+        showToast("Failed to save session.", "error");
+      } else {
+        showToast("Session saved successfully.", "success");
+
+        if (isEditing && editingSessionId !== null) {
+          setSessions((prev) =>
+            prev.map((s) =>
+              s.id === editingSessionId ? { ...s, ...sessionToSave, id: editingSessionId } : s
+            )
+          );
+        } else {
+          const newId =
+            (result as any).data?.[0]?.id
+              ? String((result as any).data[0].id)
+              : typeof crypto !== "undefined" && crypto.randomUUID
+              ? crypto.randomUUID()
+              : String(Date.now());
+
+          setSessions((prev) => [...prev, { ...sessionToSave, id: newId }]);
+        }
+      }
+
       setStationName("");
       setScore("");
       setFeedback("");
       setIsModalOpen(false);
+      setIsEditing(false);
+      setEditingSessionId(null);
     } catch {
-      notify("error", "Failed to save session.");
+      showToast("Failed to save session.", "error");
     } finally {
       setIsSaving(false);
     }
   };
 
   const handleSaveNotes = () => {
-    notify("success", "Notes saved successfully.");
+    showToast("Notes saved successfully.", "success");
   };
 
   return (
     <>
       <Header />
       <main className="max-w-7xl mx-auto p-6 flex flex-col lg:flex-row gap-6 overflow-x-hidden">
-        {/* Conteúdo principal */}
         <section className="flex-1 max-w-4xl">
-          <h1 className="text-3xl font-extrabold mb-6 text-gray-900 center">
-            OSCE Dashboard
-          </h1>
+          <h1 className="text-3xl font-extrabold mb-6 text-gray-900 center">OSCE Dashboard</h1>
+
+          <div className="mb-6">
+            <label
+              htmlFor="category-select"
+              className="block font-semibold mb-2 dark:text-gray-800"
+            >
+              Filter by Category:
+            </label>
+            <select
+              id="category-select"
+              className="border rounded px-4 py-2 w-full max-w-xs dark:text-gray-800"
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+            >
+              {categories.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <div className="flex space-x-3 mb-2">
             <Button
@@ -206,15 +390,27 @@ const Dashboard: React.FC<DashboardProps> = ({ sessions, setSessions }) => {
                   mode="single"
                   selected={selectedDate}
                   onSelect={setSelectedDate}
-                  disabled={{ from: today, after: undefined }}
+                  disabled={{ after: today }}
+                  modifiers={{
+                    futureSession: futureSessionDates,
+                    pastSession: pastSessionDates,
+                    today: today,
+                  }}
+                  modifiersClassNames={{
+                    futureSession: "bg-blue-700 text-white rounded-full",
+                    pastSession: "bg-blue-300 text-white rounded-full",
+                    today: "font-bold border border-blue-500",
+                  }}
                   footer={
                     selectedDate
                       ? `Selected date: ${format(selectedDate, "PP")}`
-                      : "Select a past or current date"
+                      : "Select a past date"
                   }
                 />
               </div>
-
+              <div className="flex justify-center mb-6 dark:text-gray-800">
+                <Button onClick={openAddSessionModal}>Add Completed Session</Button>
+              </div>
               {selectedDate && (
                 <ul className="mt-4 space-y-3">
                   {completedSessions
@@ -222,37 +418,55 @@ const Dashboard: React.FC<DashboardProps> = ({ sessions, setSessions }) => {
                       (s) => s.date.toDateString() === selectedDate.toDateString()
                     )
                     .map((s) => (
-                      <li key={s.id} className="p-4 bg-gray-50 border rounded-md">
+                      <li
+                        key={s.id}
+                        className="p-4 bg-gray-50 border rounded-md relative"
+                      >
                         <strong>{s.stationName}</strong> — Score:{" "}
                         <span className="font-semibold">{s.score}</span>
                         <br />
                         Feedback: {s.feedback || "None"}
+
+                        <div className="absolute top-2 right-2 flex space-x-2">
+                          <button
+                            onClick={() => handleEditSession(s)}
+                            className="text-blue-600 hover:text-blue-800"
+                            title="Edit"
+                          >
+                            ✏️
+                          </button>
+                          <button
+                            onClick={() => confirmDeleteSession(s.id)}
+                            className="text-red-600 hover:text-red-800"
+                            title="Delete"
+                          >
+                            ❌
+                          </button>
+                        </div>
                       </li>
                     ))}
                 </ul>
               )}
-              <div className="flex justify-center mb-6 dark:text-gray-800">
-                  <Button onClick={openAddSessionModal}>Add Completed Session</Button>
-              </div>
+
               {graphData.length > 0 && (
                 <section className="mt-10 w-full">
-                   <h2 className="text-xl font-semibold mb-4">Progress</h2>
-                   <ResponsiveContainer width="200%" height={400}>
-                  <LineChart data={graphData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
-                    <YAxis domain={[0, 100]} />
-                    <Tooltip />
-                    <Line
-                      type="monotone"
-                      dataKey="score"
-                      stroke="#2563eb"
-                      strokeWidth={3}
-                      dot
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </section>
+                  <h2 className="text-xl font-semibold mb-4">Progress</h2>
+                  <ResponsiveContainer width="100%" height={400}>
+                    <LineChart data={graphData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="date" />
+                      <YAxis domain={[0, 100]} />
+                      <Tooltip />
+                      <Line
+                        type="monotone"
+                        dataKey="score"
+                        stroke="#2563eb"
+                        strokeWidth={3}
+                        dot
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </section>
               )}
             </>
           )}
@@ -265,32 +479,59 @@ const Dashboard: React.FC<DashboardProps> = ({ sessions, setSessions }) => {
                   selected={selectedDate}
                   onSelect={setSelectedDate}
                   disabled={{ before: new Date(today.getTime() + 86400000) }}
+                  modifiers={{
+                    futureSession: futureSessionDates,
+                    pastSession: pastSessionDates,
+                    today: today,
+                  }}
+                  modifiersClassNames={{
+                    futureSession: "bg-blue-700 text-white rounded-full",
+                    pastSession: "bg-blue-300 text-white rounded-full",
+                    today: "font-bold border border-blue-500",
+                  }}
                   footer={
                     selectedDate
                       ? `Selected date: ${format(selectedDate, "PP")}`
                       : "Select a future date"
                   }
-                />                    
+                />
+              </div>
+              <div className="flex justify-center mb-6 text-gray-00 dark:text-gray-100">
+                <Button onClick={openAddSessionModal}>Add Upcoming Session</Button>
               </div>
               <ul className="mt-6 space-y-3">
                 {upcomingSessions.map((s) => (
-                  <li key={s.id} className="border p-4 rounded-md bg-white">
-                    <strong>{s.stationName}</strong> —{" "}
-                    {format(s.date, "PPP")}
+                  <li
+                    key={s.id}
+                    className="border p-4 rounded-md bg-white relative"
+                  >
+                    <strong>{s.stationName}</strong> — {format(s.date, "PPP")}
+
+                    <div className="absolute top-2 right-2 flex space-x-2">
+                      <button
+                        onClick={() => handleEditSession(s)}
+                        className="text-blue-600 hover:text-blue-800"
+                        title="Edit"
+                      >
+                        ✏️
+                      </button>
+                      <button
+                        onClick={() => confirmDeleteSession(s.id)}
+                        className="text-red-600 hover:text-red-800"
+                        title="Delete"
+                      >
+                        ❌
+                      </button>
+                    </div>
                   </li>
                 ))}
               </ul>
-
-              <div className="flex justify-center mb-6 text-gray-00 dark:text-gray-100">
-          <Button onClick={openAddSessionModal}>Add Completed Session</Button>
-        </div>
-
             </>
           )}
 
           {activeTab === "notes" && (
             <section className="bg-white p-6 rounded shadow">
-              <h2 className="text-2xl font-semibold mb-4 dark:text-gray-800 ">Notes</h2>
+              <h2 className="text-2xl font-semibold mb-4 dark:text-gray-800">Notes</h2>
               <textarea
                 className="w-full border rounded p-4"
                 rows={6}
@@ -304,95 +545,129 @@ const Dashboard: React.FC<DashboardProps> = ({ sessions, setSessions }) => {
             </section>
           )}
 
+          {/* Modal adicionar/editar sessão */}
           {isModalOpen && (
-            <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-              <div className="bg-white p-6 rounded shadow-lg max-w-md w-full dark:bg-gray-800">
-                <h3 className="text-xl font-bold mb-4">
-                  {activeTab === "completed"
-                    ? "Add Completed Session"
-                    : "Add Upcoming Session"}
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+              <div className="bg-white p-6 rounded shadow-lg max-w-md w-full">
+                <h3 className="text-xl font-semibold mb-4">
+                  {isEditing ? "Edit Session" : "Add Session"}
                 </h3>
-                <div className="space-y-4">
-                <select
-                  className="w-full border rounded px-4 py-2 dark:text-gray-800"
-                  value={stationName}
-                  onChange={(e) => setStationName(e.target.value)}
-                >
-                  <option value="">Select a Station</option>
-                  {allStations.map((station) => (
-                    <option key={station} value={station}>
-                      {station}
-                    </option>
-                  ))}
-                </select>
-                  {activeTab === "completed" && (
-                    <>
-                      <div>
-                    <label htmlFor="score" className="block mb-1 font-medium text-sm text-gray-700 dark:text-gray-200">
-                          Score: {score || 0}
-                        </label>
-                        <input
-                          id="score"
-                          type="range"
-                          min={0}
-                          max={100}
-                          step={1}
-                          value={score}
-                          onChange={(e) => setScore(e.target.value)}
-                          className="w-full"
-                        />
-                  </div>
+
+                <div className="mb-4">
+                  <label className="block font-semibold mb-1" htmlFor="session-date">
+                    Date
+                  </label>
+                  <input
+                    type="date"
+                    id="session-date"
+                    value={
+                      selectedDate ? selectedDate.toISOString().substring(0, 10) : ""
+                    }
+                    onChange={(e) => setSelectedDate(new Date(e.target.value))}
+                    className="w-full border rounded px-3 py-2"
+                    disabled
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <label className="block font-semibold mb-1" htmlFor="station-name">
+                    Station Name
+                  </label>
+                  <select
+                    id="station-name"
+                    value={stationName}
+                    onChange={(e) => setStationName(e.target.value)}
+                    className="w-full border rounded px-3 py-2"
+                  >
+                    <option value="">Select Station</option>
+                    {filteredStations.map((station) => (
+                      <option key={station} value={station}>
+                        {station}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {activeTab === "completed" && (
+                  <>
+                    <div className="mb-4">
+                      <label className="block font-semibold mb-1" htmlFor="score">
+                        Score (0-100)
+                      </label>
+                      <input
+                        type="number"
+                        id="score"
+                        min={0}
+                        max={100}
+                        value={score}
+                        onChange={(e) => setScore(e.target.value)}
+                        className="w-full border rounded px-3 py-2"
+                      />
+                    </div>
+                    <div className="mb-4">
+                      <label className="block font-semibold mb-1" htmlFor="feedback">
+                        Feedback
+                      </label>
                       <textarea
-                        className="w-full border rounded px-4 py-2"
-                        placeholder="Feedback (optional)"
+                        id="feedback"
+                        rows={3}
                         value={feedback}
                         onChange={(e) => setFeedback(e.target.value)}
+                        className="w-full border rounded px-3 py-2"
                       />
-                    </>
-                  )}
-                  <div className="flex justify-end gap-4">
-                    <Button
-                      variant="outline"
-                      onClick={() => setIsModalOpen(false)}
-                      disabled={isSaving}
-                    >
-                      Cancel
-                    </Button>
-                    <Button onClick={handleAddSession} disabled={isSaving}>
-                      {isSaving ? "Saving..." : "Save"}
-                    </Button>
-                  </div>
+                    </div>
+                  </>
+                )}
+
+                <div className="flex justify-end space-x-3 mt-6">
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setIsModalOpen(false);
+                      setIsEditing(false);
+                      setEditingSessionId(null);
+                      setStationName("");
+                      setScore("");
+                      setFeedback("");
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button onClick={handleSaveSession} disabled={isSaving}>
+                    {isSaving ? "Saving..." : isEditing ? "Save Changes" : "Add Session"}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Modal confirmar exclusão */}
+          {isDeleteModalOpen && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+              <div className="bg-white p-6 rounded shadow max-w-sm w-full">
+                <h3 className="text-xl font-semibold mb-4">Confirm Delete</h3>
+                <p>Are you sure you want to delete this session?</p>
+                <div className="flex justify-end space-x-3 mt-6">
+                  <Button variant="outline" onClick={() => setIsDeleteModalOpen(false)}>
+                    Cancel
+                  </Button>
+                  <Button variant="destructive" onClick={handleDeleteSession}>
+                    Delete
+                  </Button>
                 </div>
               </div>
             </div>
           )}
         </section>
-
-        {/* Painel lateral com progresso */}
-        <aside className="w-full lg:w-100 p-4 bg-white rounded-lg shadow self-start">
-    <h2 className="text-xl font-semibold mb-5 text-center dark:text-gray-800">
-      Progress by Subject
-    </h2>
-    <div className="grid grid-cols-2 gap-x-4 gap-y-3">
-      {subjectProgress.map(({ subject, progress }) => (
-        <div key={subject}>
-          <div className="flex justify-between text-sm font-medium text-gray-700 dark:text-gray-800 mb-1">
-            <span className="truncate w-[60%]">{subject}</span>
-            <span>{progress.toFixed(0)}%</span>
-          </div>
-          <div className="w-full h-2 bg-gray-200 rounded">
-            <div
-              className="h-2 bg-blue-600 rounded"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
-        </div>
-      ))}
-    </div>
-  </aside>
       </main>
 
-      <NotificationsContainer />
+      {toastMessage && (
+        <Toast
+          message={toastMessage}
+          type={toastType}
+          onClose={() => setToastMessage(null)}
+        />
+      )}
     </>
   );
 };

@@ -18,6 +18,7 @@ const Auth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
+  // Se já estiver logado, redireciona para dashboard
   useEffect(() => {
     if (!authLoading && (user || session)) {
       navigate('/dashboard');
@@ -29,21 +30,12 @@ const Auth = () => {
     setIsLoading(true);
 
     try {
-      const { error } = await signIn(email, password);
-
-      if (error) {
-        toast({
-          title: "Sign In Error",
-          description: error.message,
-          variant: "destructive",
-        });
-      } else {
-        navigate('/dashboard');
-      }
-    } catch (error) {
+      await signIn(email, password);
+      navigate('/dashboard');
+    } catch (error: any) {
       toast({
         title: "Sign In Error",
-        description: 'Unexpected error occurred.',
+        description: error.message || "Unexpected error occurred.",
         variant: "destructive",
       });
     } finally {
@@ -56,26 +48,19 @@ const Auth = () => {
     setIsLoading(true);
 
     try {
-      const { error } = await signUp(email, password, fullName);
-
-      if (error) {
-        toast({
-          title: "Sign Up Error",
-          description: error.message,
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Account Created!",
-          description: "Please check your email to verify your account.",
-        });
-        // Opcional: redirecionar para login, se preferir:
-        // navigate('/auth');
-      }
-    } catch (error) {
+      await signUp(email, password, fullName);
+      toast({
+        title: "Account Created!",
+        description: "Please check your email to verify your account.",
+      });
+      // Opcional: limpar campos ou mudar tab para login
+      setEmail('');
+      setPassword('');
+      setFullName('');
+    } catch (error: any) {
       toast({
         title: "Sign Up Error",
-        description: 'Unexpected error occurred.',
+        description: error.message || "Unexpected error occurred.",
         variant: "destructive",
       });
     } finally {
@@ -104,7 +89,7 @@ const Auth = () => {
             </TabsList>
 
             <TabsContent value="signin">
-              <form onSubmit={handleSignIn} className="space-y-4">
+              <form onSubmit={handleSignIn} className="space-y-4" noValidate>
                 <div className="space-y-2">
                   <Label htmlFor="signin-email">Email</Label>
                   <Input
@@ -114,6 +99,7 @@ const Auth = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    autoComplete="email"
                   />
                 </div>
                 <div className="space-y-2">
@@ -125,6 +111,7 @@ const Auth = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    autoComplete="current-password"
                   />
                 </div>
                 <Button type="submit" className="w-full" disabled={isLoading}>
@@ -134,7 +121,7 @@ const Auth = () => {
             </TabsContent>
 
             <TabsContent value="signup">
-              <form onSubmit={handleSignUp} className="space-y-4">
+              <form onSubmit={handleSignUp} className="space-y-4" noValidate>
                 <div className="space-y-2">
                   <Label htmlFor="signup-name">Full Name</Label>
                   <Input
@@ -144,6 +131,7 @@ const Auth = () => {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     required
+                    autoComplete="name"
                   />
                 </div>
                 <div className="space-y-2">
@@ -155,6 +143,7 @@ const Auth = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    autoComplete="email"
                   />
                 </div>
                 <div className="space-y-2">
@@ -166,6 +155,7 @@ const Auth = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    autoComplete="new-password"
                   />
                 </div>
                 <Button type="submit" className="w-full" disabled={isLoading}>
