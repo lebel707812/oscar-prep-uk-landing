@@ -13,11 +13,11 @@ const Auth = () => {
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { user, session, loading: authLoading } = useAuth();
+
+  const { user, session, loading: authLoading, signIn, signUp } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // Verificação mais robusta do estado de autenticação
   useEffect(() => {
     if (!authLoading && (user || session)) {
       navigate('/dashboard');
@@ -28,38 +28,59 @@ const Auth = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    const { error } = await signIn(email, password);
-    
-    if (error) {
+    try {
+      const { error } = await signIn(email, password);
+
+      if (error) {
+        toast({
+          title: "Sign In Error",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else {
+        navigate('/dashboard');
+      }
+    } catch (error) {
       toast({
         title: "Sign In Error",
-        description: error.message,
+        description: 'Unexpected error occurred.',
         variant: "destructive",
       });
-    } else {
-      navigate('/dashboard');
+    } finally {
+      setIsLoading(false);
     }
-    
-    setIsLoading(false);
   };
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    const { error } = await signUp(email, password, fullName);
-    
-    if (error) {
+    try {
+      const { error } = await signUp(email, password, fullName);
+
+      if (error) {
+        toast({
+          title: "Sign Up Error",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Account Created!",
+          description: "Please check your email to verify your account.",
+        });
+        // Opcional: redirecionar para login, se preferir:
+        // navigate('/auth');
+      }
+    } catch (error) {
       toast({
         title: "Sign Up Error",
-        description: error.message,
+        description: 'Unexpected error occurred.',
         variant: "destructive",
       });
-    } else {
-      navigate('/dashboard');
+    } finally {
+      setIsLoading(false);
     }
-    
-    setIsLoading(false);
   };
 
   if (authLoading) {
@@ -81,7 +102,7 @@ const Auth = () => {
               <TabsTrigger value="signin">Sign In</TabsTrigger>
               <TabsTrigger value="signup">Sign Up</TabsTrigger>
             </TabsList>
-            
+
             <TabsContent value="signin">
               <form onSubmit={handleSignIn} className="space-y-4">
                 <div className="space-y-2">
@@ -111,7 +132,7 @@ const Auth = () => {
                 </Button>
               </form>
             </TabsContent>
-            
+
             <TabsContent value="signup">
               <form onSubmit={handleSignUp} className="space-y-4">
                 <div className="space-y-2">
