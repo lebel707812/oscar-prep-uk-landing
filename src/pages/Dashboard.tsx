@@ -86,12 +86,8 @@ const Toast: React.FC<{
   );
 };
 
-interface DashboardProps {
-  sessions: Session[];
-  setSessions: React.Dispatch<React.SetStateAction<Session[]>>;
-}
-
-const Dashboard: React.FC<DashboardProps> = ({ sessions, setSessions }) => {
+const Dashboard: React.FC = () => {
+  const [sessions, setSessions] = useState<Session[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [stationName, setStationName] = useState("");

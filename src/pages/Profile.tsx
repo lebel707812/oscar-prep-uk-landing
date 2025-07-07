@@ -21,11 +21,9 @@ const allStations = [
   "Ethics",
 ];
 
-interface ProfileProps {
-  sessions: Session[];
-}
-
-const Profile: React.FC<ProfileProps> = ({ sessions }) => {
+const Profile: React.FC = () => {
+  // For now, we'll use empty sessions array until we implement profile-specific session loading
+  const sessions: Session[] = [];
   const { user, signOut } = useAuth();
 
   if (!user) {

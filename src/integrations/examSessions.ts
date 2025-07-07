@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client"; // seu supabase clien
 async function createExamSession(userId: string, topicId: string, level: number) {
   const { data, error } = await supabase
     .from("exam_sessions")
-    .insert([{ user_id: userId, topic_id: topicId, level, started_at: new Date() }])
+    .insert({ user_id: userId, topic_id: topicId, level, started_at: new Date().toISOString() })
     .select()
     .single();
 
@@ -34,7 +34,7 @@ async function finishExamSession(examSessionId: string) {
 
   const { error: updateError } = await supabase
     .from("exam_sessions")
-    .update({ finished_at: new Date(), score })
+    .update({ finished_at: new Date().toISOString(), score })
     .eq("id", examSessionId);
 
   if (updateError) throw updateError;

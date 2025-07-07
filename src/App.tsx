@@ -1,5 +1,4 @@
 // src/App.tsx
-import { useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -24,18 +23,7 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   return user ? children : <Navigate to="/auth" />;
 };
 
-// Tipagem da sessão
-interface Session {
-  id: number;
-  date: Date;
-  stationName: string;
-  score: number;
-  feedback: string;
-}
-
 const App = () => {
-  const [sessions, setSessions] = useState<Session[]>([]);
-
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
@@ -59,7 +47,7 @@ const App = () => {
                   path="/dashboard/profile"
                   element={
                     <ProtectedRoute>
-                      <Profile sessions={sessions} />
+                      <Profile />
                     </ProtectedRoute>
                   }
                 />
@@ -80,24 +68,13 @@ const App = () => {
                   }
                 />
                 <Route
-                  path="/dashboard/mock-exam-runner"
+                  path="/mock-exam-runner"
                   element={
                     <ProtectedRoute>
                       <MockExamRunner />
                     </ProtectedRoute>
                   }
-                  
                 />
-
-                <Route
-                path="/mock-exam-runner"
-                element={
-                  <ProtectedRoute>
-                    <MockExamRunner />
-                  </ProtectedRoute>
-                }
-                />
-
                 <Route
                   path="/dashboard/settings"
                   element={
