@@ -80,6 +80,7 @@ const Header = () => {
         <NavButton path="/dashboard" Icon={LayoutDashboard} label="Dashboard" />
         <NavButton path="/dashboard/mock-exams" Icon={FileText} label={"Mock\u00A0Exams"} />
         <NavButton path="/blog" Icon={BookOpen} label="Blog" />
+        <NavButton path="/forum" Icon={User} label="Forum" />
         <NavButton path="/dashboard/resources" Icon={BookOpen} label="Resources" />
       </nav>
 

@@ -22,6 +22,9 @@ import BlogPost from "./pages/BlogPost";
 import BlogCategory from "./pages/BlogCategory";
 import BlogDashboard from "./pages/BlogDashboard";
 import BlogEditor from "./pages/BlogEditor";
+import ForumIndex from "./pages/ForumIndex";
+import ForumTopic from "./pages/ForumTopic";
+import ForumNewTopic from "./pages/ForumNewTopic";
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import MockExamRunner from "@/pages/MockExamRunner";
 
@@ -121,6 +124,17 @@ const App = () => {
                   element={
                     <ProtectedRoute>
                       <Settings />
+                    </ProtectedRoute>
+                  }
+                />
+                {/* Forum Routes */}
+                <Route path="/forum" element={<ForumIndex />} />
+                <Route path="/forum/topic/:slug" element={<ForumTopic />} />
+                <Route
+                  path="/forum/new-topic"
+                  element={
+                    <ProtectedRoute>
+                      <ForumNewTopic />
                     </ProtectedRoute>
                   }
                 />
