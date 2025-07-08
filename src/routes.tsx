@@ -10,6 +10,8 @@ import ScenarioLibrary from './pages/ScenarioLibrary';
 import BlogIndex from './pages/BlogIndex';
 import BlogPost from './pages/BlogPost';
 import BlogCategory from './pages/BlogCategory';
+import BlogDashboard from './pages/BlogDashboard';
+import BlogEditor from './pages/BlogEditor';
 
 const router = createBrowserRouter([
   {
@@ -55,6 +57,18 @@ const router = createBrowserRouter([
   {
     path: '/blog/:slug',
     element: <BlogPost />,
+  },
+  {
+    path: '/dashboard/blog',
+    element: <BlogDashboard />,
+  },
+  {
+    path: '/dashboard/blog/new',
+    element: <BlogEditor />,
+  },
+  {
+    path: '/dashboard/blog/edit/:id',
+    element: <BlogEditor />,
   },
 ]);
 

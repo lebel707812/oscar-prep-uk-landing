@@ -17,6 +17,11 @@ import SessionHistory from "./pages/SessionHistory";
 import SessionReview from "./pages/SessionReview";
 import PacientAI from "./pages/PacientAI";
 import ScenarioLibrary from "./pages/ScenarioLibrary";
+import BlogIndex from "./pages/BlogIndex";
+import BlogPost from "./pages/BlogPost";
+import BlogCategory from "./pages/BlogCategory";
+import BlogDashboard from "./pages/BlogDashboard";
+import BlogEditor from "./pages/BlogEditor";
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import MockExamRunner from "@/pages/MockExamRunner";
 
@@ -116,6 +121,34 @@ const App = () => {
                   element={
                     <ProtectedRoute>
                       <Settings />
+                    </ProtectedRoute>
+                  }
+                />
+                {/* Blog Routes */}
+                <Route path="/blog" element={<BlogIndex />} />
+                <Route path="/blog/category/:categorySlug" element={<BlogCategory />} />
+                <Route path="/blog/:slug" element={<BlogPost />} />
+                <Route
+                  path="/dashboard/blog"
+                  element={
+                    <ProtectedRoute>
+                      <BlogDashboard />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/dashboard/blog/new"
+                  element={
+                    <ProtectedRoute>
+                      <BlogEditor />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/dashboard/blog/edit/:id"
+                  element={
+                    <ProtectedRoute>
+                      <BlogEditor />
                     </ProtectedRoute>
                   }
                 />

@@ -79,6 +79,7 @@ const Header = () => {
       <nav className="hidden md:flex space-x-8"> {/* espaçamento maior entre botões */}
         <NavButton path="/dashboard" Icon={LayoutDashboard} label="Dashboard" />
         <NavButton path="/dashboard/mock-exams" Icon={FileText} label={"Mock\u00A0Exams"} />
+        <NavButton path="/blog" Icon={BookOpen} label="Blog" />
         <NavButton path="/dashboard/resources" Icon={BookOpen} label="Resources" />
       </nav>
 
