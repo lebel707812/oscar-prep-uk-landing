@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Calendar, Clock, Eye, ArrowLeft, Share2 } from 'lucide-react';
 import { fetchBlogPost, incrementPostViews } from '@/integrations/supabase/blog';
+import Header from '@/components/ui/Header';
 
 interface BlogPost {
   id: string;
@@ -382,7 +383,9 @@ Keep practicing, stay confident, and remember that every expert was once a begin
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <>
+      <Header />
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
       <div className="bg-white shadow-sm">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -496,7 +499,8 @@ Keep practicing, stay confident, and remember that every expert was once a begin
           </div>
         </article>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
 

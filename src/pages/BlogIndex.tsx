@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Calendar, Clock, Eye, Search, Tag } from 'lucide-react';
 import { fetchBlogPosts, fetchBlogCategories } from '@/integrations/supabase/blog';
+import Header from '@/components/ui/Header';
 
 interface BlogPost {
   id: string;
@@ -192,7 +193,9 @@ export default function BlogIndex() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <>
+      <Header />
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
       <div className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -358,7 +361,8 @@ export default function BlogIndex() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
 
