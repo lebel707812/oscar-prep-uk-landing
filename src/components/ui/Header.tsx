@@ -59,6 +59,7 @@ const Header = () => {
     { path: '/dashboard/session-history', label: 'Session History', Icon: History },
     { path: '/dashboard/pacient-ai', label: 'PacientAI', Icon: User },
     { path: '/dashboard/resources', label: 'Resources', Icon: BookOpen },
+    { path: '/blog', label: 'Blog', Icon: BookOpen }, // Adicionado o link para o blog
   ];
 
   const NavButton = ({
@@ -223,3 +224,5 @@ const Header = () => {
 };
 
 export default Header;
+
+

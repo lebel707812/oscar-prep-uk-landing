@@ -7,6 +7,9 @@ import MockExams from './pages/MockExams';
 import MockExamRunner from './pages/MockExamRunner';
 import PacientAI from './pages/PacientAI';
 import ScenarioLibrary from './pages/ScenarioLibrary';
+import BlogIndex from './pages/BlogIndex';
+import BlogPost from './pages/BlogPost';
+import BlogCategory from './pages/BlogCategory';
 
 const router = createBrowserRouter([
   {
@@ -38,9 +41,23 @@ const router = createBrowserRouter([
     element: <StartFreeTrial />,
   },
   {
-    path: '/dashboard/pacient-ai',
+    path: '/dashboard/pacient-AI',
     element: <PacientAI />,
+  },
+  {
+    path: '/blog',
+    element: <BlogIndex />,
+  },
+  {
+    path: '/blog/category/:categorySlug',
+    element: <BlogCategory />,
+  },
+  {
+    path: '/blog/:slug',
+    element: <BlogPost />,
   },
 ]);
 
 export default router;
+
+
