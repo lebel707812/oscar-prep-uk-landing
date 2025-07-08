@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { User, Settings, LogOut, LayoutDashboard, FileText, BookOpen } from 'lucide-react';
+import { User, Settings, LogOut, LayoutDashboard, FileText, BookOpen, Trophy } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const getInitials = (value: string) => {
@@ -81,6 +81,7 @@ const Header = () => {
         <NavButton path="/dashboard/mock-exams" Icon={FileText} label={"Mock\u00A0Exams"} />
         <NavButton path="/blog" Icon={BookOpen} label="Blog" />
         <NavButton path="/forum" Icon={User} label="Forum" />
+        <NavButton path="/dashboard/gamification" Icon={Trophy} label="Achievements" />
         <NavButton path="/dashboard/resources" Icon={BookOpen} label="Resources" />
       </nav>
 

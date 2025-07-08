@@ -25,6 +25,7 @@ import BlogEditor from "./pages/BlogEditor";
 import ForumIndex from "./pages/ForumIndex";
 import ForumTopic from "./pages/ForumTopic";
 import ForumNewTopic from "./pages/ForumNewTopic";
+import GamificationDashboard from "./pages/GamificationDashboard";
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import MockExamRunner from "@/pages/MockExamRunner";
 
@@ -92,6 +93,14 @@ const App = () => {
                   element={
                     <ProtectedRoute>
                       <SessionHistory />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/dashboard/gamification"
+                  element={
+                    <ProtectedRoute>
+                      <GamificationDashboard />
                     </ProtectedRoute>
                   }
                 />
