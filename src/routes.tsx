@@ -6,6 +6,7 @@ import StartFreeTrial from './pages/StartFreeTrial';
 import MockExams from './pages/MockExams';
 import MockExamRunner from './pages/MockExamRunner';
 import PacientAI from './pages/PacientAI';
+import ScenarioLibrary from './pages/ScenarioLibrary';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: '/dashboard/mock-exams',
     element: <MockExams />,
+  },
+  {
+    path: '/dashboard/scenario-library',
+    element: <ScenarioLibrary />,
   },
   {
     path: '/mock-exam-runner',

@@ -166,7 +166,7 @@ export const fetchUserSessions = async () => {
     .from("exam_sessions")
     .select(`
       id,
-      date: created_at,
+      date: started_at,
       station_name: topic_id,
       score,
       feedback
