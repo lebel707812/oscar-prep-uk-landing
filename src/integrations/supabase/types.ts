@@ -171,6 +171,77 @@ export type Database = {
         }
         Relationships: []
       }
+      scenarios: {
+        Row: {
+          id: string
+          title: string
+          description: string
+          learning_objectives: string[]
+          difficulty_level: string
+          topic_id: string
+          created_at: string | null
+        }
+        Insert: {
+          id?: string
+          title: string
+          description: string
+          learning_objectives: string[]
+          difficulty_level: string
+          topic_id: string
+          created_at?: string | null
+        }
+        Update: {
+          id?: string
+          title?: string
+          description?: string
+          learning_objectives?: string[]
+          difficulty_level?: string
+          topic_id?: string
+          created_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scenarios_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      scenario_questions: {
+        Row: {
+          scenario_id: string
+          question_id: string
+          question_order: number
+        }
+        Insert: {
+          scenario_id: string
+          question_id: string
+          question_order: number
+        }
+        Update: {
+          scenario_id?: string
+          question_id?: string
+          question_order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scenario_questions_scenario_id_fkey"
+            columns: ["scenario_id"]
+            isOneToOne: false
+            referencedRelation: "scenarios"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "scenario_questions_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       topics: {
         Row: {
           created_at: string | null
@@ -221,6 +292,77 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      scenarios: {
+        Row: {
+          id: string
+          title: string
+          description: string
+          learning_objectives: string[]
+          difficulty_level: string
+          topic_id: string
+          created_at: string | null
+        }
+        Insert: {
+          id?: string
+          title: string
+          description: string
+          learning_objectives: string[]
+          difficulty_level: string
+          topic_id: string
+          created_at?: string | null
+        }
+        Update: {
+          id?: string
+          title?: string
+          description?: string
+          learning_objectives?: string[]
+          difficulty_level?: string
+          topic_id?: string
+          created_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scenarios_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      scenario_questions: {
+        Row: {
+          scenario_id: string
+          question_id: string
+          question_order: number
+        }
+        Insert: {
+          scenario_id: string
+          question_id: string
+          question_order: number
+        }
+        Update: {
+          scenario_id?: string
+          question_id?: string
+          question_order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scenario_questions_scenario_id_fkey"
+            columns: ["scenario_id"]
+            isOneToOne: false
+            referencedRelation: "scenarios"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "scenario_questions_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "questions"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {

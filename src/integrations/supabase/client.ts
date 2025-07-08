@@ -240,3 +240,115 @@ export const deleteSession = async (sessionId: string) => {
   return { success: true };
 };
 
+
+
+// Fetch all scenarios
+export const fetchScenarios = async () => {
+  const { data, error } = await supabase
+    .from("scenarios")
+    .select(`
+      id,
+      title,
+      description,
+      learning_objectives,
+      difficulty_level,
+      created_at,
+      topics(name)
+    `);
+
+  if (error) {
+    console.error("Error fetching scenarios:", error);
+    return [];
+  }
+
+  return data;
+};
+
+// Fetch a single scenario by ID
+export const fetchScenarioById = async (scenarioId: string) => {
+  const { data, error } = await supabase
+    .from("scenarios")
+    .select(`
+      id,
+      title,
+      description,
+      learning_objectives,
+      difficulty_level,
+      created_at,
+      topics(name)
+    `)
+    .eq("id", scenarioId)
+    .single();
+
+  if (error) {
+    console.error("Error fetching scenario by ID:", error);
+    return null;
+  }
+
+  return data;
+};
+
+// Create a new scenario
+export const createScenario = async (scenario: {
+  title: string;
+  description: string;
+  learning_objectives: string[];
+  difficulty_level: string;
+  topic_id: string;
+}) => {
+  const { data, error } = await supabase
+    .from("scenarios")
+    .insert([scenario])
+    .select()
+    .single();
+
+  if (error) {
+    console.error("Error creating scenario:", error);
+    return { error };
+  }
+
+  return { data };
+};
+
+// Update an existing scenario
+export const updateScenario = async (
+  scenarioId: string,
+  updates: {
+    title?: string;
+    description?: string;
+    learning_objectives?: string[];
+    difficulty_level?: string;
+    topic_id?: string;
+  }
+) => {
+  const { data, error } = await supabase
+    .from("scenarios")
+    .update(updates)
+    .eq("id", scenarioId)
+    .select()
+    .single();
+
+  if (error) {
+    console.error("Error updating scenario:", error);
+    return { error };
+  }
+
+  return { data };
+};
+
+// Delete a scenario
+export const deleteScenario = async (scenarioId: string) => {
+  const { error } = await supabase
+    .from("scenarios")
+    .delete()
+    .eq("id", scenarioId);
+
+  if (error) {
+    console.error("Error deleting scenario:", error);
+    return { error };
+  }
+
+  return { success: true };
+};
+
+

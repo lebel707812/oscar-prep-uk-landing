@@ -1,0 +1,81 @@
+[
+  {
+    "title": "Acute Chest Pain Assessment",
+    "description": "A 55-year-old male presents to the emergency department with sudden onset chest pain that started 2 hours ago. The pain is described as crushing, radiating to the left arm and jaw. The patient appears anxious and diaphoretic. You need to conduct a comprehensive assessment to determine the cause and appropriate management.",
+    "learning_objectives": [
+      "Perform a systematic cardiovascular assessment",
+      "Recognize signs and symptoms of acute coronary syndrome",
+      "Demonstrate appropriate communication skills with an anxious patient",
+      "Prioritize nursing interventions for chest pain",
+      "Document findings accurately and concisely"
+    ],
+    "difficulty_level": "Intermediate",
+    "topic_id": "cardiovascular"
+  },
+  {
+    "title": "Post-Operative Wound Care",
+    "description": "You are caring for a 68-year-old female patient who is 3 days post-operative following an abdominal surgery. During your shift assessment, you notice that the surgical wound appears red around the edges with some purulent discharge. The patient reports increased pain at the incision site and feels generally unwell.",
+    "learning_objectives": [
+      "Assess surgical wounds for signs of infection",
+      "Demonstrate proper wound care techniques",
+      "Recognize complications of wound healing",
+      "Implement infection control measures",
+      "Communicate findings to the healthcare team"
+    ],
+    "difficulty_level": "Beginner",
+    "topic_id": "surgical_care"
+  },
+  {
+    "title": "Medication Administration Safety",
+    "description": "You are preparing to administer medications to Mrs. Johnson, an 82-year-old patient with multiple comorbidities including diabetes, hypertension, and heart failure. She is prescribed 8 different medications to be given at various times throughout the day. The patient seems confused about her medications and asks why she needs to take so many pills.",
+    "learning_objectives": [
+      "Demonstrate the 5 rights of medication administration",
+      "Assess patient understanding of medication regimen",
+      "Provide patient education about medications",
+      "Recognize potential drug interactions",
+      "Document medication administration accurately"
+    ],
+    "difficulty_level": "Intermediate",
+    "topic_id": "pharmacology"
+  },
+  {
+    "title": "Pediatric Fever Management",
+    "description": "A 3-year-old child is brought to the clinic by their mother with a fever of 39.2°C (102.5°F) that started yesterday evening. The child appears lethargic, has decreased appetite, and the mother reports the child has been more irritable than usual. You need to conduct an age-appropriate assessment and provide family education.",
+    "learning_objectives": [
+      "Perform pediatric vital signs assessment",
+      "Demonstrate age-appropriate communication techniques",
+      "Assess for signs of serious illness in children",
+      "Provide family education on fever management",
+      "Recognize when to escalate care"
+    ],
+    "difficulty_level": "Advanced",
+    "topic_id": "pediatrics"
+  },
+  {
+    "title": "Mental Health Crisis Intervention",
+    "description": "A 28-year-old patient presents to the emergency department expressing thoughts of self-harm. They appear agitated and state they 'can't take it anymore.' The patient has a history of depression and recently lost their job. You need to conduct a mental health assessment while ensuring safety for both the patient and staff.",
+    "learning_objectives": [
+      "Conduct a suicide risk assessment",
+      "Demonstrate therapeutic communication techniques",
+      "Implement safety measures for mental health patients",
+      "Show empathy and non-judgmental attitude",
+      "Collaborate with mental health professionals"
+    ],
+    "difficulty_level": "Advanced",
+    "topic_id": "mental_health"
+  },
+  {
+    "title": "Respiratory Distress Assessment",
+    "description": "An elderly patient with COPD presents with increased shortness of breath, productive cough with yellow-green sputum, and reports feeling more tired than usual. The patient's oxygen saturation is 88% on room air. You need to perform a comprehensive respiratory assessment and implement appropriate interventions.",
+    "learning_objectives": [
+      "Perform systematic respiratory assessment",
+      "Recognize signs of respiratory distress",
+      "Demonstrate proper oxygen therapy techniques",
+      "Assess effectiveness of respiratory interventions",
+      "Educate patient on COPD management"
+    ],
+    "difficulty_level": "Intermediate",
+    "topic_id": "respiratory"
+  }
+]
+

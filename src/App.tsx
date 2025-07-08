@@ -16,6 +16,7 @@ import Settings from "./pages/Settings";
 import SessionHistory from "./pages/SessionHistory";
 import SessionReview from "./pages/SessionReview";
 import PacientAI from "./pages/PacientAI";
+import ScenarioLibrary from "./pages/ScenarioLibrary";
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import MockExamRunner from "@/pages/MockExamRunner";
 
@@ -67,6 +68,14 @@ const App = () => {
                   element={
                     <ProtectedRoute>
                       <Resources />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/dashboard/scenario-library"
+                  element={
+                    <ProtectedRoute>
+                      <ScenarioLibrary />
                     </ProtectedRoute>
                   }
                 />
