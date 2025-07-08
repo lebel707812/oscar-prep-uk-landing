@@ -53,6 +53,7 @@ const Header = () => {
   const navItems = [
     { path: '/dashboard', label: 'Dashboard', Icon: LayoutDashboard },
     { path: '/dashboard/mock-exams', label: 'Mock Exams', Icon: FileText },
+    { path: '/dashboard/pacient-ai', label: 'PacientAI', Icon: User },
     { path: '/dashboard/resources', label: 'Resources', Icon: BookOpen },
   ];
 

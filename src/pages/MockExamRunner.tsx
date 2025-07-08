@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Progress } from "@/components/ui/progress";
+import { fetchTopicName, finishExamSession } from "@/integrations/supabase/client";
 
 interface Question {
   id: string;
@@ -44,17 +45,26 @@ const MockExamRunner = () => {
   const [timeLeft, setTimeLeft] = useState(TIME_PER_QUESTION);
   const [totalTimeSpent, setTotalTimeSpent] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [topicName, setTopicName] = useState<string>("");
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const [examSessionId, setExamSessionId] = useState<string | null>(null);
   const examStartTime = useRef<Date | null>(null);
 
-  // Initialize exam session
+  // Initialize exam session and fetch topic name
   useEffect(() => {
     if (topicId) {
       createExamSession();
+      loadTopicName();
     }
   }, [topicId]);
+
+  const loadTopicName = async () => {
+    if (topicId) {
+      const name = await fetchTopicName(topicId);
+      setTopicName(name || "");
+    }
+  };
 
   // Timer for current question
   useEffect(() => {
@@ -195,22 +205,11 @@ const MockExamRunner = () => {
     }
   };
 
-  const finishExamSession = async (finalScore: number, timeSpent: number) => {
+  const finishExam = async (finalScore: number, timeSpent: number) => {
     if (!examSessionId) return;
 
     try {
-      const { error } = await supabase
-        .from("exam_sessions")
-        .update({
-          finished_at: new Date().toISOString(),
-          score: finalScore,
-          time_spent: timeSpent,
-        })
-        .eq("id", examSessionId);
-
-      if (error) {
-        console.error("Error finishing exam session:", error);
-      }
+      await finishExamSession(examSessionId, finalScore, timeSpent);
     } catch (err) {
       console.error("Unexpected error finishing exam session:", err);
     }
@@ -267,7 +266,7 @@ const MockExamRunner = () => {
       const finalTimeSpent = totalTimeSpent + timeSpentOnQuestion;
       
       setIsExamFinished(true);
-      await finishExamSession(finalScore, finalTimeSpent);
+      await finishExam(finalScore, finalTimeSpent);
       
       if (timerRef.current) {
         clearInterval(timerRef.current);
@@ -349,7 +348,12 @@ const MockExamRunner = () => {
   return (
     <Layout>
       <div className="max-w-2xl mx-auto p-6">
-        <h1 className="text-2xl font-bold mb-4">Mock Exam</h1>
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold mb-2">Mock Exam</h1>
+          {topicName && (
+            <p className="text-lg text-muted-foreground">Topic: {topicName}</p>
+          )}
+        </div>
 
         {/* Back button - only show when exam is finished */}
         {isExamFinished && (

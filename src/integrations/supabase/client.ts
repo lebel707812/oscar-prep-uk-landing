@@ -156,15 +156,77 @@ export const saveExamAnswer = async (
   return { success: true };
 };
 
-// Atualiza a sessão de exame ao finalizar com score e timestamp
-export const finishExamSession = async (examSessionId: string, score: number) => {
+// Fetch topic name by ID
+export const fetchTopicName = async (topicId: string) => {
+  const { data, error } = await supabase
+    .from("topics")
+    .select("name")
+    .eq("id", topicId)
+    .single();
+
+  if (error) {
+    console.error("Error fetching topic name:", error);
+    return null;
+  }
+
+  return data.name;
+};
+
+// Fetch all topics with question counts
+export const fetchTopicsWithCounts = async () => {
+  const { data, error } = await supabase
+    .from("topics")
+    .select(`
+      id,
+      name,
+      questions(count)
+    `);
+
+  if (error) {
+    console.error("Error fetching topics with counts:", error);
+    return [];
+  }
+
+  return data;
+};
+
+// Fetch user exam sessions for progress calculation
+export const fetchUserExamSessions = async () => {
+  const user = await checkUser();
+  if (!user) return [];
+
+  const { data, error } = await supabase
+    .from("exam_sessions")
+    .select(`
+      topic_id,
+      finished_at,
+      score,
+      topics(name)
+    `)
+    .eq("user_id", user.id)
+    .not("finished_at", "is", null);
+
+  if (error) {
+    console.error("Error fetching user exam sessions:", error);
+    return [];
+  }
+
+  return data;
+};
+
+// Update the finishExamSession call in MockExamRunner
+export const finishExamSession = async (examSessionId: string, score: number, timeSpent: number) => {
   const { error } = await supabase
     .from("exam_sessions")
-    .update({ finished_at: new Date().toISOString(), score })
+    .update({ 
+      finished_at: new Date().toISOString(), 
+      score,
+      time_spent: timeSpent 
+    })
     .eq("id", examSessionId);
 
   if (error) {
-    console.error("Erro ao finalizar sessão de exame:", error);
+    console.error("Error finishing exam session:", error);
     return { error };
   }
 

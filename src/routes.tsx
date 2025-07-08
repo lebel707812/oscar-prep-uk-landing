@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import StartFreeTrial from './pages/StartFreeTrial';
 import MockExams from './pages/MockExams';
 import MockExamRunner from './pages/MockExamRunner';
+import PacientAI from './pages/PacientAI';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: '/start-free-trial',
     element: <StartFreeTrial />,
+  },
+  {
+    path: '/dashboard/pacient-ai',
+    element: <PacientAI />,
   },
 ]);
 

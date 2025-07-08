@@ -4,6 +4,7 @@ import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/ui/Header";
+import TopicProgressSection from "@/components/TopicProgressSection";
 
 import {
   LineChart,
@@ -655,6 +656,13 @@ const Dashboard: React.FC = () => {
             </div>
           )}
         </section>
+
+        {/* Topic Progress Sidebar */}
+        <aside className="lg:w-80 w-full">
+          <div className="bg-card border rounded-lg p-6">
+            <TopicProgressSection />
+          </div>
+        </aside>
       </main>
 
       {toastMessage && (
