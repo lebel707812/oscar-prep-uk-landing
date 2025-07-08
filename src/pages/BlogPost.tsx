@@ -5,7 +5,8 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Calendar, Clock, Eye, ArrowLeft, Share2 } from 'lucide-react';
 import { fetchBlogPost, incrementPostViews } from '@/integrations/supabase/blog';
-import Header from '@/components/ui/Header';
+import UnifiedHeader from '@/components/ui/UnifiedHeader';
+import Footer from '@/components/Footer';
 
 interface BlogPost {
   id: string;
@@ -384,7 +385,7 @@ Keep practicing, stay confident, and remember that every expert was once a begin
 
   return (
     <>
-      <Header />
+      <UnifiedHeader />
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
       <div className="bg-white shadow-sm">
@@ -500,6 +501,7 @@ Keep practicing, stay confident, and remember that every expert was once a begin
         </article>
       </div>
       </div>
+      <Footer />
     </>
   );
 }

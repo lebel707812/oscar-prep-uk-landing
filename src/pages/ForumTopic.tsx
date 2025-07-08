@@ -33,7 +33,8 @@ import {
   type ForumPost 
 } from '@/integrations/supabase/forum';
 import { useAuth } from '@/contexts/AuthContext';
-import Header from '@/components/ui/Header';
+import UnifiedHeader from '@/components/ui/UnifiedHeader';
+import Footer from '@/components/Footer';
 
 export default function ForumTopic() {
   const { slug } = useParams<{ slug: string }>();
@@ -373,7 +374,7 @@ Really appreciate this community! 💙`,
 
   return (
     <>
-      <Header />
+      <UnifiedHeader />
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
       <div className="bg-white shadow-sm">
@@ -630,6 +631,7 @@ Really appreciate this community! 💙`,
         )}
       </div>
       </div>
+      <Footer />
     </>
   );
 }

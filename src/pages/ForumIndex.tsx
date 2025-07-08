@@ -26,7 +26,8 @@ import {
   type ForumTopic 
 } from '@/integrations/supabase/forum';
 import { useAuth } from '@/contexts/AuthContext';
-import Header from '@/components/ui/Header';
+import UnifiedHeader from '@/components/ui/UnifiedHeader';
+import Footer from '@/components/Footer';
 
 export default function ForumIndex() {
   const { user } = useAuth();
@@ -296,7 +297,7 @@ export default function ForumIndex() {
 
   return (
     <>
-      <Header />
+      <UnifiedHeader />
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
       <div className="bg-white shadow-sm">
@@ -561,6 +562,7 @@ export default function ForumIndex() {
         </div>
       </div>
       </div>
+      <Footer />
     </>
   );
 }

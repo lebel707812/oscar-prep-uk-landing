@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { Button } from "@/components/ui/button";
-import Header from "@/components/ui/Header";
+import UnifiedHeader from "@/components/ui/UnifiedHeader";
 import TopicProgressSection from "@/components/TopicProgressSection";
 
 import {
@@ -333,7 +333,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <Header />
+      <UnifiedHeader />
       <main className="max-w-7xl mx-auto p-6 flex flex-col lg:flex-row gap-6 overflow-x-hidden">
         <section className="flex-1 max-w-4xl">
           <h1 className="text-3xl font-extrabold mb-6 text-gray-900 center">OSCE Dashboard</h1>

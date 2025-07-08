@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
-import Header from '@/components/ui/Header';  // importando o Header
+import UnifiedHeader from '@/components/ui/UnifiedHeader';
+import Footer from '@/components/Footer';
 
 const Settings = () => {
   const { user, updateUser, changePassword, signOut, deleteAccount } = useAuth();
@@ -68,7 +69,7 @@ const Settings = () => {
 
   return (
     <>
-      <Header />
+      <UnifiedHeader />
 
       <div className="max-w-3xl mx-auto p-8 space-y-8">
         <h1 className="text-4xl font-extrabold">Settings</h1>
@@ -156,6 +157,7 @@ const Settings = () => {
           </Button>
         </section>
       </div>
+      <Footer />
     </>
   );
 };
