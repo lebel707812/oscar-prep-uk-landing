@@ -35,7 +35,7 @@ const Header = () => {
   const displayName = user?.user_metadata?.full_name || user?.email || 'User';
   const initials = getInitials(displayName);
 
-  // Nav button animado com framer-motion
+  // Nav button animado com framer-motion e nova tipografia
   const NavButton = ({ path, Icon, label }: { path: string; Icon: React.ElementType; label: string }) => {
     const active = (path === '/dashboard' && isDashboardActive) || isActive(path);
 
@@ -44,11 +44,11 @@ const Header = () => {
         onClick={() => navigate(path)}
         initial={false}
         animate={{
-          color: active ? '#2563eb' : '#4b5563', // azul-600 ou cinza-700
+          color: active ? 'hsl(207 100% 31%)' : 'hsl(0 0% 55%)', // primary ou muted-foreground
         }}
-        whileHover={{ scale: 1.1, color: '#2563eb' }}
+        whileHover={{ scale: 1.05, color: 'hsl(207 100% 31%)' }}
         transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-        className="flex items-center gap-1 font-medium whitespace-nowrap" // impede quebra de linha
+        className="nav-text flex items-center gap-2 whitespace-nowrap hover:text-primary transition-colors duration-200"
       >
         <motion.div
           initial={false}
@@ -64,19 +64,19 @@ const Header = () => {
   };
 
   return (
-    <header className="flex items-center justify-between px-6 py-4 bg-white shadow-md min-w-[320px]">
+    <header className="flex items-center justify-between px-8 py-6 bg-white/95 backdrop-blur-sm shadow-soft border-b border-border/50 min-w-[320px]">
       <motion.div
-        className="text-xl font-bold cursor-pointer select-none"
+        className="heading-3 font-bold cursor-pointer select-none text-primary"
         onClick={() => navigate('/dashboard')}
         initial={false}
-        animate={{ color: isDashboardActive ? '#2563eb' : '#111827' }} // azul-600 ou cinza-900
+        animate={{ color: isDashboardActive ? 'hsl(207 100% 31%)' : 'hsl(207 72% 47%)' }}
         whileHover={{ scale: 1.05 }}
         transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       >
         OSCE Prep UK
       </motion.div>
 
-      <nav className="hidden md:flex space-x-8"> {/* espaçamento maior entre botões */}
+      <nav className="hidden md:flex space-x-10">
         <NavButton path="/dashboard" Icon={LayoutDashboard} label="Dashboard" />
         <NavButton path="/dashboard/mock-exams" Icon={FileText} label={"Mock\u00A0Exams"} />
         <NavButton path="/blog" Icon={BookOpen} label="Blog" />
@@ -88,7 +88,7 @@ const Header = () => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <motion.div
-            className="w-9 h-9 flex items-center justify-center bg-blue-600 text-white rounded-full text-sm font-bold cursor-pointer select-none"
+            className="w-11 h-11 flex items-center justify-center bg-gradient-to-r from-primary to-primary-light text-white rounded-full body-small font-bold cursor-pointer select-none shadow-medium hover:shadow-strong"
             whileHover={{ scale: 1.1 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
           >
@@ -99,7 +99,7 @@ const Header = () => {
         <AnimatePresence>
           <DropdownMenuContent
             align="end"
-            className="bg-white rounded-md shadow-md min-w-[180px] p-1"
+            className="bg-white/95 backdrop-blur-sm rounded-xl shadow-strong border border-border/50 min-w-[200px] p-2"
             asChild
           >
             <motion.div
@@ -115,10 +115,13 @@ const Header = () => {
               ].map(({ label, icon: Icon, action, danger }) => (
                 <motion.div
                   key={label}
-                  whileHover={{ scale: 1.05, backgroundColor: danger ? '#fee2e2' : '#f3f4f6' }}
-                  className={`cursor-pointer px-4 py-2 flex items-center gap-2 select-none ${
-                    danger ? 'text-red-600' : ''
-                  } rounded`}
+                  whileHover={{ 
+                    scale: 1.02, 
+                    backgroundColor: danger ? 'hsl(4 90% 95%)' : 'hsl(0 0% 96%)' 
+                  }}
+                  className={`cursor-pointer px-4 py-3 flex items-center gap-3 select-none body-text rounded-lg transition-colors duration-200 ${
+                    danger ? 'text-destructive hover:text-destructive' : 'text-foreground hover:text-primary'
+                  }`}
                   onClick={action}
                   layout
                 >
@@ -135,3 +138,4 @@ const Header = () => {
 };
 
 export default Header;
+

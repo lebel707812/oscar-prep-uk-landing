@@ -9,53 +9,57 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
+    /* Fundo limpo e neutro */
     --background: 0 0% 100%;
-    --foreground: 220 15% 20%;
+    --foreground: 0 0% 20%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 15% 20%;
+    --card-foreground: 0 0% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 15% 20%;
+    --popover-foreground: 0 0% 20%;
 
-    /* NHS Blue palette */
-    --primary: 212 80% 35%;
+    /* Paleta Azul Profissional - Cor Primária */
+    --primary: 207 100% 31%; /* #005A9C */
     --primary-foreground: 0 0% 100%;
-    --primary-light: 212 60% 50%;
-    --primary-dark: 212 90% 25%;
+    --primary-light: 207 72% 47%; /* #1976D2 */
+    --primary-dark: 207 100% 36%; /* #0077B6 */
 
-    --secondary: 210 20% 95%;
-    --secondary-foreground: 220 15% 20%;
+    /* Verde Suave/Aqua - Cor Secundária */
+    --secondary: 174 100% 37%; /* #00BFA6 */
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 20% 96%;
-    --muted-foreground: 220 10% 55%;
+    /* Neutros Elegantes */
+    --muted: 0 0% 96%; /* #F5F5F5 */
+    --muted-foreground: 0 0% 55%;
 
-    --accent: 205 100% 45%;
+    --accent: 122 39% 49%; /* #4CAF50 */
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 75% 55%;
+    /* Cores de Alerta */
+    --destructive: 4 90% 58%; /* #E53935 */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 20% 90%;
-    --input: 210 20% 95%;
-    --ring: 212 80% 35%;
+    --border: 0 0% 88%; /* #E0E0E0 */
+    --input: 0 0% 96%; /* #F5F5F5 */
+    --ring: 207 72% 47%; /* #1976D2 */
 
-    /* Success and healthcare colors */
-    --success: 145 65% 40%;
+    /* Cores de Status */
+    --success: 122 39% 49%; /* #4CAF50 */
     --success-foreground: 0 0% 100%;
 
-    --warning: 45 90% 55%;
-    --warning-foreground: 220 15% 20%;
+    --warning: 48 89% 60%; /* #FDD835 */
+    --warning-foreground: 0 0% 20%;
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(212 80% 35%), hsl(205 100% 45%));
-    --gradient-hero: linear-gradient(135deg, hsl(212 80% 35%) 0%, hsl(205 100% 45%) 100%);
-    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(210 20% 98%) 100%);
+    /* Gradientes com nova paleta */
+    --gradient-primary: linear-gradient(135deg, hsl(207 100% 31%), hsl(207 72% 47%));
+    --gradient-hero: linear-gradient(135deg, hsl(207 100% 31%) 0%, hsl(174 100% 37%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
 
-    /* Shadows */
-    --shadow-soft: 0 2px 8px hsl(212 50% 30% / 0.08);
-    --shadow-medium: 0 4px 16px hsl(212 50% 30% / 0.12);
-    --shadow-strong: 0 8px 32px hsl(212 50% 30% / 0.16);
+    /* Sombras com nova paleta */
+    --shadow-soft: 0 2px 8px hsl(207 50% 30% / 0.08);
+    --shadow-medium: 0 4px 16px hsl(207 50% 30% / 0.12);
+    --shadow-strong: 0 8px 32px hsl(207 50% 30% / 0.16);
 
     /* Animation */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -79,7 +83,7 @@ All colors MUST be HSL.
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  /* Dark theme overrides */
+  /* Tema escuro com nova paleta */
   .dark {
     --background: 210 50% 15%;
     --foreground: 210 20% 98%;
@@ -90,27 +94,28 @@ All colors MUST be HSL.
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    /* Azul escuro mais suave e menos saturado */
-    --primary: 210 30% 40%; /* Menos saturação, luminosidade equilibrada */
-    --primary-foreground: 210 20% 95%; /* Texto claro suave */
-    --primary-light: 210 25% 50%;
-    --primary-dark: 210 40% 30%;
+    /* Azul profissional adaptado para tema escuro */
+    --primary: 207 60% 50%; /* Mais claro para contraste */
+    --primary-foreground: 210 20% 95%;
+    --primary-light: 207 50% 60%;
+    --primary-dark: 207 70% 40%;
 
-    --secondary: 210 20% 30%; /* Tom secundário menos vibrante */
+    /* Verde suave para tema escuro */
+    --secondary: 174 60% 45%;
     --secondary-foreground: 210 40% 98%;
 
     --muted: 210 15% 25%;
     --muted-foreground: 210 30% 70%;
 
-    --accent: 205 90% 40%;
+    --accent: 122 30% 55%; /* Verde mais suave */
     --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 4 70% 50%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 210 20% 30%;
     --input: 210 20% 30%;
-    --ring: 210 25% 60%;
+    --ring: 207 50% 60%;
 
     /* Sidebar escuro */
     --sidebar-background: 210 20% 15%;
@@ -131,3 +136,73 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 }
+
+
+/* Estilos de tipografia personalizados */
+@layer base {
+  /* Configuração base da tipografia */
+  body {
+    @apply font-body text-base leading-relaxed;
+  }
+
+  /* Títulos principais - Poppins/Montserrat */
+  h1, .heading-1 {
+    @apply font-heading font-bold text-4xl md:text-5xl lg:text-6xl leading-tight;
+  }
+
+  h2, .heading-2 {
+    @apply font-heading font-semibold text-2xl md:text-3xl lg:text-4xl leading-tight;
+  }
+
+  h3, .heading-3 {
+    @apply font-heading font-medium text-xl md:text-2xl leading-snug;
+  }
+
+  h4, .heading-4 {
+    @apply font-heading font-medium text-lg md:text-xl leading-snug;
+  }
+
+  /* Texto corrido - Open Sans/Roboto */
+  p, .body-text {
+    @apply font-body text-base leading-relaxed;
+  }
+
+  .body-large {
+    @apply font-body text-lg leading-relaxed;
+  }
+
+  .body-small {
+    @apply font-body text-sm leading-normal;
+  }
+
+  /* Botões e elementos interativos */
+  .btn-text {
+    @apply font-heading font-medium text-base;
+  }
+
+  /* Labels e formulários */
+  label, .label {
+    @apply font-body font-medium text-sm;
+  }
+
+  /* Navegação */
+  .nav-text {
+    @apply font-heading font-medium text-base;
+  }
+
+  /* Tamanhos responsivos para melhor legibilidade */
+  @media (max-width: 640px) {
+    h1, .heading-1 {
+      @apply text-3xl;
+    }
+    
+    h2, .heading-2 {
+      @apply text-2xl;
+    }
+    
+    .body-large {
+      @apply text-base;
+    }
+  }
+}
+

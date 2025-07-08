@@ -19,6 +19,23 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				// Fontes para títulos e seções - modernas, arredondadas, acolhedoras
+				'heading': ['Poppins', 'Inter', 'Nunito Sans', 'Montserrat', 'sans-serif'],
+				'poppins': ['Poppins', 'sans-serif'],
+				'inter': ['Inter', 'sans-serif'],
+				'montserrat': ['Montserrat', 'sans-serif'],
+				'nunito': ['Nunito Sans', 'sans-serif'],
+				
+				// Fontes para texto corrido - alta legibilidade
+				'body': ['Open Sans', 'Roboto', 'Lato', 'sans-serif'],
+				'open-sans': ['Open Sans', 'sans-serif'],
+				'roboto': ['Roboto', 'sans-serif'],
+				'lato': ['Lato', 'sans-serif'],
+				
+				// Fonte padrão do sistema
+				'sans': ['Inter', 'Open Sans', 'system-ui', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
