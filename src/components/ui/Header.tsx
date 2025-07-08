@@ -19,6 +19,7 @@ import {
   X as CloseIcon,
   Sun,
   Moon,
+  History,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -53,6 +54,7 @@ const Header = () => {
   const navItems = [
     { path: '/dashboard', label: 'Dashboard', Icon: LayoutDashboard },
     { path: '/dashboard/mock-exams', label: 'Mock Exams', Icon: FileText },
+    { path: '/dashboard/session-history', label: 'Session History', Icon: History },
     { path: '/dashboard/pacient-ai', label: 'PacientAI', Icon: User },
     { path: '/dashboard/resources', label: 'Resources', Icon: BookOpen },
   ];

@@ -13,6 +13,9 @@ import Profile from "@/pages/Profile";
 import MockExams from "@/pages/MockExams";
 import Resources from "./pages/Resources";
 import Settings from "./pages/Settings";
+import SessionHistory from "./pages/SessionHistory";
+import SessionReview from "./pages/SessionReview";
+import PacientAI from "./pages/PacientAI";
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import MockExamRunner from "@/pages/MockExamRunner";
 
@@ -64,6 +67,30 @@ const App = () => {
                   element={
                     <ProtectedRoute>
                       <Resources />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/dashboard/session-history"
+                  element={
+                    <ProtectedRoute>
+                      <SessionHistory />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/session-review/:sessionId"
+                  element={
+                    <ProtectedRoute>
+                      <SessionReview />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/dashboard/pacient-ai"
+                  element={
+                    <ProtectedRoute>
+                      <PacientAI />
                     </ProtectedRoute>
                   }
                 />
