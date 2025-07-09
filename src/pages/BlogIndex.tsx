@@ -89,44 +89,64 @@ export default function BlogIndex() {
 
       const mockPosts: BlogPost[] = [
         {
-          id: '1',
+          id: '1000151583',
           title: 'What is the OSCE and Why is it Crucial for International Nurses in the NHS?',
           slug: 'what-is-osce-crucial-international-nurses-nhs',
           excerpt: 'Discover everything about the Objective Structured Clinical Examination (OSCE) and its importance for international nurses wanting to work in the NHS.',
           published_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
           reading_time: 8,
           view_count: 245,
-          blog_categories: { name: 'OSCE Exam Preparation', slug: 'osce-exam-preparation', color: '#3B82F6' }
+          blog_categories: { name: 'OSCE Exam Preparation', slug: 'osce-exam-preparation', color: '#005A9C' }
         },
         {
-          id: '2',
+          id: '1000151584',
           title: 'The Art of History Taking: How to Collect Clinical History Effectively in the OSCE',
           slug: 'art-history-taking-clinical-history-osce',
           excerpt: 'Learn essential techniques for conducting effective history taking during the OSCE, including empathetic communication and structured information gathering.',
           published_at: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
           reading_time: 12,
           view_count: 189,
-          blog_categories: { name: 'Communication Skills in OSCE', slug: 'communication-skills-osce', color: '#10B981' }
+          blog_categories: { name: 'Communication Skills in OSCE', slug: 'communication-skills-osce', color: '#00BFA6' }
         },
         {
-          id: '3',
-          title: 'My Journey from India to the NHS: An OSCE Success Story',
-          slug: 'journey-india-nhs-osce-success-story',
-          excerpt: 'The inspiring story of Priya, an Indian nurse who overcame challenges and secured her place in the NHS through the OSCE.',
+          id: '1000151585',
+          title: 'Physical Examination Techniques: Mastering Clinical Skills for OSCE Success',
+          slug: 'physical-examination-techniques-clinical-skills-osce',
+          excerpt: 'Comprehensive guide to physical examination techniques required for OSCE, including systematic approaches and common assessment criteria.',
           published_at: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
           reading_time: 15,
+          view_count: 156,
+          blog_categories: { name: 'OSCE Exam Preparation', slug: 'osce-exam-preparation', color: '#005A9C' }
+        },
+        {
+          id: '1000151586',
+          title: 'Understanding NHS Culture: A Guide for International Nurses',
+          slug: 'understanding-nhs-culture-guide-international-nurses',
+          excerpt: 'Essential insights into NHS culture, values, and working practices that international nurses need to understand for successful integration.',
+          published_at: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+          reading_time: 10,
+          view_count: 203,
+          blog_categories: { name: 'NHS Updates and Culture', slug: 'nhs-updates-culture', color: '#EF4444' }
+        },
+        {
+          id: '1000151587',
+          title: 'From Mumbai to Manchester: My OSCE Success Story',
+          slug: 'mumbai-manchester-osce-success-story',
+          excerpt: 'Personal journey of an international nurse from India who successfully passed the OSCE and now works in the NHS.',
+          published_at: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+          reading_time: 7,
           view_count: 312,
           blog_categories: { name: 'Success Stories and Inspiration', slug: 'success-stories-inspiration', color: '#8B5CF6' }
         },
         {
-          id: '4',
-          title: 'Demystifying OSCE Stations: What to Expect at Each One',
-          slug: 'demystifying-osce-stations-what-to-expect',
-          excerpt: 'Detailed guide about the different OSCE stations, including what to expect, how to prepare, and tips for success at each one.',
-          published_at: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
-          reading_time: 18,
-          view_count: 156,
-          blog_categories: { name: 'OSCE Exam Preparation', slug: 'osce-exam-preparation', color: '#3B82F6' }
+          id: '1000151588',
+          title: 'Effective Study Techniques for OSCE Preparation: Evidence-Based Approaches',
+          slug: 'effective-study-techniques-osce-preparation',
+          excerpt: 'Research-backed study methods and techniques that have proven effective for OSCE preparation among international nursing candidates.',
+          published_at: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
+          reading_time: 11,
+          view_count: 178,
+          blog_categories: { name: 'Study Tips and Resources', slug: 'study-tips-resources', color: '#F59E0B' }
         }
       ];
 
@@ -310,7 +330,7 @@ export default function BlogIndex() {
                       </div>
                       <CardTitle className="line-clamp-2">
                         <Link
-                          to={`/blog/${post.slug}`}
+                          to={`/blog/artigo/${post.id}`}
                           className="hover:text-blue-600 transition-colors"
                         >
                           {post.title}

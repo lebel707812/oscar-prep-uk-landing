@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Calendar, Clock, Eye, ArrowLeft, Share2 } from 'lucide-react';
-import { fetchBlogPost, incrementPostViews } from '@/integrations/supabase/blog';
+import { Calendar, Clock, Eye, ArrowLeft, Share2, User } from 'lucide-react';
 import UnifiedHeader from '@/components/ui/UnifiedHeader';
 import Footer from '@/components/Footer';
 
@@ -21,307 +20,317 @@ interface BlogPost {
   meta_title?: string;
   meta_description?: string;
   tags?: string[];
+  author?: string;
   blog_categories?: { name: string; slug: string; color: string };
 }
 
 export default function BlogPost() {
-  const { slug } = useParams<{ slug: string }>();
+  const { id, slug } = useParams<{ id?: string; slug?: string }>();
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
 
   useEffect(() => {
-    if (slug) {
+    if (id || slug) {
       loadPost();
     }
-  }, [slug]);
+  }, [id, slug]);
 
   const loadPost = async () => {
     try {
-      // Mock data since Supabase might not be configured yet
+      // Mock data com sistema de ID padronizado
       const mockPosts: { [key: string]: BlogPost } = {
-        'what-is-osce-crucial-international-nurses-nhs': {
-          id: '1',
+        '1000151583': {
+          id: '1000151583',
           title: 'What is the OSCE and Why is it Crucial for International Nurses in the NHS?',
           slug: 'what-is-osce-crucial-international-nurses-nhs',
           excerpt: 'Discover everything about the Objective Structured Clinical Examination (OSCE) and its importance for international nurses wanting to work in the NHS.',
           content: `
-# What is the OSCE and Why is it Crucial for International Nurses in the NHS?
+<div class="prose prose-lg max-w-none">
+  <h1 class="heading-1 text-foreground mb-8">What is the OSCE and Why is it Crucial for International Nurses in the NHS?</h1>
+  
+  <p class="body-large text-muted-foreground mb-8 leading-relaxed">
+    The <strong>Objective Structured Clinical Examination (OSCE)</strong> is a practical assessment method used to evaluate clinical skills, knowledge, and competencies of healthcare professionals. For international nurses seeking to work in the NHS, the OSCE represents a crucial step in the registration process.
+  </p>
 
-The **Objective Structured Clinical Examination (OSCE)** is a practical assessment method used to evaluate clinical skills, knowledge, and competencies of healthcare professionals. For international nurses seeking to work in the NHS, the OSCE represents a crucial step in the registration process.
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Understanding the OSCE Format</h2>
+  
+  <p class="body-text text-muted-foreground mb-6 leading-relaxed">
+    The OSCE consists of multiple stations, each designed to assess specific clinical skills:
+  </p>
 
-## Understanding the OSCE Format
+  <div class="bg-primary/5 border border-primary/20 rounded-xl p-8 mb-8">
+    <h3 class="heading-3 text-primary mb-6">Station Types</h3>
+    <ul class="space-y-4">
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">History Taking:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Gathering patient information through structured interviews</span>
+        </div>
+      </li>
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Physical Examination:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Demonstrating proper examination techniques</span>
+        </div>
+      </li>
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Communication:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Interacting effectively with patients and colleagues</span>
+        </div>
+      </li>
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Clinical Procedures:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Performing specific nursing interventions</span>
+        </div>
+      </li>
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Emergency Scenarios:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Responding to urgent clinical situations</span>
+        </div>
+      </li>
+    </ul>
+  </div>
 
-The OSCE consists of multiple stations, each designed to assess specific clinical skills:
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Why the OSCE Matters for International Nurses</h2>
 
-### Station Types
-- **History Taking**: Gathering patient information through structured interviews
-- **Physical Examination**: Demonstrating proper examination techniques
-- **Communication**: Interacting effectively with patients and colleagues
-- **Clinical Procedures**: Performing specific nursing interventions
-- **Emergency Scenarios**: Responding to urgent clinical situations
+  <div class="grid md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-secondary/10 border border-secondary/30 rounded-xl p-6">
+      <h3 class="heading-4 text-secondary mb-4">Professional Registration Requirement</h3>
+      <p class="body-text text-muted-foreground leading-relaxed">
+        The Nursing and Midwifery Council (NMC) requires international nurses to pass the OSCE as part of the registration process.
+      </p>
+    </div>
+    <div class="bg-accent/10 border border-accent/30 rounded-xl p-6">
+      <h3 class="heading-4 text-accent mb-4">Skills Validation</h3>
+      <p class="body-text text-muted-foreground leading-relaxed">
+        The OSCE validates that your clinical skills meet UK standards, ensuring patient safety and quality care.
+      </p>
+    </div>
+    <div class="bg-success/10 border border-success/30 rounded-xl p-6">
+      <h3 class="heading-4 text-success mb-4">Cultural Adaptation</h3>
+      <p class="body-text text-muted-foreground leading-relaxed">
+        The examination helps international nurses understand UK healthcare practices and professional expectations.
+      </p>
+    </div>
+  </div>
 
-## Why the OSCE Matters for International Nurses
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Preparing for Success</h2>
+  
+  <p class="body-text text-muted-foreground mb-6 leading-relaxed">
+    Effective preparation is key to OSCE success. Here are proven strategies that have helped thousands of international nurses:
+  </p>
 
-### 1. **Professional Registration Requirement**
-The Nursing and Midwifery Council (NMC) requires international nurses to pass the OSCE as part of the registration process. Without this qualification, you cannot practice as a registered nurse in the UK.
+  <div class="bg-gradient-to-r from-primary/5 to-secondary/5 border border-primary/20 rounded-xl p-8 mb-8">
+    <h3 class="heading-3 text-primary mb-6">Study Strategies</h3>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div>
+        <h4 class="heading-4 text-foreground mb-3">Knowledge Building</h4>
+        <ul class="space-y-2">
+          <li class="body-text text-muted-foreground">• Familiarise yourself with UK protocols</li>
+          <li class="body-text text-muted-foreground">• Practice communication skills</li>
+          <li class="body-text text-muted-foreground">• Master clinical procedures</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="heading-4 text-foreground mb-3">Practical Preparation</h4>
+        <ul class="space-y-2">
+          <li class="body-text text-muted-foreground">• Mock examinations</li>
+          <li class="body-text text-muted-foreground">• Peer practice sessions</li>
+          <li class="body-text text-muted-foreground">• Professional feedback</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
-### 2. **Skills Validation**
-The OSCE validates that your clinical skills meet UK standards, ensuring patient safety and quality care within the NHS framework.
+  <h2 class="heading-2 text-foreground mt-12 mb-6">The Path Forward</h2>
+  
+  <p class="body-text text-muted-foreground mb-6 leading-relaxed">
+    Successfully passing the OSCE opens doors to a rewarding career in the NHS. The examination not only validates your clinical competence but also prepares you for the realities of nursing practice in the UK healthcare system.
+  </p>
 
-### 3. **Cultural Adaptation**
-The examination helps international nurses understand UK healthcare practices, communication styles, and professional expectations.
-
-## Preparing for Success
-
-### Study Strategies
-- **Familiarise yourself with UK protocols**: Understanding NHS guidelines and procedures
-- **Practice communication skills**: Developing clear, empathetic patient interactions
-- **Master clinical procedures**: Ensuring competency in essential nursing skills
-- **Mock examinations**: Simulating OSCE conditions to build confidence
-
-### Key Areas to Focus On
-1. **Patient-centred care**: Demonstrating compassion and respect
-2. **Evidence-based practice**: Applying current research and guidelines
-3. **Professional communication**: Clear, appropriate interactions
-4. **Clinical reasoning**: Logical decision-making processes
-5. **Safety protocols**: Following infection control and risk management
-
-## Common Challenges and Solutions
-
-### Language Barriers
-- Practice medical terminology in English
-- Develop clear pronunciation and communication skills
-- Understand regional accents and colloquialisms
-
-### Cultural Differences
-- Learn about UK healthcare culture and patient expectations
-- Understand professional boundaries and ethical considerations
-- Familiarise yourself with NHS values and principles
-
-### Technical Skills
-- Practice procedures according to UK standards
-- Understand equipment commonly used in NHS settings
-- Master documentation and record-keeping requirements
-
-## The Path Forward
-
-Successfully passing the OSCE opens doors to a rewarding career in the NHS. The examination not only validates your clinical competence but also prepares you for the realities of nursing practice in the UK healthcare system.
-
-Remember, the OSCE is not just an assessment—it's an opportunity to demonstrate your commitment to providing excellent patient care within the NHS framework.
-
-## Next Steps
-
-1. **Register for the OSCE** through the NMC website
-2. **Prepare thoroughly** using approved study materials and practice sessions
-3. **Seek support** from preparation courses and study groups
-4. **Stay confident** and trust in your clinical knowledge and skills
-
-The journey to NHS registration may seem challenging, but with proper preparation and dedication, success is achievable. Your international experience, combined with UK-specific training, will make you a valuable addition to the NHS nursing workforce.
+  <div class="bg-gradient-to-r from-success/10 to-accent/10 border border-success/30 rounded-xl p-8 mb-8">
+    <h3 class="heading-3 text-success mb-4">Remember</h3>
+    <p class="body-text text-muted-foreground leading-relaxed">
+      The OSCE is not just an assessment—it's an opportunity to demonstrate your commitment to providing excellent patient care within the NHS framework. Your international experience, combined with UK-specific training, will make you a valuable addition to the NHS nursing workforce.
+    </p>
+  </div>
+</div>
           `,
           published_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
           reading_time: 8,
           view_count: 245,
+          author: 'Dr. Sarah Johnson, RN',
           meta_title: 'OSCE Guide for International Nurses | NHS Registration',
           meta_description: 'Complete guide to the OSCE examination for international nurses seeking NHS registration. Learn about format, preparation, and success strategies.',
           tags: ['OSCE', 'NHS', 'International Nurses', 'Registration', 'Exam Preparation'],
-          blog_categories: { name: 'OSCE Exam Preparation', slug: 'osce-exam-preparation', color: '#3B82F6' }
+          blog_categories: { name: 'OSCE Exam Preparation', slug: 'osce-exam-preparation', color: '#005A9C' }
         },
-        'art-history-taking-clinical-history-osce': {
-          id: '2',
+        '1000151584': {
+          id: '1000151584',
           title: 'The Art of History Taking: How to Collect Clinical History Effectively in the OSCE',
           slug: 'art-history-taking-clinical-history-osce',
           excerpt: 'Learn essential techniques for conducting effective history taking during the OSCE, including empathetic communication and structured information gathering.',
           content: `
-# The Art of History Taking: How to Collect Clinical History Effectively in the OSCE
+<div class="prose prose-lg max-w-none">
+  <h1 class="heading-1 text-foreground mb-8">The Art of History Taking: How to Collect Clinical History Effectively in the OSCE</h1>
+  
+  <p class="body-large text-muted-foreground mb-8 leading-relaxed">
+    History taking is one of the most fundamental skills assessed in the OSCE examination. It requires a delicate balance of clinical knowledge, communication skills, and empathetic patient interaction. This comprehensive guide will help you master this essential competency.
+  </p>
 
-History taking is one of the most fundamental skills assessed in the OSCE examination. It requires a delicate balance of clinical knowledge, communication skills, and empathetic patient interaction. This comprehensive guide will help you master this essential competency.
+  <h2 class="heading-2 text-foreground mt-12 mb-6">The Foundation of Effective History Taking</h2>
+  
+  <div class="bg-primary/5 border border-primary/20 rounded-xl p-8 mb-8">
+    <h3 class="heading-3 text-primary mb-6">Building Rapport</h3>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="space-y-4">
+        <div class="flex items-start">
+          <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+          <div>
+            <strong class="text-foreground">Introduce yourself professionally:</strong> 
+            <span class="body-text text-muted-foreground ml-2">State your name, role, and purpose</span>
+          </div>
+        </div>
+        <div class="flex items-start">
+          <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+          <div>
+            <strong class="text-foreground">Ensure patient comfort:</strong> 
+            <span class="body-text text-muted-foreground ml-2">Check seating, privacy, and immediate needs</span>
+          </div>
+        </div>
+      </div>
+      <div class="space-y-4">
+        <div class="flex items-start">
+          <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+          <div>
+            <strong class="text-foreground">Establish trust:</strong> 
+            <span class="body-text text-muted-foreground ml-2">Use open body language and appropriate eye contact</span>
+          </div>
+        </div>
+        <div class="flex items-start">
+          <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+          <div>
+            <strong class="text-foreground">Show empathy:</strong> 
+            <span class="body-text text-muted-foreground ml-2">Acknowledge concerns and feelings</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-## The Foundation of Effective History Taking
+  <h2 class="heading-2 text-foreground mt-12 mb-6">The SOCRATES Framework</h2>
+  
+  <p class="body-text text-muted-foreground mb-6 leading-relaxed">
+    For symptom analysis, use the SOCRATES mnemonic - a structured approach that ensures comprehensive assessment:
+  </p>
 
-### Building Rapport
-- **Introduce yourself professionally**: State your name, role, and purpose
-- **Ensure patient comfort**: Check seating, privacy, and any immediate needs
-- **Establish trust**: Use open body language and maintain appropriate eye contact
-- **Show empathy**: Acknowledge the patient's concerns and feelings
+  <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <div class="bg-secondary/10 border border-secondary/30 rounded-xl p-4 text-center">
+      <div class="w-12 h-12 bg-secondary rounded-full flex items-center justify-center mx-auto mb-3">
+        <span class="text-white font-bold">S</span>
+      </div>
+      <h4 class="heading-4 text-secondary mb-2">Site</h4>
+      <p class="body-small text-muted-foreground">Where is the problem located?</p>
+    </div>
+    <div class="bg-accent/10 border border-accent/30 rounded-xl p-4 text-center">
+      <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center mx-auto mb-3">
+        <span class="text-white font-bold">O</span>
+      </div>
+      <h4 class="heading-4 text-accent mb-2">Onset</h4>
+      <p class="body-small text-muted-foreground">When did it start? How did it begin?</p>
+    </div>
+    <div class="bg-success/10 border border-success/30 rounded-xl p-4 text-center">
+      <div class="w-12 h-12 bg-success rounded-full flex items-center justify-center mx-auto mb-3">
+        <span class="text-white font-bold">C</span>
+      </div>
+      <h4 class="heading-4 text-success mb-2">Character</h4>
+      <p class="body-small text-muted-foreground">What does it feel like?</p>
+    </div>
+    <div class="bg-primary/10 border border-primary/30 rounded-xl p-4 text-center">
+      <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-3">
+        <span class="text-white font-bold">R</span>
+      </div>
+      <h4 class="heading-4 text-primary mb-2">Radiation</h4>
+      <p class="body-small text-muted-foreground">Does it spread anywhere?</p>
+    </div>
+  </div>
 
-### The SOCRATES Framework
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Communication Techniques for Success</h2>
+  
+  <div class="bg-gradient-to-r from-secondary/5 to-accent/5 border border-secondary/20 rounded-xl p-8 mb-8">
+    <h3 class="heading-3 text-secondary mb-6">Active Listening Skills</h3>
+    <div class="space-y-4">
+      <div class="flex items-start">
+        <div class="w-8 h-8 bg-secondary/20 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+          <span class="text-secondary font-semibold text-sm">1</span>
+        </div>
+        <div>
+          <strong class="text-foreground">Paraphrasing:</strong> 
+          <span class="body-text text-muted-foreground ml-2">"So what I understand is..."</span>
+        </div>
+      </div>
+      <div class="flex items-start">
+        <div class="w-8 h-8 bg-secondary/20 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+          <span class="text-secondary font-semibold text-sm">2</span>
+        </div>
+        <div>
+          <strong class="text-foreground">Clarification:</strong> 
+          <span class="body-text text-muted-foreground ml-2">"Can you help me understand what you mean by...?"</span>
+        </div>
+      </div>
+      <div class="flex items-start">
+        <div class="w-8 h-8 bg-secondary/20 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+          <span class="text-secondary font-semibold text-sm">3</span>
+        </div>
+        <div>
+          <strong class="text-foreground">Reflection:</strong> 
+          <span class="body-text text-muted-foreground ml-2">"It sounds like this has been very worrying for you"</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-For symptom analysis, use the SOCRATES mnemonic:
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Building Confidence</h2>
+  
+  <p class="body-text text-muted-foreground mb-6 leading-relaxed">
+    Mastering the art of history taking requires practice, patience, and genuine care for patients. Remember that behind every clinical presentation is a person with concerns, fears, and hopes.
+  </p>
 
-- **S**ite: Where is the problem located?
-- **O**nset: When did it start? How did it begin?
-- **C**haracter: What does it feel like? (sharp, dull, burning, etc.)
-- **R**adiation: Does it spread anywhere else?
-- **A**ssociated symptoms: What else do you notice?
-- **T**ime course: How has it changed over time?
-- **E**xacerbating/relieving factors: What makes it better or worse?
-- **S**everity: How would you rate it on a scale of 1-10?
-
-## Structured Approach to History Taking
-
-### 1. Opening and Presenting Complaint
-- Begin with open-ended questions: "What brings you here today?"
-- Allow the patient to tell their story in their own words
-- Listen actively without interrupting
-- Summarise what you've heard to confirm understanding
-
-### 2. History of Presenting Complaint
-- Use the SOCRATES framework for symptom analysis
-- Explore the timeline of events
-- Identify any triggers or precipitating factors
-- Assess the impact on daily activities
-
-### 3. Past Medical History
-- Previous illnesses, surgeries, or hospitalisations
-- Current medications and dosages
-- Known allergies and reactions
-- Immunisation history where relevant
-
-### 4. Family History
-- Hereditary conditions
-- Family members' health status
-- Age and cause of death for deceased relatives
-- Genetic predispositions
-
-### 5. Social History
-- Occupation and work environment
-- Living arrangements and support systems
-- Lifestyle factors (smoking, alcohol, exercise)
-- Travel history if relevant
-
-### 6. Systems Review
-- Brief screening of other body systems
-- Identify any additional symptoms
-- Ensure nothing significant is missed
-
-## Communication Techniques for Success
-
-### Active Listening Skills
-- **Paraphrasing**: "So what I understand is..."
-- **Clarification**: "Can you help me understand what you mean by...?"
-- **Reflection**: "It sounds like this has been very worrying for you"
-- **Summarising**: "Let me make sure I have this right..."
-
-### Managing Difficult Situations
-
-#### Anxious Patients
-- Speak slowly and calmly
-- Provide reassurance where appropriate
-- Break information into smaller chunks
-- Allow extra time for responses
-
-#### Language Barriers
-- Speak clearly and avoid medical jargon
-- Use simple, everyday language
-- Check understanding frequently
-- Consider cultural sensitivities
-
-#### Emotional Patients
-- Acknowledge their emotions
-- Provide tissues and comfort
-- Allow time for emotional expression
-- Maintain professional boundaries
-
-## Common OSCE Scenarios
-
-### Chest Pain History
-- Focus on cardiac risk factors
-- Explore associated symptoms (shortness of breath, nausea, sweating)
-- Assess severity and impact on function
-- Consider differential diagnoses
-
-### Abdominal Pain History
-- Detailed pain analysis using SOCRATES
-- Associated gastrointestinal symptoms
-- Menstrual history for female patients
-- Dietary factors and bowel habits
-
-### Mental Health Assessment
-- Approach with sensitivity and non-judgement
-- Assess mood, sleep, appetite, and concentration
-- Explore support systems and coping mechanisms
-- Risk assessment where appropriate
-
-## Documentation and Record Keeping
-
-### Essential Elements
-- Clear, legible handwriting or typing
-- Accurate dates and times
-- Objective language
-- Relevant positive and negative findings
-- Professional terminology
-
-### Legal Considerations
-- Maintain patient confidentiality
-- Ensure accuracy and completeness
-- Sign and date all entries
-- Follow NHS documentation standards
-
-## Preparation Strategies
-
-### Practice Techniques
-- **Role-playing**: Practice with colleagues or family members
-- **Video review**: Record yourself to identify areas for improvement
-- **Peer feedback**: Work with study partners for constructive criticism
-- **Mock OSCEs**: Simulate examination conditions
-
-### Study Resources
-- NHS clinical guidelines
-- Communication skills textbooks
-- Online OSCE preparation platforms
-- Professional development courses
-
-## Common Mistakes to Avoid
-
-### Communication Errors
-- Interrupting the patient too frequently
-- Using medical jargon without explanation
-- Failing to show empathy or understanding
-- Not maintaining appropriate eye contact
-
-### Clinical Mistakes
-- Rushing through the history
-- Missing important red flag symptoms
-- Failing to explore psychological factors
-- Inadequate documentation
-
-## Building Confidence
-
-### Mental Preparation
-- Visualise successful interactions
-- Practice relaxation techniques
-- Develop a personal routine for each station
-- Trust in your clinical knowledge and training
-
-### Continuous Improvement
-- Seek feedback from mentors and colleagues
-- Reflect on each practice session
-- Identify strengths and areas for development
-- Maintain a learning mindset
-
-## Conclusion
-
-Mastering the art of history taking requires practice, patience, and genuine care for patients. Remember that behind every clinical presentation is a person with concerns, fears, and hopes. Your role is not just to gather information, but to provide comfort, understanding, and professional care.
-
-The skills you develop for the OSCE will serve you throughout your nursing career in the NHS. Effective history taking forms the foundation of excellent patient care and will make you a valued member of any healthcare team.
-
-Keep practicing, stay confident, and remember that every expert was once a beginner. Your dedication to mastering these skills demonstrates your commitment to providing the highest standard of care to NHS patients.
+  <div class="bg-gradient-to-r from-success/10 to-primary/10 border border-success/30 rounded-xl p-8">
+    <h3 class="heading-3 text-success mb-4">Key Takeaway</h3>
+    <p class="body-text text-muted-foreground leading-relaxed">
+      The skills you develop for the OSCE will serve you throughout your nursing career in the NHS. Effective history taking forms the foundation of excellent patient care and will make you a valued member of any healthcare team.
+    </p>
+  </div>
+</div>
           `,
           published_at: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
           reading_time: 12,
           view_count: 189,
+          author: 'Prof. Maria Santos, RN, PhD',
           meta_title: 'OSCE History Taking Guide | Clinical Skills for Nurses',
           meta_description: 'Master history taking for the OSCE with our comprehensive guide. Learn communication techniques, structured approaches, and common scenarios.',
           tags: ['History Taking', 'OSCE', 'Communication Skills', 'Clinical Assessment', 'Patient Care'],
-          blog_categories: { name: 'Communication Skills in OSCE', slug: 'communication-skills-osce', color: '#10B981' }
+          blog_categories: { name: 'Communication Skills in OSCE', slug: 'communication-skills-osce', color: '#00BFA6' }
         }
       };
 
-      const mockPost = mockPosts[slug!];
+      // Buscar por ID primeiro, depois por slug para compatibilidade
+      const postKey = id || slug;
+      const mockPost = mockPosts[postKey!];
+      
       if (mockPost) {
         setPost(mockPost);
-        // Simulate incrementing view count
+        // Simular incremento de visualizações
         mockPost.view_count = (mockPost.view_count || 0) + 1;
       }
 
@@ -355,10 +364,10 @@ Keep practicing, stay confident, and remember that every expert was once a begin
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-background via-muted/30 to-background flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading article...</p>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary mx-auto"></div>
+          <p className="mt-6 body-text text-muted-foreground">Loading article...</p>
         </div>
       </div>
     );
@@ -366,12 +375,12 @@ Keep practicing, stay confident, and remember that every expert was once a begin
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-        <Card className="max-w-md mx-auto">
+      <div className="min-h-screen bg-gradient-to-br from-background via-muted/30 to-background flex items-center justify-center">
+        <Card className="max-w-md mx-auto shadow-strong">
           <CardContent className="text-center py-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Article Not Found</h2>
-            <p className="text-gray-600 mb-6">The article you're looking for doesn't exist.</p>
-            <Button asChild>
+            <h2 className="heading-2 text-foreground mb-4">Article Not Found</h2>
+            <p className="body-text text-muted-foreground mb-6">The article you're looking for doesn't exist.</p>
+            <Button asChild className="bg-primary hover:bg-primary-dark">
               <Link to="/blog">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Back to Blog
@@ -386,120 +395,169 @@ Keep practicing, stay confident, and remember that every expert was once a begin
   return (
     <>
       <UnifiedHeader />
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      {/* Header */}
-      <div className="bg-white shadow-sm">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <Button variant="outline" asChild className="mb-4">
-            <Link to="/blog">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Blog
-            </Link>
-          </Button>
-        </div>
-      </div>
-
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <article>
-          {/* Featured Image */}
-          {post.featured_image_url && (
-            <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden mb-8">
-              <img
-                src={post.featured_image_url}
-                alt={post.title}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          )}
-
-          {/* Article Header */}
-          <header className="mb-8">
-            <div className="flex items-center gap-2 mb-4">
-              {post.blog_categories && (
-                <Badge
-                  style={{ backgroundColor: post.blog_categories.color || '#3B82F6' }}
-                  className="text-white"
-                >
-                  {post.blog_categories.name}
-                </Badge>
-              )}
-            </div>
-
-            <h1 className="text-4xl font-bold text-gray-900 mb-4 leading-tight">
-              {post.title}
-            </h1>
-
-            <div className="flex items-center justify-between text-sm text-gray-500 mb-6">
-              <div className="flex items-center gap-6">
-                <div className="flex items-center gap-1">
-                  <Calendar className="h-4 w-4" />
-                  {formatDate(post.published_at)}
-                </div>
-                {post.reading_time && (
-                  <div className="flex items-center gap-1">
-                    <Clock className="h-4 w-4" />
-                    {post.reading_time} min read
-                  </div>
-                )}
-                <div className="flex items-center gap-1">
-                  <Eye className="h-4 w-4" />
-                  {post.view_count} views
-                </div>
-              </div>
-              <Button variant="outline" size="sm" onClick={handleShare}>
-                <Share2 className="h-4 w-4 mr-2" />
-                Share
-              </Button>
-            </div>
-
-            <p className="text-xl text-gray-600 leading-relaxed">
-              {post.excerpt}
-            </p>
-          </header>
-
-          {/* Article Content */}
-          <div className="prose prose-lg max-w-none">
-            <div 
-              className="text-gray-800 leading-relaxed"
-              dangerouslySetInnerHTML={{ 
-                __html: post.content.replace(/\n/g, '<br>').replace(/#{1,6}\s/g, match => {
-                  const level = match.trim().length;
-                  return `<h${level} class="text-${4-level}xl font-bold mt-8 mb-4 text-gray-900">`;
-                }).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-              }}
-            />
-          </div>
-
-          {/* Tags */}
-          {post.tags && post.tags.length > 0 && (
-            <div className="mt-8 pt-8 border-t border-gray-200">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Tags</h3>
-              <div className="flex flex-wrap gap-2">
-                {post.tags.map((tag, index) => (
-                  <Badge key={index} variant="secondary">
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Call to Action */}
-          <div className="mt-12 p-6 bg-blue-50 rounded-lg border border-blue-200">
-            <h3 className="text-xl font-semibold text-blue-900 mb-2">
-              Ready to Start Your OSCE Preparation?
-            </h3>
-            <p className="text-blue-700 mb-4">
-              Join thousands of international nurses who have successfully passed their OSCE with our comprehensive preparation platform.
-            </p>
-            <Button asChild>
-              <Link to="/">
-                Start Your Free Trial
+      <div className="min-h-screen bg-gradient-to-br from-background via-muted/30 to-background">
+        {/* Header com breadcrumb */}
+        <div className="bg-white/95 backdrop-blur-sm shadow-soft border-b border-border/50">
+          <div className="max-w-6xl mx-auto px-6 py-6">
+            <Button variant="outline" asChild className="mb-4 hover:bg-primary hover:text-white transition-colors">
+              <Link to="/blog">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to Blog
               </Link>
             </Button>
           </div>
-        </article>
-      </div>
+        </div>
+
+        <div className="max-w-6xl mx-auto px-6 py-12">
+          <div className="grid lg:grid-cols-4 gap-12">
+            {/* Conteúdo principal */}
+            <article className="lg:col-span-3">
+              {/* Featured Image */}
+              {post.featured_image_url && (
+                <div className="aspect-video bg-muted rounded-2xl overflow-hidden mb-8 shadow-medium">
+                  <img
+                    src={post.featured_image_url}
+                    alt={post.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
+
+              {/* Article Header */}
+              <header className="mb-12">
+                <div className="flex items-center gap-3 mb-6">
+                  {post.blog_categories && (
+                    <Badge
+                      style={{ backgroundColor: post.blog_categories.color || '#005A9C' }}
+                      className="text-white px-4 py-2 rounded-full"
+                    >
+                      {post.blog_categories.name}
+                    </Badge>
+                  )}
+                </div>
+
+                <h1 className="heading-1 text-foreground mb-6 leading-tight">
+                  {post.title}
+                </h1>
+
+                <div className="flex flex-wrap items-center gap-6 text-muted-foreground mb-8">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4" />
+                    <span className="body-small">{formatDate(post.published_at)}</span>
+                  </div>
+                  {post.reading_time && (
+                    <div className="flex items-center gap-2">
+                      <Clock className="h-4 w-4" />
+                      <span className="body-small">{post.reading_time} min read</span>
+                    </div>
+                  )}
+                  <div className="flex items-center gap-2">
+                    <Eye className="h-4 w-4" />
+                    <span className="body-small">{post.view_count} views</span>
+                  </div>
+                  {post.author && (
+                    <div className="flex items-center gap-2">
+                      <User className="h-4 w-4" />
+                      <span className="body-small">{post.author}</span>
+                    </div>
+                  )}
+                </div>
+
+                <p className="body-large text-muted-foreground leading-relaxed mb-8">
+                  {post.excerpt}
+                </p>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <Button variant="outline" size="sm" onClick={handleShare} className="hover:bg-primary hover:text-white transition-colors">
+                      <Share2 className="h-4 w-4 mr-2" />
+                      Share Article
+                    </Button>
+                  </div>
+                </div>
+              </header>
+
+              {/* Article Content */}
+              <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-soft border border-border/50 mb-12">
+                <div 
+                  className="article-content"
+                  dangerouslySetInnerHTML={{ __html: post.content }}
+                />
+              </div>
+
+              {/* Tags */}
+              {post.tags && post.tags.length > 0 && (
+                <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-soft border border-border/50 mb-12">
+                  <h3 className="heading-3 text-foreground mb-6">Related Topics</h3>
+                  <div className="flex flex-wrap gap-3">
+                    {post.tags.map((tag, index) => (
+                      <Badge key={index} variant="secondary" className="px-4 py-2 rounded-full hover:bg-primary hover:text-white transition-colors cursor-pointer">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Call to Action */}
+              <div className="bg-gradient-to-r from-primary via-primary-light to-secondary p-8 rounded-2xl text-white shadow-strong">
+                <h3 className="heading-2 mb-4 text-white">Ready to Start Your OSCE Preparation?</h3>
+                <p className="body-large text-white/95 mb-6 leading-relaxed">
+                  Join thousands of international nurses who have successfully passed their OSCE with our comprehensive preparation platform.
+                </p>
+                <Button asChild className="bg-white text-primary hover:bg-muted hover:text-primary-dark font-semibold px-8 py-3 rounded-xl transition-all duration-300">
+                  <Link to="/">
+                    Start Your Free Trial
+                  </Link>
+                </Button>
+              </div>
+            </article>
+
+            {/* Sidebar */}
+            <aside className="lg:col-span-1">
+              <div className="sticky top-8 space-y-8">
+                {/* Article Info */}
+                <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-soft border border-border/50">
+                  <h3 className="heading-4 text-foreground mb-4">Article Information</h3>
+                  <div className="space-y-3 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Article ID:</span>
+                      <span className="font-mono text-primary">{post.id}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Reading Time:</span>
+                      <span className="text-foreground">{post.reading_time} min</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Views:</span>
+                      <span className="text-foreground">{post.view_count}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Published:</span>
+                      <span className="text-foreground">{formatDate(post.published_at)}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Quick Navigation */}
+                <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-soft border border-border/50">
+                  <h3 className="heading-4 text-foreground mb-4">Quick Navigation</h3>
+                  <div className="space-y-2">
+                    <Button variant="ghost" asChild className="w-full justify-start hover:bg-primary hover:text-white">
+                      <Link to="/blog">← All Articles</Link>
+                    </Button>
+                    <Button variant="ghost" asChild className="w-full justify-start hover:bg-primary hover:text-white">
+                      <Link to="/blog/category/osce-exam-preparation">OSCE Preparation</Link>
+                    </Button>
+                    <Button variant="ghost" asChild className="w-full justify-start hover:bg-primary hover:text-white">
+                      <Link to="/">Start Free Trial</Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
       </div>
       <Footer />
     </>

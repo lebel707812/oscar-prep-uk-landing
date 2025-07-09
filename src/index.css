@@ -206,3 +206,296 @@ All colors MUST be HSL.
   }
 }
 
+
+/* Estilos específicos para artigos do blog */
+.article-content {
+  @apply text-muted-foreground leading-relaxed;
+}
+
+.article-content h1 {
+  @apply heading-1 text-foreground mt-12 mb-8 first:mt-0;
+}
+
+.article-content h2 {
+  @apply heading-2 text-foreground mt-12 mb-6;
+}
+
+.article-content h3 {
+  @apply heading-3 text-foreground mt-10 mb-4;
+}
+
+.article-content h4 {
+  @apply heading-4 text-foreground mt-8 mb-3;
+}
+
+.article-content p {
+  @apply body-text text-muted-foreground mb-6 leading-relaxed;
+}
+
+.article-content ul, .article-content ol {
+  @apply mb-6 space-y-2;
+}
+
+.article-content li {
+  @apply body-text text-muted-foreground leading-relaxed;
+}
+
+.article-content strong {
+  @apply text-foreground font-semibold;
+}
+
+.article-content em {
+  @apply italic;
+}
+
+.article-content blockquote {
+  @apply border-l-4 border-primary pl-6 py-4 my-8 bg-primary/5 rounded-r-lg;
+}
+
+.article-content blockquote p {
+  @apply body-large text-muted-foreground italic mb-0;
+}
+
+.article-content code {
+  @apply bg-muted px-2 py-1 rounded text-sm font-mono text-primary;
+}
+
+.article-content pre {
+  @apply bg-muted p-4 rounded-lg overflow-x-auto mb-6;
+}
+
+.article-content pre code {
+  @apply bg-transparent p-0;
+}
+
+.article-content a {
+  @apply text-primary hover:text-primary-dark underline transition-colors;
+}
+
+.article-content img {
+  @apply rounded-lg my-8 max-w-full h-auto;
+  box-shadow: var(--shadow-medium);
+}
+
+.article-content table {
+  @apply w-full border-collapse border border-border rounded-lg overflow-hidden my-8;
+}
+
+.article-content th {
+  @apply bg-muted px-4 py-3 text-left font-semibold text-foreground border-b border-border;
+}
+
+.article-content td {
+  @apply px-4 py-3 border-b border-border last:border-b-0;
+}
+
+.article-content hr {
+  @apply border-0 border-t border-border my-12;
+}
+
+/* Estilos para cards de destaque nos artigos */
+.article-highlight-card {
+  @apply bg-gradient-to-r from-primary/5 to-secondary/5 border border-primary/20 rounded-xl p-8 my-8;
+}
+
+.article-info-card {
+  @apply bg-secondary/10 border border-secondary/30 rounded-xl p-6 my-6;
+}
+
+.article-warning-card {
+  @apply bg-warning/10 border border-warning/30 rounded-xl p-6 my-6;
+}
+
+.article-success-card {
+  @apply bg-success/10 border border-success/30 rounded-xl p-6 my-6;
+}
+
+/* Animações para elementos interativos */
+.article-content .hover-lift {
+  @apply transition-transform duration-300 hover:-translate-y-1;
+}
+
+/* Responsividade para artigos */
+@media (max-width: 768px) {
+  .article-content h1 {
+    @apply text-2xl;
+  }
+  
+  .article-content h2 {
+    @apply text-xl;
+  }
+  
+  .article-content h3 {
+    @apply text-lg;
+  }
+  
+  .article-content .grid {
+    @apply grid-cols-1;
+  }
+}
+
+/* Estilos para navegação de artigos */
+.article-navigation {
+  @apply flex items-center justify-between py-8 border-t border-border mt-12;
+}
+
+.article-nav-link {
+  @apply flex items-center gap-3 p-4 rounded-xl border border-border hover:border-primary hover:bg-primary/5 transition-all duration-300 max-w-sm;
+}
+
+.article-nav-link:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-medium);
+}
+
+/* Estilos para sidebar de artigos */
+.article-sidebar {
+  @apply space-y-8;
+}
+
+.article-sidebar-card {
+  @apply bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-border/50;
+  box-shadow: var(--shadow-soft);
+}
+
+.article-toc {
+  @apply space-y-2;
+}
+
+.article-toc-link {
+  @apply block py-2 px-3 text-sm text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-lg transition-colors;
+}
+
+.article-toc-link.active {
+  @apply text-primary bg-primary/10 font-medium;
+}
+
+/* Estilos para compartilhamento social */
+.social-share-buttons {
+  @apply flex items-center gap-3 mt-6;
+}
+
+.social-share-button {
+  @apply w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110;
+}
+
+.social-share-button.twitter {
+  @apply bg-blue-500 text-white hover:bg-blue-600;
+}
+
+.social-share-button.linkedin {
+  @apply bg-blue-700 text-white hover:bg-blue-800;
+}
+
+.social-share-button.facebook {
+  @apply bg-blue-600 text-white hover:bg-blue-700;
+}
+
+/* Estilos para comentários (se implementados futuramente) */
+.article-comments {
+  @apply mt-16 pt-8 border-t border-border;
+}
+
+.comment-form {
+  @apply bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-border/50;
+}
+
+.comment-item {
+  @apply bg-muted/30 rounded-xl p-6 mb-4;
+}
+
+/* Estilos para breadcrumbs de artigos */
+.article-breadcrumbs {
+  @apply flex items-center gap-2 text-sm text-muted-foreground mb-6;
+}
+
+.article-breadcrumb-separator {
+  @apply text-muted-foreground/50;
+}
+
+.article-breadcrumb-link {
+  @apply hover:text-primary transition-colors;
+}
+
+/* Estilos para tags de artigos */
+.article-tags {
+  @apply flex flex-wrap gap-2 mt-8;
+}
+
+.article-tag {
+  @apply px-3 py-1 bg-muted text-muted-foreground rounded-full text-sm hover:bg-primary hover:text-white transition-colors cursor-pointer;
+}
+
+/* Estilos para autor do artigo */
+.article-author {
+  @apply flex items-center gap-4 p-6 bg-gradient-to-r from-muted/30 to-muted/10 rounded-xl border border-border/50 mt-12;
+}
+
+.article-author-avatar {
+  @apply w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center text-primary font-semibold text-lg;
+}
+
+.article-author-info h4 {
+  @apply heading-4 text-foreground mb-1;
+}
+
+.article-author-info p {
+  @apply body-small text-muted-foreground mb-0;
+}
+
+/* Estilos para artigos relacionados */
+.related-articles {
+  @apply grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12;
+}
+
+.related-article-card {
+  @apply bg-white/95 backdrop-blur-sm rounded-xl p-6 border border-border/50 hover:-translate-y-1 transition-all duration-300;
+  box-shadow: var(--shadow-soft);
+}
+
+.related-article-card:hover {
+  box-shadow: var(--shadow-strong);
+}
+
+.comment-form {
+  @apply bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-border/50;
+}
+
+.related-article-card p {
+  @apply body-small text-muted-foreground line-clamp-3 mb-0;
+}
+
+/* Estilos para loading de artigos */
+.article-loading {
+  @apply animate-pulse space-y-4;
+}
+
+.article-loading-title {
+  @apply h-8 bg-muted rounded w-3/4;
+}
+
+.article-loading-line {
+  @apply h-4 bg-muted rounded;
+}
+
+.article-loading-paragraph {
+  @apply space-y-2;
+}
+
+/* Estilos para erro de artigo */
+.article-error {
+  @apply text-center py-16;
+}
+
+.article-error-icon {
+  @apply w-16 h-16 mx-auto mb-4 text-muted-foreground;
+}
+
+.article-error-title {
+  @apply heading-2 text-foreground mb-4;
+}
+
+.article-error-message {
+  @apply body-text text-muted-foreground mb-8;
+}
+

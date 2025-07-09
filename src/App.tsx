@@ -160,7 +160,8 @@ const App = () => {
                   {/* Blog Routes */}
                   <Route path="/blog" element={<LazyBlogIndex />} />
                   <Route path="/blog/category/:categorySlug" element={<LazyBlogCategory />} />
-                  <Route path="/blog/:slug" element={<LazyBlogPost />} />
+                  <Route path="/blog/artigo/:id" element={<LazyBlogPost />} />
+                  <Route path="/blog/:slug" element={<LazyBlogPost />} /> {/* Backward compatibility */}
                   <Route
                     path="/dashboard/blog"
                     element={
