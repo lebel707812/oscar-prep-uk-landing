@@ -305,7 +305,7 @@ export const fetchUserAchievements = async (userId?: string): Promise<UserAchiev
       achievement:achievement_definitions(*)
     `)
     .eq('user_id', targetUserId)
-    .order('completed_at', { ascending: false, nullsLast: true });
+    .order('completed_at', { ascending: false });
 
   if (error) throw error;
   return data || [];
@@ -406,7 +406,7 @@ export const fetchLeaderboard = async (
 
     if (error) throw error;
 
-    return (data || []).map((entry, index) => ({
+    return (data || []).map((entry: any, index) => ({
       id: `${leaderboard.id}-${entry.user_id}`,
       leaderboard_id: leaderboard.id,
       user_id: entry.user_id,
@@ -430,7 +430,7 @@ export const fetchLeaderboard = async (
     .range(offset, offset + limit - 1);
 
   if (error) throw error;
-  return data || [];
+  return (data as any) || [];
 };
 
 export const getUserLeaderboardPosition = async (

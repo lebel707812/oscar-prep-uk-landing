@@ -167,7 +167,7 @@ export default function BlogIndex() {
     try {
       const result = await fetchBlogPosts(currentPage, 6, selectedCategory || undefined);
       if (result.data) {
-        setPosts(prev => [...prev, ...result.data]);
+        setPosts(prev => [...prev, ...(result.data as any) || []]);
         setHasMore(result.data.length === 6);
       }
     } catch (error) {

@@ -101,7 +101,7 @@ const SessionReview = () => {
 
       setSessionDetails({
         id: sessionData.id,
-        topic_name: sessionData.topics?.name || "Unknown Topic",
+        topic_name: (sessionData.topics as any)?.name || "Unknown Topic",
         level: sessionData.level,
         score: sessionData.score,
         time_spent: sessionData.time_spent,

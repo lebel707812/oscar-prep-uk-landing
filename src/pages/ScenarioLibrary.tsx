@@ -51,7 +51,7 @@ const ScenarioLibrary = () => {
         fetchTopicsWithCounts()
       ]);
       
-      setScenarios(scenariosData);
+      setScenarios(scenariosData as any);
       setTopics(topicsData);
     } catch (error) {
       console.error("Error loading data:", error);

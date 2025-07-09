@@ -280,4 +280,9 @@ export const uploadBlogImage = async (file: File, postId?: string) => {
   return { data: { url: publicUrl }, error: null };
 };
 
+// Funções adicionais para compatibilidade
+export const fetchBlogPostsByCategory = fetchBlogPosts;
+export const fetchBlogCategory = fetchCategoryBySlug;
+export const fetchBlogPost = fetchBlogPostBySlug;
+
 
