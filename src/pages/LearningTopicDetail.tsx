@@ -28,6 +28,7 @@ import { learningContent } from "@/data/learning-content";
 
 const LearningTopicDetail = () => {
   const { topicSlug } = useParams<{ topicSlug: string }>();
+  console.log("topicSlug from URL params:", topicSlug);
   const navigate = useNavigate();
   const [currentSession, setCurrentSession] = useState(0);
   const [currentSection, setCurrentSection] = useState(0);
@@ -35,6 +36,8 @@ const LearningTopicDetail = () => {
 
   // Find the topic based on the slug
   const topic = learningContent.find(t => t.slug === topicSlug);
+  console.log("Found topic:", topic);
+  console.log("Full learningContent array:", learningContent);
 
   useEffect(() => {
     if (!topic) {

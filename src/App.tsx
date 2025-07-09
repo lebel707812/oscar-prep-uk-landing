@@ -95,17 +95,13 @@ const App = () => {
                   <Route
                     path="/learning-hub"
                     element={
-                      <ProtectedRoute>
                         <LazyLearningHub />
-                      </ProtectedRoute>
                     }
                   />
                   <Route
                     path="/learning-hub/topic/:topicSlug"
                     element={
-                      <ProtectedRoute>
                         <LazyLearningTopicDetail />
-                      </ProtectedRoute>
                     }
                   />
                   <Route

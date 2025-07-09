@@ -184,8 +184,8 @@ const LearningHub = () => {
     // Map topic IDs to slugs
     const topicSlugs: { [key: number]: string } = {
       1: "history-taking-communication",
-      2: "physical-examination",
-      3: "medication-management",
+      2: "physical-examination-techniques",
+      3: "medication-management-calculations",
       4: "wound-care-infection-control",
       5: "vital-signs-monitoring",
       6: "emergency-procedures-cpr",
@@ -194,7 +194,7 @@ const LearningHub = () => {
       9: "professional-boundaries-ethics",
       10: "cultural-competency-diversity",
       11: "mental-health-assessment",
-      12: "pediatric-elderly-care",
+      12: "paediatric-elderly-care",
       13: "discharge-planning-education",
       14: "quality-improvement-evidence-based-practice"
     };
