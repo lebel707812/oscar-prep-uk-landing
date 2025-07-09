@@ -29,6 +29,7 @@ import {
 import { lazy } from 'react';
 const LazyResources = lazy(() => import("./pages/Resources"));
 const LazyLearningHub = lazy(() => import("./pages/LearningHub"));
+const LazyLearningTopicDetail = lazy(() => import("./pages/LearningTopicDetail"));
 const LazySessionHistory = lazy(() => import("./pages/SessionHistory"));
 const LazySessionReview = lazy(() => import("./pages/SessionReview"));
 const LazyPacientAI = lazy(() => import("./pages/PacientAI"));
@@ -96,6 +97,14 @@ const App = () => {
                     element={
                       <ProtectedRoute>
                         <LazyLearningHub />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/learning-hub/topic/:topicSlug"
+                    element={
+                      <ProtectedRoute>
+                        <LazyLearningTopicDetail />
                       </ProtectedRoute>
                     }
                   />

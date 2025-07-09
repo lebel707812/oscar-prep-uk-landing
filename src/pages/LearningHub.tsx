@@ -181,8 +181,28 @@ const LearningHub = () => {
   }, []);
 
   const handleTopicClick = (topicId: number) => {
-    // Navegar para a página específica do tópico (implementar futuramente)
-    console.log(`Navigating to topic ${topicId}`);
+    // Map topic IDs to slugs
+    const topicSlugs: { [key: number]: string } = {
+      1: "history-taking-communication",
+      2: "physical-examination",
+      3: "medication-management",
+      4: "wound-care-infection-control",
+      5: "vital-signs-monitoring",
+      6: "emergency-procedures-cpr",
+      7: "patient-safety-risk-assessment",
+      8: "documentation-record-keeping",
+      9: "professional-boundaries-ethics",
+      10: "cultural-competency-diversity",
+      11: "mental-health-assessment",
+      12: "pediatric-elderly-care",
+      13: "discharge-planning-education",
+      14: "quality-improvement-evidence-based-practice"
+    };
+    
+    const slug = topicSlugs[topicId];
+    if (slug) {
+      navigate(`/learning-hub/topic/${slug}`);
+    }
   };
 
   const getProgressColor = (progress: number) => {
