@@ -45,60 +45,12 @@ export default function BlogPost() {
           title: 'What is the OSCE and Why is it Crucial for International Nurses in the NHS?',
           slug: 'what-is-osce-crucial-international-nurses-nhs',
           excerpt: 'Discover everything about the Objective Structured Clinical Examination (OSCE) and its importance for international nurses wanting to work in the NHS.',
+          featured_image_url: '/images/osce_crucial.jpg',
           content: `
 <div class="prose prose-lg max-w-none">
-  <h1 class="heading-1 text-foreground mb-8">What is the OSCE and Why is it Crucial for International Nurses in the NHS?</h1>
-  
   <p class="body-large text-muted-foreground mb-8 leading-relaxed">
     The <strong>Objective Structured Clinical Examination (OSCE)</strong> is a practical assessment method used to evaluate clinical skills, knowledge, and competencies of healthcare professionals. For international nurses seeking to work in the NHS, the OSCE represents a crucial step in the registration process.
   </p>
-
-  <h2 class="heading-2 text-foreground mt-12 mb-6">Understanding the OSCE Format</h2>
-  
-  <p class="body-text text-muted-foreground mb-6 leading-relaxed">
-    The OSCE consists of multiple stations, each designed to assess specific clinical skills:
-  </p>
-
-  <div class="bg-primary/5 border border-primary/20 rounded-xl p-8 mb-8">
-    <h3 class="heading-3 text-primary mb-6">Station Types</h3>
-    <ul class="space-y-4">
-      <li class="flex items-start">
-        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
-        <div>
-          <strong class="text-foreground">History Taking:</strong> 
-          <span class="body-text text-muted-foreground ml-2">Gathering patient information through structured interviews</span>
-        </div>
-      </li>
-      <li class="flex items-start">
-        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
-        <div>
-          <strong class="text-foreground">Physical Examination:</strong> 
-          <span class="body-text text-muted-foreground ml-2">Demonstrating proper examination techniques</span>
-        </div>
-      </li>
-      <li class="flex items-start">
-        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
-        <div>
-          <strong class="text-foreground">Communication:</strong> 
-          <span class="body-text text-muted-foreground ml-2">Interacting effectively with patients and colleagues</span>
-        </div>
-      </li>
-      <li class="flex items-start">
-        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
-        <div>
-          <strong class="text-foreground">Clinical Procedures:</strong> 
-          <span class="body-text text-muted-foreground ml-2">Performing specific nursing interventions</span>
-        </div>
-      </li>
-      <li class="flex items-start">
-        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
-        <div>
-          <strong class="text-foreground">Emergency Scenarios:</strong> 
-          <span class="body-text text-muted-foreground ml-2">Responding to urgent clinical situations</span>
-        </div>
-      </li>
-    </ul>
-  </div>
 
   <h2 class="heading-2 text-foreground mt-12 mb-6">Why the OSCE Matters for International Nurses</h2>
 
@@ -179,53 +131,12 @@ export default function BlogPost() {
           title: 'The Art of History Taking: How to Collect Clinical History Effectively in the OSCE',
           slug: 'art-history-taking-clinical-history-osce',
           excerpt: 'Learn essential techniques for conducting effective history taking during the OSCE, including empathetic communication and structured information gathering.',
+          featured_image_url: '/images/history_taking.jpg',
           content: `
 <div class="prose prose-lg max-w-none">
-  <h1 class="heading-1 text-foreground mb-8">The Art of History Taking: How to Collect Clinical History Effectively in the OSCE</h1>
-  
   <p class="body-large text-muted-foreground mb-8 leading-relaxed">
     History taking is one of the most fundamental skills assessed in the OSCE examination. It requires a delicate balance of clinical knowledge, communication skills, and empathetic patient interaction. This comprehensive guide will help you master this essential competency.
   </p>
-
-  <h2 class="heading-2 text-foreground mt-12 mb-6">The Foundation of Effective History Taking</h2>
-  
-  <div class="bg-primary/5 border border-primary/20 rounded-xl p-8 mb-8">
-    <h3 class="heading-3 text-primary mb-6">Building Rapport</h3>
-    <div class="grid md:grid-cols-2 gap-6">
-      <div class="space-y-4">
-        <div class="flex items-start">
-          <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
-          <div>
-            <strong class="text-foreground">Introduce yourself professionally:</strong> 
-            <span class="body-text text-muted-foreground ml-2">State your name, role, and purpose</span>
-          </div>
-        </div>
-        <div class="flex items-start">
-          <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
-          <div>
-            <strong class="text-foreground">Ensure patient comfort:</strong> 
-            <span class="body-text text-muted-foreground ml-2">Check seating, privacy, and immediate needs</span>
-          </div>
-        </div>
-      </div>
-      <div class="space-y-4">
-        <div class="flex items-start">
-          <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
-          <div>
-            <strong class="text-foreground">Establish trust:</strong> 
-            <span class="body-text text-muted-foreground ml-2">Use open body language and appropriate eye contact</span>
-          </div>
-        </div>
-        <div class="flex items-start">
-          <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
-          <div>
-            <strong class="text-foreground">Show empathy:</strong> 
-            <span class="body-text text-muted-foreground ml-2">Acknowledge concerns and feelings</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <h2 class="heading-2 text-foreground mt-12 mb-6">The SOCRATES Framework</h2>
   
@@ -321,17 +232,631 @@ export default function BlogPost() {
           meta_description: 'Master history taking for the OSCE with our comprehensive guide. Learn communication techniques, structured approaches, and common scenarios.',
           tags: ['History Taking', 'OSCE', 'Communication Skills', 'Clinical Assessment', 'Patient Care'],
           blog_categories: { name: 'Communication Skills in OSCE', slug: 'communication-skills-osce', color: '#00BFA6' }
+        },
+        '1000151585': {
+          id: '1000151585',
+          title: 'Physical Examination Techniques: Mastering Clinical Skills for OSCE Success',
+          slug: 'physical-examination-techniques-clinical-skills-osce',
+          excerpt: 'Comprehensive guide to physical examination techniques required for OSCE, including systematic approaches and common assessment criteria.',
+          featured_image_url: '/images/physical_exam.webp',
+          content: `
+<div class="prose prose-lg max-w-none">
+  <p class="body-large text-muted-foreground mb-8 leading-relaxed">
+    Mastering physical examination techniques is paramount for success in the OSCE. This guide provides a systematic approach to common clinical assessments, ensuring you demonstrate competence and confidence.
+  </p>
+
+  <div class="bg-primary/5 border border-primary/20 rounded-xl p-8 mb-8">
+    <h3 class="heading-3 text-primary mb-6">The IPPA Framework</h3>
+    <ul class="space-y-4">
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Inspection:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Observe the patient for any visible signs</span>
+        </div>
+      </li>
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Palpation:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Feel for abnormalities, tenderness, or masses</span>
+        </div>
+      </li>
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Percussion:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Tap on the body surface to assess underlying structures</span>
+        </div>
+      </li>
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Auscultation:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Listen to body sounds using a stethoscope</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Key Systems to Master</h2>
+
+  <div class="grid md:grid-cols-2 gap-6 mb-8">
+    <div class="bg-secondary/10 border border-secondary/30 rounded-xl p-6">
+      <h3 class="heading-4 text-secondary mb-4">Cardiovascular System</h3>
+      <p class="body-text text-muted-foreground leading-relaxed">
+        Assess heart sounds, peripheral pulses, and signs of cardiac compromise.
+      </p>
+    </div>
+    <div class="bg-accent/10 border border-accent/30 rounded-xl p-6">
+      <h3 class="heading-4 text-accent mb-4">Respiratory System</h3>
+      <p class="body-text text-muted-foreground leading-relaxed">
+        Evaluate breath sounds, respiratory effort, and signs of respiratory distress.
+      </p>
+    </div>
+    <div class="bg-success/10 border border-success/30 rounded-xl p-6">
+      <h3 class="heading-4 text-success mb-4">Abdominal System</h3>
+      <p class="body-text text-muted-foreground leading-relaxed">
+        Perform systematic palpation, percussion, and auscultation of the abdomen.
+      </p>
+    </div>
+    <div class="bg-primary/10 border border-primary/30 rounded-xl p-6">
+      <h3 class="heading-4 text-primary mb-4">Neurological System</h3>
+      <p class="body-text text-muted-foreground leading-relaxed">
+        Assess cranial nerves, motor and sensory functions, and reflexes.
+      </p>
+    </div>
+  </div>
+
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Tips for OSCE Success</h2>
+  
+  <p class="body-text text-muted-foreground mb-6 leading-relaxed">
+    Practice makes perfect. Focus on a systematic approach and clear communication.
+  </p>
+
+  <div class="bg-gradient-to-r from-primary/5 to-secondary/5 border border-primary/20 rounded-xl p-8 mb-8">
+    <h3 class="heading-3 text-primary mb-6">Key Strategies</h3>
+    <ul class="space-y-2">
+      <li class="body-text text-muted-foreground">• Follow the IPPA sequence consistently</li>
+      <li class="body-text text-muted-foreground">• Explain each step to the patient</li>
+      <li class="body-text text-muted-foreground">• Maintain professionalism and empathy</li>
+      <li class="body-text text-muted-foreground">• Practice with peers and seek feedback</li>
+    </ul>
+  </div>
+
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Conclusion</h2>
+  
+  <p class="body-text text-muted-foreground mb-6 leading-relaxed">
+    Mastering physical examination techniques is a cornerstone of nursing practice and crucial for OSCE success. By adopting a systematic approach and honing your skills, you will be well-prepared to demonstrate competence and provide excellent patient care.
+  </p>
+</div>
+          `,
+          published_at: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+          reading_time: 15,
+          view_count: 156,
+          author: 'Dr. Emily White, RN',
+          meta_title: 'OSCE Physical Examination Guide | Clinical Skills',
+          meta_description: 'Comprehensive guide to physical examination techniques for OSCE. Master cardiovascular, respiratory, abdominal, and neurological assessments.',
+          tags: ['Physical Examination', 'OSCE', 'Clinical Skills', 'Nursing Assessment'],
+          blog_categories: { name: 'OSCE Exam Preparation', slug: 'osce-exam-preparation', color: '#005A9C' }
+        },
+        '1000151586': {
+          id: '1000151586',
+          title: 'Understanding NHS Culture: A Guide for International Nurses',
+          slug: 'understanding-nhs-culture-guide-international-nurses',
+          excerpt: 'Essential insights into NHS culture, values, and working practices that international nurses need to understand for successful integration.',
+          featured_image_url: '/images/nhs_culture.jpg',
+          content: `
+<div class="prose prose-lg max-w-none">
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Core NHS Values</h2>
+  
+  <p class="body-large text-muted-foreground mb-8 leading-relaxed">
+    For international nurses, understanding the culture of the National Health Service (NHS) in the UK is as crucial as mastering clinical skills. This guide provides essential insights into NHS values, working practices, and professional expectations.
+  </p>
+
+  <div class="bg-primary/5 border border-primary/20 rounded-xl p-8 mb-8">
+    <h3 class="heading-3 text-primary mb-6">The NHS Constitution</h3>
+    <ul class="space-y-4">
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Working together for patients:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Patients come first in everything the NHS does</span>
+        </div>
+      </li>
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Respect and dignity:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Treating everyone with compassion and respect</span>
+        </div>
+      </li>
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Commitment to quality of care:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Striving for excellence in all services</span>
+        </div>
+      </li>
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Compassion:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Care provided with empathy and kindness</span>
+        </div>
+      </li>
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Improving lives:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Making a difference to patients and communities</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Professional Expectations</h2>
+
+  <div class="grid md:grid-cols-2 gap-6 mb-8">
+    <div class="bg-secondary/10 border border-secondary/30 rounded-xl p-6">
+      <h3 class="heading-4 text-secondary mb-4">Teamwork and Collaboration</h3>
+      <p class="body-text text-muted-foreground leading-relaxed">
+        The NHS emphasizes multidisciplinary teamwork. Nurses are expected to collaborate closely with doctors, allied health professionals, and support staff.
+      </p>
+    </div>
+    <div class="bg-accent/10 border border-accent/30 rounded-xl p-6">
+      <h3 class="heading-4 text-accent mb-4">Accountability and Professionalism</h3>
+      <p class="body-text text-muted-foreground leading-relaxed">
+        Nurses are accountable for their actions and must adhere to the NMC Code of Conduct, maintaining high professional standards.
+      </p>
+    </div>
+    <div class="bg-success/10 border border-success/30 rounded-xl p-6">
+      <h3 class="heading-4 text-success mb-4">Continuous Learning</h3>
+      <p class="body-text text-muted-foreground leading-relaxed">
+        The NHS promotes a culture of continuous professional development. Nurses are encouraged to update their knowledge and skills regularly.
+      </p>
+    </div>
+    <div class="bg-primary/10 border border-primary/30 rounded-xl p-6">
+      <h3 class="heading-4 text-primary mb-4">Patient-Centered Care</h3>
+      <p class="body-text text-muted-foreground leading-relaxed">
+        Care delivery is always focused on the individual needs and preferences of the patient, promoting shared decision-making.
+      </p>
+    </div>
+  </div>
+
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Adapting to the UK Healthcare System</h2>
+  
+  <p class="body-text text-muted-foreground mb-6 leading-relaxed">
+    Cultural adaptation extends beyond clinical practice to daily interactions and communication styles.
+  </p>
+
+  <div class="bg-gradient-to-r from-primary/5 to-secondary/5 border border-primary/20 rounded-xl p-8 mb-8">
+    <h3 class="heading-3 text-primary mb-6">Communication Nuances</h3>
+    <ul class="space-y-2">
+      <li class="body-text text-muted-foreground">• Use clear, concise language</li>
+      <li class="body-text text-muted-foreground">• Understand indirect communication</li>
+      <li class="body-text text-muted-foreground">• Be aware of professional boundaries</li>
+      <li class="body-text text-muted-foreground">• Seek clarification when unsure</li>
+    </ul>
+  </div>
+
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Conclusion</h2>
+  
+  <p class="body-text text-muted-foreground mb-6 leading-relaxed">
+    Embracing NHS culture is a journey that enriches your professional life and enhances patient care. By understanding and embodying these values, international nurses can thrive in the UK healthcare environment.
+  </p>
+</div>
+          `,
+          published_at: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+          reading_time: 10,
+          view_count: 203,
+          author: 'Dr. John Smith, NHS Consultant',
+          meta_title: 'NHS Culture Guide for International Nurses',
+          meta_description: 'A comprehensive guide for international nurses to understand NHS culture, values, and professional expectations for successful integration.',
+          tags: ['NHS', 'Culture', 'International Nurses', 'Healthcare System'],
+          blog_categories: { name: 'NHS Updates and Culture', slug: 'nhs-updates-culture', color: '#EF4444' }
+        },
+        '1000151587': {
+          id: '1000151587',
+          title: 'From Mumbai to Manchester: My OSCE Success Story',
+          slug: 'mumbai-manchester-osce-success-story',
+          excerpt: 'Personal journey of an international nurse from India who successfully passed the OSCE and now works in the NHS.',
+          featured_image_url: '/images/mumbai_manchester.jpg',
+          content: `
+<div class="prose prose-lg max-w-none">
+  <h2 class="heading-2 text-foreground mt-12 mb-6">The Decision to Move</h2>
+  
+  <p class="body-large text-muted-foreground mb-8 leading-relaxed">
+    My name is Priya Sharma, and I am an international nurse from Mumbai, India. My journey to working in the NHS in Manchester was challenging but incredibly rewarding, culminating in passing the OSCE.
+  </p>
+
+  <div class="bg-primary/5 border border-primary/20 rounded-xl p-8 mb-8">
+    <h3 class="heading-3 text-primary mb-6">Why the UK?</h3>
+    <ul class="space-y-4">
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Career Growth:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Opportunities for specialization and professional development</span>
+        </div>
+      </li>
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Quality of Life:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Better work-life balance and social infrastructure</span>
+        </div>
+      </li>
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Global Experience:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Exposure to a world-class healthcare system</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <h2 class="heading-2 text-foreground mt-12 mb-6">OSCE Preparation Journey</h2>
+
+  <div class="grid md:grid-cols-2 gap-6 mb-8">
+    <div class="bg-secondary/10 border border-secondary/30 rounded-xl p-6">
+      <h3 class="heading-4 text-secondary mb-4">Challenges Faced</h3>
+      <p class="body-text text-muted-foreground leading-relaxed">
+        Adapting to new clinical guidelines and communication styles was initially challenging. The pressure of the exam was immense.
+      </p>
+    </div>
+    <div class="bg-accent/10 border border-accent/30 rounded-xl p-6">
+      <h3 class="heading-4 text-accent mb-4">Support System</h3>
+      <p class="body-text text-muted-foreground leading-relaxed">
+        I relied heavily on online resources, mock exams, and a study group with other international nurses. This community was invaluable.
+      </p>
+    </div>
+  </div>
+
+  <h2 class="heading-2 text-foreground mt-12 mb-6">OSCE Exam Day</h2>
+  
+  <p class="body-text text-muted-foreground mb-6 leading-relaxed">
+    The exam day was nerve-wracking, but my preparation paid off. I focused on staying calm, following the structured approach, and communicating clearly.
+  </p>
+
+  <div class="bg-gradient-to-r from-success/10 to-primary/10 border border-success/30 rounded-xl p-8 mb-8">
+    <h3 class="heading-3 text-success mb-4">Key Moment</h3>
+    <p class="body-text text-muted-foreground leading-relaxed">
+      The moment I received my OSCE pass result was one of the happiest of my life. All the hard work and sacrifices felt worth it.
+    </p>
+  </div>
+
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Life in the NHS</h2>
+  
+  <p class="body-text text-muted-foreground mb-6 leading-relaxed">
+    Working as a nurse in the NHS has been incredibly fulfilling. The team is supportive, and I am constantly learning and growing.
+  </p>
+
+  <div class="bg-gradient-to-r from-primary/5 to-secondary/5 border border-primary/20 rounded-xl p-8">
+    <h3 class="heading-3 text-primary mb-6">Advice for Aspiring Nurses</h3>
+    <ul class="space-y-2">
+      <li class="body-text text-muted-foreground">• Start preparing early</li>
+      <li class="body-text text-muted-foreground">• Join study groups</li>
+      <li class="body-text text-muted-foreground">• Practice communication skills</li>
+      <li class="body-text text-muted-foreground">• Believe in yourself</li>
+    </ul>
+  </div>
+</div>
+          `,
+          published_at: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+          reading_time: 7,
+          view_count: 312,
+          author: 'Priya Sharma, RN',
+          meta_title: 'My OSCE Success Story | International Nurse NHS',
+          meta_description: 'Read Priya Sharma\'s inspiring journey from Mumbai to Manchester, successfully passing the OSCE and working as a nurse in the NHS.',
+          tags: ['Success Story', 'OSCE', 'International Nurses', 'NHS', 'Personal Journey'],
+          blog_categories: { name: 'Success Stories and Inspiration', slug: 'success-stories-inspiration', color: '#8B5CF6' }
+        },
+        '1000151588': {
+          id: '1000151588',
+          title: 'Effective Study Techniques for OSCE Preparation: Evidence-Based Approaches',
+          slug: 'effective-study-techniques-osce-preparation',
+          excerpt: 'Research-backed study methods and techniques that have proven effective for OSCE preparation among international nursing candidates.',
+          featured_image_url: '/images/study_techniques.jpeg',
+          content: `
+<div class="prose prose-lg max-w-none">
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Active Recall and Spaced Repetition</h2>
+  
+  <p class="body-large text-muted-foreground mb-8 leading-relaxed">
+    Preparing for the OSCE requires more than just memorization; it demands effective study techniques that foster deep understanding and practical application. This guide explores evidence-based approaches to maximize your preparation.
+  </p>
+
+  <div class="bg-primary/5 border border-primary/20 rounded-xl p-8 mb-8">
+    <h3 class="heading-3 text-primary mb-6">Why They Work</h3>
+    <ul class="space-y-4">
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Active Recall:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Retrieving information from memory rather than passively re-reading</span>
+        </div>
+      </li>
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Spaced Repetition:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Reviewing material at increasing intervals over time</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Practice-Based Learning</h2>
+
+  <div class="grid md:grid-cols-2 gap-6 mb-8">
+    <div class="bg-secondary/10 border border-secondary/30 rounded-xl p-6">
+      <h3 class="heading-4 text-secondary mb-4">Mock OSCEs</h3>
+      <p class="body-text text-muted-foreground leading-relaxed">
+        Simulate the exam environment to build confidence and identify areas for improvement. Practice under timed conditions.
+      </p>
+    </div>
+    <div class="bg-accent/10 border border-accent/30 rounded-xl p-6">
+      <h3 class="heading-4 text-accent mb-4">Role-Playing</h3>
+      <p class="body-text text-muted-foreground leading-relaxed">
+        Practice communication and clinical skills with peers or mentors. Get constructive feedback on your performance.
+      </p>
+    </div>
+  </div>
+
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Utilizing Resources Effectively</h2>
+  
+  <p class="body-text text-muted-foreground mb-6 leading-relaxed">
+    Leverage available resources to supplement your study plan.
+  </p>
+
+  <div class="bg-gradient-to-r from-success/10 to-primary/10 border border-success/30 rounded-xl p-8 mb-8">
+    <h3 class="heading-3 text-success mb-4">Recommended Resources</h3>
+    <ul class="space-y-2">
+      <li class="body-text text-muted-foreground">• OSCE textbooks and guides</li>
+      <li class="body-text text-muted-foreground">• Online video tutorials</li>
+      <li class="body-text text-muted-foreground">• Clinical skills manuals</li>
+      <li class="body-text text-muted-foreground">• Peer-reviewed articles</li>
+    </ul>
+  </div>
+
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Conclusion</h2>
+  
+  <p class="body-text text-muted-foreground mb-6 leading-relaxed">
+    By integrating evidence-based study techniques like active recall, spaced repetition, and practice-based learning, you can significantly enhance your OSCE preparation and increase your chances of success. Consistent effort and smart study habits are key.
+  </p>
+</div>
+          `,
+          published_at: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
+          reading_time: 11,
+          view_count: 178,
+          author: 'Prof. David Green, PhD',
+          meta_title: 'OSCE Study Techniques | Evidence-Based Preparation',
+          meta_description: 'Explore effective study techniques for OSCE preparation, including active recall, spaced repetition, and practice-based learning for international nurses.',
+          tags: ['Study Tips', 'OSCE', 'Preparation', 'Evidence-Based', 'Learning'],
+          blog_categories: { name: 'Study Tips and Resources', slug: 'study-tips-resources', color: '#F59E0B' }
+        },
+        '1000151589': {
+          id: '1000151589',
+          title: 'Medication Management in OSCE: Safe Practice and Calculation Skills',
+          slug: 'medication-management-osce-safe-practice',
+          excerpt: 'A detailed guide on medication management, safe drug administration, and dosage calculation skills essential for the OSCE and clinical practice.',
+          featured_image_url: '/images/medication_management.jpg',
+          content: `
+<div class="prose prose-lg max-w-none">
+  <h2 class="heading-2 text-foreground mt-12 mb-6">The Five Rights of Medication Administration</h2>
+  
+  <p class="body-large text-muted-foreground mb-8 leading-relaxed">
+    Medication management is a critical component of nursing practice and a frequently assessed area in the OSCE. Ensuring patient safety through accurate administration and calculation is paramount.
+  </p>
+
+  <div class="bg-primary/5 border border-primary/20 rounded-xl p-8 mb-8">
+    <h3 class="heading-3 text-primary mb-6">The 'Rights' Framework</h3>
+    <ul class="space-y-4">
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Right Patient:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Verify patient identity using at least two identifiers</span>
+        </div>
+      </li>
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Right Drug:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Check the medication name and form carefully</span>
+        </div>
+      </li>
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Right Dose:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Ensure the dosage is correct and calculated accurately</span>
+        </div>
+      </li>
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Right Route:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Confirm the correct route of administration</span>
+        </div>
+      </li>
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Right Time:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Administer the medication at the prescribed time</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Dosage Calculation Skills</h2>
+
+  <div class="grid md:grid-cols-2 gap-6 mb-8">
+    <div class="bg-secondary/10 border border-secondary/30 rounded-xl p-6">
+      <h3 class="heading-4 text-secondary mb-4">Oral Medications</h3>
+      <p class="body-text text-muted-foreground leading-relaxed">
+        Practice calculating doses for tablets, capsules, and liquid medications based on prescribed amounts and available concentrations.
+      </p>
+    </div>
+    <div class="bg-accent/10 border border-accent/30 rounded-xl p-6">
+      <h3 class="heading-4 text-accent mb-4">Parenteral Medications</h3>
+      <p class="body-text text-muted-foreground leading-relaxed">
+        Master calculations for injections (intramuscular, subcutaneous, intravenous) including reconstitution and dilution.
+      </p>
+    </div>
+  </div>
+
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Safe Administration Practices</h2>
+  
+  <p class="body-text text-muted-foreground mb-6 leading-relaxed">
+    Beyond calculations, the OSCE assesses your ability to safely administer medications in a clinical setting.
+  </p>
+
+  <div class="bg-gradient-to-r from-success/10 to-primary/10 border border-success/30 rounded-xl p-8 mb-8">
+    <h3 class="heading-3 text-success mb-4">Key Safety Checks</h3>
+    <ul class="space-y-2">
+      <li class="body-text text-muted-foreground">• Double-check calculations with another nurse</li>
+      <li class="body-text text-muted-foreground">• Assess for allergies and contraindications</li>
+      <li class="body-text text-muted-foreground">• Educate the patient about the medication</li>
+      <li class="body-text text-muted-foreground">• Document administration accurately and promptly</li>
+    </ul>
+  </div>
+
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Conclusion</h2>
+  
+  <p class="body-text text-muted-foreground mb-6 leading-relaxed">
+    Proficiency in medication management is non-negotiable for nurses. By diligently practicing the 'Five Rights' and honing your calculation skills, you will demonstrate competence and ensure patient safety in the OSCE and beyond.
+  </p>
+</div>
+          `,
+          published_at: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString(),
+          reading_time: 9,
+          view_count: 210,
+          author: 'Nurse Educator',
+          meta_title: 'OSCE Medication Management | Safe Practice & Calculations',
+          meta_description: 'Guide to medication management for OSCE, covering safe administration, dosage calculation, and the Five Rights of medication.',
+          tags: ['Medication Management', 'OSCE', 'Drug Calculation', 'Patient Safety', 'Nursing Skills'],
+          blog_categories: { name: 'Clinical Skills', slug: 'clinical-skills', color: '#1976D2' }
+        },
+        '1000151590': {
+          id: '1000151590',
+          title: 'Wound Care Management: Best Practices for OSCE and Clinical Settings',
+          slug: 'wound-care-management-best-practices',
+          excerpt: 'Essential guide to wound care management, including assessment, dressing techniques, and infection control for OSCE and daily nursing practice.',
+          featured_image_url: '/images/wound_care.jpg',
+          content: `
+<div class="prose prose-lg max-w-none">
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Wound Assessment Principles</h2>
+  
+  <p class="body-large text-muted-foreground mb-8 leading-relaxed">
+    Effective wound care management is a fundamental nursing skill, crucial for patient recovery and a common station in the OSCE. This guide outlines best practices for assessment and intervention.
+  </p>
+
+  <div class="bg-primary/5 border border-primary/20 rounded-xl p-8 mb-8">
+    <h3 class="heading-3 text-primary mb-6">TIME Framework for Wound Bed Preparation</h3>
+    <ul class="space-y-4">
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Tissue:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Debridement of non-viable tissue</span>
+        </div>
+      </li>
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Infection/Inflammation:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Management of infection and inflammation</span>
+        </div>
+      </li>
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Moisture Imbalance:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Addressing exudate levels</span>
+        </div>
+      </li>
+      <li class="flex items-start">
+        <div class="w-2 h-2 bg-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+        <div>
+          <strong class="text-foreground">Edge of Wound:</strong> 
+          <span class="body-text text-muted-foreground ml-2">Non-advancing or undermined edges</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Dressing Selection and Application</h2>
+
+  <div class="grid md:grid-cols-2 gap-6 mb-8">
+    <div class="bg-secondary/10 border border-secondary/30 rounded-xl p-6">
+      <h3 class="heading-4 text-secondary mb-4">Types of Dressings</h3>
+      <p class="body-text text-muted-foreground leading-relaxed">
+        Hydrocolloids, alginates, foams, films, and hydrogels – understand their indications and contraindications.
+      </p>
+    </div>
+    <div class="bg-accent/10 border border-accent/30 rounded-xl p-6">
+      <h3 class="heading-4 text-accent mb-4">Application Techniques</h3>
+      <p class="body-text text-muted-foreground leading-relaxed">
+        Sterile technique, proper sizing, and securement to promote healing and prevent infection.
+      </p>
+    </div>
+  </div>
+
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Infection Control in Wound Care</h2>
+  
+  <p class="body-text text-muted-foreground mb-6 leading-relaxed">
+    Preventing infection is paramount in wound management. Adhere to strict aseptic techniques.
+  </p>
+
+  <div class="bg-gradient-to-r from-success/10 to-primary/10 border border-success/30 rounded-xl p-8 mb-8">
+    <h3 class="heading-3 text-success mb-4">Key Infection Prevention Strategies</h3>
+    <ul class="space-y-2">
+      <li class="body-text text-muted-foreground">• Hand hygiene before and after contact</li>
+      <li class="body-text text-muted-foreground">• Use of personal protective equipment (PPE)</li>
+      <li class="body-text text-muted-foreground">• Aseptic non-touch technique (ANTT)</li>
+      <li class="body-text text-muted-foreground">• Proper disposal of contaminated materials</li>
+    </ul>
+  </div>
+
+  <h2 class="heading-2 text-foreground mt-12 mb-6">Conclusion</h2>
+  
+  <p class="body-text text-muted-foreground mb-6 leading-relaxed">
+    Proficiency in medication management is non-negotiable for nurses. By diligently practicing the 'Five Rights' and honing your calculation skills, you will demonstrate competence and ensure patient safety in the OSCE and beyond.
+  </p>
+</div>
+          `,
+          published_at: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString(),
+          reading_time: 10,
+          view_count: 195,
+          author: 'Clinical Nurse Specialist',
+          meta_title: 'OSCE Wound Care Management | Best Practices',
+          meta_description: 'Guide to wound care management for OSCE, covering assessment, dressing techniques, and infection control for nurses.',
+          tags: ['Wound Care', 'OSCE', 'Clinical Skills', 'Infection Control', 'Nursing Practice'],
+          blog_categories: { name: 'Clinical Skills', slug: 'clinical-skills', color: '#1976D2' }
         }
       };
 
       // Buscar por ID primeiro, depois por slug para compatibilidade
       const postKey = id || slug;
-      const mockPost = mockPosts[postKey!];
+      let foundPost = mockPosts[postKey!];
+
+      // Fallback para buscar por slug se o ID não for encontrado
+      if (!foundPost && slug) {
+        for (const key in mockPosts) {
+          if (mockPosts[key].slug === slug) {
+            foundPost = mockPosts[key];
+            break;
+          }
+        }
+      }
       
-      if (mockPost) {
-        setPost(mockPost);
+      if (foundPost) {
+        setPost(foundPost);
         // Simular incremento de visualizações
-        mockPost.view_count = (mockPost.view_count || 0) + 1;
+        foundPost.view_count = (foundPost.view_count || 0) + 1;
       }
 
     } catch (error) {
@@ -563,4 +1088,10 @@ export default function BlogPost() {
     </>
   );
 }
+
+
+
+
+
+
 
