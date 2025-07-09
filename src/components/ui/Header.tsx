@@ -58,7 +58,7 @@ const Header = () => {
     { path: '/dashboard/scenario-library', label: 'Scenario Library', Icon: Library },
     { path: '/dashboard/session-history', label: 'Session History', Icon: History },
     { path: '/dashboard/pacient-ai', label: 'PacientAI', Icon: User },
-    { path: '/dashboard/resources', label: 'Resources', Icon: BookOpen },
+    { path: '/learning-hub', label: 'Learning Hub', Icon: BookOpen },
     { path: '/blog', label: 'Blog', Icon: BookOpen }, // Adicionado o link para o blog
   ];
 

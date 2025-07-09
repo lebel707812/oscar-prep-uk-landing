@@ -125,8 +125,8 @@ const UnifiedHeader = () => {
       requiresAuth: true 
     },
     { 
-      path: '/dashboard/resources', 
-      label: 'Resources', 
+      path: '/learning-hub', 
+      label: 'Learning Hub', 
       Icon: BookOpen, 
       requiresAuth: true 
     },

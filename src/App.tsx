@@ -28,6 +28,7 @@ import {
 // Lazy loading para outras páginas
 import { lazy } from 'react';
 const LazyResources = lazy(() => import("./pages/Resources"));
+const LazyLearningHub = lazy(() => import("./pages/LearningHub"));
 const LazySessionHistory = lazy(() => import("./pages/SessionHistory"));
 const LazySessionReview = lazy(() => import("./pages/SessionReview"));
 const LazyPacientAI = lazy(() => import("./pages/PacientAI"));
@@ -87,6 +88,14 @@ const App = () => {
                     element={
                       <ProtectedRoute>
                         <LazyResources />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/learning-hub"
+                    element={
+                      <ProtectedRoute>
+                        <LazyLearningHub />
                       </ProtectedRoute>
                     }
                   />
