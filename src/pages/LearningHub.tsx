@@ -181,10 +181,10 @@ const LearningHub = () => {
   }, []);
 
   const handleTopicClick = (topicId: number) => {
-    // Map topic IDs to slugs
+    // Map topic IDs to slugs - using the exact slugs from learning-content.ts
     const topicSlugs: { [key: number]: string } = {
       1: "history-taking-communication",
-      2: "physical-examination-techniques",
+      2: "physical-examination-techniques", 
       3: "medication-management-calculations",
       4: "wound-care-infection-control",
       5: "vital-signs-monitoring",
@@ -200,6 +200,7 @@ const LearningHub = () => {
     };
     
     const slug = topicSlugs[topicId];
+    console.log("Navigating to topic with ID:", topicId, "and slug:", slug);
     if (slug) {
       navigate(`/learning-hub/topic/${slug}`);
     }

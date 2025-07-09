@@ -127,7 +127,7 @@ const LearningTopicDetail = () => {
         return (
           <InteractiveQuiz
             title={currentSectionData.title}
-            questions={currentSectionData.questions || []}
+            questions={currentSectionData.quizQuestions || []}
             onComplete={handleSectionComplete}
             isCompleted={completedSections.has(`${currentSession}-${currentSection}`)}
           />
@@ -136,8 +136,8 @@ const LearningTopicDetail = () => {
         return (
           <CaseStudy
             title={currentSectionData.title}
-            scenario={currentSectionData.scenario || ''}
-            questions={currentSectionData.questions || []}
+            scenario={currentSectionData.caseStudyContent || currentSectionData.content}
+            questions={currentSectionData.quizQuestions || []}
             onComplete={handleSectionComplete}
             isCompleted={completedSections.has(`${currentSession}-${currentSection}`)}
           />
@@ -147,7 +147,7 @@ const LearningTopicDetail = () => {
           <VideoEmbed
             title={currentSectionData.title}
             videoUrl={currentSectionData.videoUrl || ''}
-            description={currentSectionData.description || ''}
+            description={currentSectionData.content || ''}
             onComplete={handleSectionComplete}
             isCompleted={completedSections.has(`${currentSession}-${currentSection}`)}
           />
@@ -172,8 +172,8 @@ const LearningTopicDetail = () => {
           </Button>
           
           <div className="flex items-center gap-4 mb-4">
-            <div className={`p-3 rounded-lg ${topic.color} bg-opacity-10`}>
-              <topic.icon className={`h-8 w-8 ${topic.color.replace('bg-', 'text-')}`} />
+            <div className="p-3 rounded-lg bg-blue-500 bg-opacity-10">
+              <topic.icon className="h-8 w-8 text-blue-500" />
             </div>
             <div>
               <h1 className="text-3xl font-bold text-gray-900">{topic.title}</h1>
