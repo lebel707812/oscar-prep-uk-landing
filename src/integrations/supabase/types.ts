@@ -1528,3 +1528,49 @@ export const Constants = {
     Enums: {},
   },
 } as const
+
+
+export type LearningTopic = {
+  id: string;
+  title: string;
+  description: string;
+  icon: React.ElementType;
+  slug: string;
+  totalEstimatedTime: number;
+  sessions: LearningSession[];
+};
+
+export type LearningSession = {
+  id: string;
+  title: string;
+  description: string;
+  sections: LearningSection[];
+};
+
+export type LearningSection = {
+  id: string;
+  title: string;
+  type: "content" | "quiz" | "case-study" | "video" | "external-link";
+  content: string;
+  estimatedTime: number;
+  quizQuestions?: QuizQuestion[];
+  caseQuestions?: CaseQuestion[];
+  caseStudyContent?: string;
+  videoUrl?: string;
+  externalUrl?: string;
+};
+
+export type QuizQuestion = {
+  id: string;
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  explanation: string;
+};
+
+export type CaseQuestion = {
+  id: string;
+  question: string;
+  sampleAnswer: string;
+  keyPoints: string[];
+};
