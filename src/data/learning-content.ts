@@ -79,32 +79,32 @@ export const learningContent: LearningTopic[] = [
             id: "history-taking-1-1",
             title: "1.1 Principles of Effective Communication",
             type: "content",
-            content: `Para se comunicar bem com pacientes, você precisa:
+            content: `To communicate well with patients, you need to:
 
-• Cumprimentar o paciente com educação
-• Olhar nos olhos enquanto conversa  
-• Escutar sem interromper
-• Mostrar que você se importa
-• Falar de forma clara e simples
-• Dar tempo para o paciente falar
+• Greet the patient politely
+• Make eye contact whilst talking
+• Listen without interrupting
+• Show that you care
+• Speak clearly and simply
+• Give the patient time to talk
 
-Lembre-se: o paciente está nervoso e precisa se sentir seguro com você.`,
+Remember: the patient is nervous and needs to feel safe with you.`,
             estimatedTime: 10,
           },
           {
             id: "history-taking-1-2",
             title: "1.2 Basic History Taking Structure",
             type: "content",
-            content: `Siga esta ordem sempre:
+            content: `Follow this order always:
 
-1. **Apresente-se**: "Olá, eu sou [nome], sou enfermeiro(a)"
-2. **Pergunte o motivo**: "O que te trouxe aqui hoje?"
-3. **Deixe falar**: Não interrompa no início
-4. **Faça perguntas**: Quando, onde, como começou?
-5. **Anote tudo**: Escreva as informações importantes
-6. **Confirme**: "Entendi certo que...?"
+1. **Introduce yourself**: "Hello, I'm [name], I'm a nurse"
+2. **Ask the reason**: "What brings you here today?"
+3. **Let them speak**: Don't interrupt at the beginning
+4. **Ask questions**: When, where, how did it start?
+5. **Write everything**: Record important information
+6. **Confirm**: "Am I right that...?"
 
-É simples: ouvir, perguntar, anotar e confirmar.`,
+It's simple: listen, ask, write and confirm.`,
             estimatedTime: 10,
           },
           {
@@ -150,42 +150,42 @@ Lembre-se: o paciente está nervoso e precisa se sentir seguro com você.`,
             id: "history-taking-2-1",
             title: "2.1 SOCRATES Framework for Pain Assessment",
             type: "content",
-            content: `SOCRATES é um método para avaliar dor de forma completa:
+            content: `SOCRATES is a method to assess pain comprehensively:
 
-**S** - Site: Onde é a dor?
-**O** - Onset: Quando começou?
-**C** - Character: Como é a dor? (pontada, queimação, etc)
-**R** - Radiation: A dor irradia para outro lugar?
-**A** - Associations: Tem outros sintomas junto?
-**T** - Time: Quanto tempo dura?
-**E** - Exacerbating/Relieving: O que piora/melhora?
-**S** - Severity: Numa escala de 1-10, qual a intensidade?
+**S** - Site: Where is the pain?
+**O** - Onset: When did it start?
+**C** - Character: What does the pain feel like? (stabbing, burning, etc)
+**R** - Radiation: Does the pain spread elsewhere?
+**A** - Associations: Are there other symptoms with it?
+**T** - Time: How long does it last?
+**E** - Exacerbating/Relieving: What makes it worse/better?
+**S** - Severity: On a scale of 1-10, how intense is it?
 
-Use sempre que o paciente reclamar de dor.`,
+Use this whenever a patient complains of pain.`,
             estimatedTime: 15,
           },
           {
             id: "history-taking-2-2",
             title: "2.2 Handling Difficult Conversations",
             type: "content",
-            content: `Às vezes é difícil conversar com pacientes. Aqui estão dicas:
+            content: `Sometimes it's difficult to talk with patients. Here are tips:
 
-**Paciente nervoso/chorando:**
-• Diga: "Vejo que está preocupado"
-• Ofereça lenços
-• Dê tempo para se acalmar
+**Nervous/crying patient:**
+• Say: "I can see you're worried"
+• Offer tissues
+• Give time to calm down
 
-**Paciente bravo:**
-• Mantenha a calma
-• Escute sem interromper
-• Não leve para o lado pessoal
+**Angry patient:**
+• Stay calm
+• Listen without interrupting
+• Don't take it personally
 
-**Barreira de idioma:**
-• Use tradutor profissional
-• Fale devagar e claro
-• Confirme se entendeu
+**Language barrier:**
+• Use professional interpreter
+• Speak slowly and clearly
+• Confirm understanding
 
-Lembre-se: paciência é fundamental.`,
+Remember: patience is essential.`,
             estimatedTime: 15,
           },
           {
@@ -249,49 +249,49 @@ The patient clutches his chest and says: "It feels like an elephant is sitting o
             id: "history-taking-3-1",
             title: "3.1 Complex History Taking Strategies",
             type: "content",
-            content: `Situações complexas exigem habilidades avançadas:
+            content: `Complex situations require advanced skills:
 
-**Múltiplas queixas:**
-• Pergunte: "Qual sua maior preocupação hoje?"
-• Organize por prioridade
-• Conecte sintomas relacionados
+**Multiple complaints:**
+• Ask: "What's your main concern today?"
+• Organise by priority
+• Connect related symptoms
 
-**Tópicos sensíveis:**
-• História sexual, drogas, violência
-• Seja profissional e sem julgamento
-• Explique por que precisa perguntar
+**Sensitive topics:**
+• Sexual history, drugs, violence
+• Be professional and non-judgmental
+• Explain why you need to ask
 
-**Entrevista motivacional:**
-• Explore a ambivalência do paciente
-• "Como você se sente sobre parar de fumar?"
-• Apoie a autoeficácia
+**Motivational interviewing:**
+• Explore patient ambivalence
+• "How do you feel about stopping smoking?"
+• Support self-efficacy
 
-Lembre-se: casos complexos precisam de paciência e técnica.`,
+Remember: complex cases require patience and technique.`,
             estimatedTime: 20,
           },
           {
             id: "history-taking-3-2",
             title: "3.2 Cultural Competency and Communication",
             type: "content", 
-            content: `Cuidar de pessoas de diferentes culturas:
+            content: `Caring for people from different cultures:
 
-**Diferenças culturais:**
-• Contato visual (pode ser desrespeitoso em algumas culturas)
-• Espaço pessoal e toque
-• Papel da família nas decisões
-• Crenças sobre doença e cura
+**Cultural differences:**
+• Eye contact (may be disrespectful in some cultures)
+• Personal space and touch
+• Family role in decisions
+• Beliefs about illness and healing
 
-**Com intérpretes:**
-• Fale diretamente com o paciente
-• Use intérpretes profissionais, não família
-• Confirme o entendimento
+**With interpreters:**
+• Speak directly to the patient
+• Use professional interpreters, not family
+• Confirm understanding
 
-**Populações especiais:**
-• LGBTQ+, refugiados, idosos
-• Pessoas com deficiência
-• Diferentes religiões
+**Special populations:**
+• LGBTQ+, refugees, elderly
+• People with disabilities
+• Different religions
 
-Seja respeitoso, humilde e curioso sobre outras culturas.`,
+Be respectful, humble and curious about other cultures.`,
             estimatedTime: 20,
           },
           {
