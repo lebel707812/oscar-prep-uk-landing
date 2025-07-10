@@ -355,6 +355,7 @@ export type Database = {
       exam_sessions: {
         Row: {
           created_at: string | null
+          feedback: string | null
           finished_at: string | null
           id: string
           level: number
@@ -366,6 +367,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
+          feedback?: string | null
           finished_at?: string | null
           id?: string
           level: number
@@ -377,6 +379,7 @@ export type Database = {
         }
         Update: {
           created_at?: string | null
+          feedback?: string | null
           finished_at?: string | null
           id?: string
           level?: number
