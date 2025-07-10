@@ -79,47 +79,7 @@ export const learningContent: LearningTopic[] = [
             id: "history-taking-1-1",
             title: "1.1 Principles of Effective Communication",
             type: "content",
-            content: `Effective communication is the foundation of patient care. When a patient feels heard, safe and respected, they are more likely to share vital information.
-
-### Key Communication Principles:
-
-1. **Polite Greeting and Introduction**
-   Always begin with a smile and clear introduction:
-   > "Hello, my name is Sarah, I'm one of the nurses here today."
-
-2. **Body Language Matters**
-   - Sit at eye level with the patient
-   - Avoid crossing arms or looking distracted
-   - Maintain comfortable eye contact
-
-3. **Active Listening**
-   - Nod to show understanding
-   - Use short verbal affirmations like "I see", "Go on"
-   - Don’t interrupt — let the patient speak freely first
-
-4. **Empathy and Reassurance**
-   Patients may be anxious, scared, or frustrated. Acknowledge this:
-   > "I can see you're feeling overwhelmed. You're in safe hands now."
-
-5. **Simple and Clear Language**
-   Avoid medical jargon. Use plain English and short sentences.
-   > Say: "I’m going to take your blood pressure now"
-   > Avoid: "I'll perform a sphygmomanometric reading"
-
-6. **Check Understanding**
-   Ask:
-   > "Does that make sense?"  
-   > "Would you like me to explain that again?"
-
-### Bonus Tips:
-- Use the patient's name during the interaction
-- Pause and give them time to respond
-- Avoid multitasking during conversations
-
-### Why It Matters:
-Poor communication is a common reason for complaints and misdiagnoses. Mastering these basics can improve patient outcomes and trust — and they’re often assessed during the OSCE.
-
-> 🔍 Remember: In OSCE exams, communication counts as much as clinical knowledge.`,
+            content: `CONTENT_FROM_MARKDOWN: history-taking-1-1.md`,
             estimatedTime: 10,
           },
          {
@@ -195,7 +155,7 @@ Follow this logical order to guide the conversation:
   id: "history-taking-1-3",
   title: "1.3 Practice Quiz: Basic Communication",
   type: "quiz",
-  content: `Test your knowledge of basic communication principles in clinical interactions. Read each question carefully and think as if you were in a real OSCE station.`,
+  content: `CONTENT_FROM_MARKDOWN: history-taking-1-3.md`,
   estimatedTime: 15,
   quizQuestions: [
     {
@@ -378,7 +338,8 @@ This shows organisation and patient-centred care.`,
   id: "history-taking-2-2",
   title: "2.2 Handling Difficult Conversations",
   type: "content",
-  content: `Communicating effectively in challenging situations is a vital skill for healthcare professionals. Difficult conversations may involve distressed, angry, or non-English speaking patients. Handling these well improves patient trust and outcomes.
+  content: `CONTENT_FROM_MARKDOWN: history-taking-2-2.md`,
+  estimatedTime: 15
 
 ### Common Difficult Scenarios and Strategies
 
@@ -553,121 +514,11 @@ The patient clutches his chest and says: "It feels like an elephant is sitting o
         ],
       },
 
-      // SESSION 3 - AVANÇADO (Advanced Level)
-      {
-        id: "history-taking-3",
-        title: "Session 3: Expert-Level Communication (Advanced)",
-        description: "Mastering complex consultations and specialized history-taking techniques.",
-        sections: [
-          {
-  id: "history-taking-3-1",
-  title: "3.1 Complex History Taking Strategies",
-  type: "content",
-  content: `In advanced clinical scenarios, patients often present with multiple issues, sensitive topics, or require motivational interviewing. Mastering these strategies is essential for expert-level communication in the OSCE.
 
-### Managing Multiple Complaints  
-- Start by asking:  
-  > "What is your main concern today?"  
-- Prioritise complaints based on urgency and patient distress.  
-- Link related symptoms to understand underlying patterns.  
-- Avoid rushing; manage time but ensure the patient feels heard.
 
-### Addressing Sensitive Topics  
-- Topics may include sexual history, substance use, domestic violence, or mental health.  
-- Approach professionally and non-judgmentally:  
-  > "I ask these questions because they help me understand your health better."  
-- Maintain confidentiality and reassure the patient about privacy.  
-- Use open-ended questions first, then specific ones.
 
-### Motivational Interviewing  
-- Useful for behaviour change (e.g., smoking cessation, diet).  
-- Explore ambivalence:  
-  > "How do you feel about stopping smoking?"  
-- Support self-efficacy:  
-  > "What changes do you think you could make?"  
-- Use reflective listening and summarise progress.
 
----
-
-### Practical Tips for OSCE Success
-
-- Stay calm and patient, especially with complex or emotional cases.  
-- Use empathetic statements frequently.  
-- Take structured notes to organise information.  
-- Always summarise and check patient understanding.  
-- Practice role-playing sensitive discussions with peers.
-
----
-
-### Why This Matters
-
-Expert-level communication is not just about gathering facts — it’s about building trust, supporting patient autonomy, and providing holistic care. This is a key differentiator in OSCE exams and real clinical practice.
-
----
-
-### Estimated Time: 20 minutes
-`,
-  estimatedTime: 20
-}
-,
-          {
-  id: "history-taking-3-2",
-  title: "3.2 Cultural Competency and Communication",
-  type: "content",
-  content: `Providing culturally competent care means respecting and responding to the diverse beliefs, values, and practices of patients. It improves patient satisfaction, adherence, and health outcomes.
-
-### Key Aspects of Cultural Competency
-
-1. **Understanding Cultural Differences**  
-   - Eye contact may be respectful in some cultures, but disrespectful in others.  
-   - Personal space and physical touch vary widely; always ask permission.  
-   - Family roles differ: some cultures expect family decision-making.  
-   - Beliefs about illness and healing may include spiritual or traditional practices.
-
-2. **Working with Interpreters**  
-   - Always speak **directly to the patient**, not the interpreter.  
-   - Use professional interpreters whenever possible; avoid family members for sensitive topics.  
-   - Speak clearly, slowly, and avoid jargon.  
-   - Confirm understanding frequently.
-
-3. **Communicating with Special Populations**  
-   - LGBTQ+ patients may have specific health needs and sensitivities.  
-   - Refugees may face language, trauma, and trust issues.  
-   - Elderly patients may have hearing or cognitive impairments.  
-   - People with disabilities may require accommodations.  
-   - Religious beliefs can influence decisions about treatment.
-
----
-
-### Practical Tips for Culturally Competent Care
-
-- Ask open, respectful questions about the patient’s background and preferences.  
-- Avoid assumptions or stereotypes.  
-- Be humble and curious: admit when you don’t know something.  
-- Document any cultural considerations for the care team.  
-- Provide written materials in the patient’s preferred language if possible.
-
----
-
-### OSCE Relevance
-
-Examiners look for evidence that you:
-
-- Respect patient diversity  
-- Communicate effectively despite language or cultural barriers  
-- Adapt your approach to meet individual needs  
-- Demonstrate empathy and cultural sensitivity
-
----
-
-### Reflective Question
-
-> Think about how cultural beliefs might influence a patient’s understanding of illness and treatment. How would you approach a patient with a different worldview than your own?
-
----
-
-### Estimated Time: 20 minutes
-`,
+  content: `CONTENT_FROM_MARKDOWN: history-taking-3-1.md`,
   estimatedTime: 20
 }
 ,
@@ -675,7 +526,7 @@ Examiners look for evidence that you:
   id: "history-taking-3-3",
   title: "3.3 Comprehensive Assessment Quiz",
   type: "quiz",
-  content: "Test your mastery of advanced communication and history-taking skills with these challenging questions.",
+  content: `CONTENT_FROM_MARKDOWN: history-taking-3-3.md`,
   estimatedTime: 15,
   quizQuestions: [
     {
@@ -1121,52 +972,7 @@ For each case:
   ]
 },    
         ],
-{
-  id: "history-taking-3",
-  title: "Session 3: Expert-Level Communication (Advanced)",
-  description: "Mastering complex consultations and specialised history-taking techniques.",
-  sections: [
-    {
-      id: "history-taking-3-1",
-      title: "3.1 Complex History Taking Strategies",
-      type: "content",
-      content: `
-This session covers advanced communication techniques to effectively gather complex patient histories. You will learn how to manage multiple complaints, discuss sensitive topics with empathy, and use motivational interviewing to support behaviour change.
 
-### Managing Multiple Complaints
-- Prioritise the patient's concerns by asking: "What is your main problem today?"
-- Organise symptoms by importance and chronology.
-- Explore relationships between symptoms to identify patterns.
-
-### Discussing Sensitive Topics
-- Topics may include sexual health, substance use, domestic violence, and mental health.
-- Use a non-judgemental and professional approach.
-- Explain why questions are necessary: "I ask these questions to provide the best care for you."
-- Ensure privacy and confidentiality.
-
-### Motivational Interviewing Techniques
-- Explore patient ambivalence about change.
-- Use open-ended questions: "How do you feel about quitting smoking?"
-- Reflective listening: "It sounds like you're worried about how smoking affects your health."
-- Support self-efficacy by affirming patient strengths.
-
-### Handling Emotional Responses
-- Recognise distress and offer support.
-- Use empathetic statements.
-- Know when to pause or redirect the conversation.
-
----
-
-### Tips for Effective Complex History Taking
-- Prepare the patient for sensitive questions.
-- Build rapport and trust.
-- Summarise information regularly to ensure understanding.
-- Be patient and flexible in your approach.
-      `,
-      estimatedTime: 20,
-    }
-  ]
-},
         
       ],
     },
