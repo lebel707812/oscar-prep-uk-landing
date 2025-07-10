@@ -79,64 +79,188 @@ export const learningContent: LearningTopic[] = [
             id: "history-taking-1-1",
             title: "1.1 Principles of Effective Communication",
             type: "content",
-            content: `To communicate well with patients, you need to:
+            content: `Effective communication is the foundation of patient care. When a patient feels heard, safe and respected, they are more likely to share vital information.
 
-• Greet the patient politely
-• Make eye contact whilst talking
-• Listen without interrupting
-• Show that you care
-• Speak clearly and simply
-• Give the patient time to talk
+### Key Communication Principles:
 
-Remember: the patient is nervous and needs to feel safe with you.`,
+1. **Polite Greeting and Introduction**
+   Always begin with a smile and clear introduction:
+   > "Hello, my name is Sarah, I'm one of the nurses here today."
+
+2. **Body Language Matters**
+   - Sit at eye level with the patient
+   - Avoid crossing arms or looking distracted
+   - Maintain comfortable eye contact
+
+3. **Active Listening**
+   - Nod to show understanding
+   - Use short verbal affirmations like "I see", "Go on"
+   - Don’t interrupt — let the patient speak freely first
+
+4. **Empathy and Reassurance**
+   Patients may be anxious, scared, or frustrated. Acknowledge this:
+   > "I can see you're feeling overwhelmed. You're in safe hands now."
+
+5. **Simple and Clear Language**
+   Avoid medical jargon. Use plain English and short sentences.
+   > Say: "I’m going to take your blood pressure now"
+   > Avoid: "I'll perform a sphygmomanometric reading"
+
+6. **Check Understanding**
+   Ask:
+   > "Does that make sense?"  
+   > "Would you like me to explain that again?"
+
+### Bonus Tips:
+- Use the patient's name during the interaction
+- Pause and give them time to respond
+- Avoid multitasking during conversations
+
+### Why It Matters:
+Poor communication is a common reason for complaints and misdiagnoses. Mastering these basics can improve patient outcomes and trust — and they’re often assessed during the OSCE.
+
+> 🔍 Remember: In OSCE exams, communication counts as much as clinical knowledge.`,
             estimatedTime: 10,
           },
+         {
+  id: "history-taking-1-2",
+  title: "1.2 Basic History Taking Structure",
+  type: "content",
+  content: `Taking a patient’s history is one of the most fundamental — and most frequently tested — skills in the OSCE. A structured and professional approach helps ensure no important detail is missed.
+
+### 🧩 Standard History-Taking Framework
+
+Follow this logical order to guide the conversation:
+
+1. **Introduce Yourself and Gain Consent**
+   > "Hello, I’m [Your Name], one of the nurses. I’d like to ask you a few questions to understand what’s brought you in today. Is that alright?"
+
+2. **Chief Complaint**
+   - Start with an open question:  
+     > "Can you tell me what brought you here today?"
+   - Let the patient speak freely at first. Don’t interrupt.
+
+3. **History of Presenting Complaint (HPC)**
+   - Use open and closed questions to explore:
+     - Onset: "When did it start?"
+     - Location: "Where exactly do you feel it?"
+     - Duration: "Is it constant or does it come and go?"
+     - Severity: "How bad is it, from 0 to 10?"
+     - Aggravating/relieving factors: "What makes it better or worse?"
+     - Associated symptoms: "Have you noticed anything else?"
+
+4. **Past Medical History (PMH)**
+   > "Have you had any medical problems in the past? Any surgeries or hospital stays?"
+
+5. **Medication History**
+   > "Are you currently taking any medications, including over-the-counter or herbal remedies?"
+
+6. **Allergies**
+   > "Do you have any known allergies or reactions to medication?"
+
+7. **Family History**
+   > "Are there any medical conditions that run in your family?"
+
+8. **Social History**
+   Ask about:
+   - Smoking
+   - Alcohol use
+   - Occupation
+   - Living situation
+   - Support system
+
+9. **Review of Systems**
+   > "Have you had any other symptoms recently, such as headaches, weight loss, or fatigue?"
+
+10. **Summarise and Confirm**
+   Recap what the patient has told you:
+   > "Just to confirm, you've been feeling chest pain for two days, especially when walking, and it improves with rest. Is that correct?"
+
+### 🧠 Tips for Beginners
+
+- **Use open-ended questions first**, then narrow down.
+- Avoid medical jargon — always check for understanding.
+- Take notes efficiently, but **maintain eye contact** regularly.
+- Show empathy, even during structured questioning.
+
+> 🩺 In OSCE exams, candidates often lose marks by missing key steps or failing to summarise. Practise saying it aloud in a real flow.
+
+### 🔍 Practice Prompt:
+> Imagine you're taking the history of a patient with a persistent cough. What open and closed questions could you ask to explore this complaint systematically?
+`,
+  estimatedTime: 15
+}
+,
           {
-            id: "history-taking-1-2",
-            title: "1.2 Basic History Taking Structure",
-            type: "content",
-            content: `Follow this order always:
-
-1. **Introduce yourself**: "Hello, I'm [name], I'm a nurse"
-2. **Ask the reason**: "What brings you here today?"
-3. **Let them speak**: Don't interrupt at the beginning
-4. **Ask questions**: When, where, how did it start?
-5. **Write everything**: Record important information
-6. **Confirm**: "Am I right that...?"
-
-It's simple: listen, ask, write and confirm.`,
-            estimatedTime: 10,
-          },
-          {
-            id: "history-taking-1-3",
-            title: "1.3 Practice Quiz: Basic Communication",
-            type: "quiz",
-            content: "Test your understanding of basic communication principles.",
-            estimatedTime: 10,
-            quizQuestions: [
-              {
-                id: "q-hist-1-1",
-                question: "What is the most important aspect of building rapport with a patient?",
-                options: ["Speaking quickly to save time", "Active listening and showing empathy", "Taking detailed notes", "Asking only closed questions"],
-                correctAnswer: 1,
-                explanation: "Active listening and showing empathy are fundamental to building trust and rapport with patients."
-              },
-              {
-                id: "q-hist-1-2",
-                question: "When should you interrupt a patient during their initial story?",
-                options: ["Immediately if they're going off-topic", "After 30 seconds", "Only if there's an emergency", "Never, let them finish first"],
-                correctAnswer: 2,
-                explanation: "Allow patients to tell their story initially, only interrupting for genuine emergencies."
-              },
-              {
-                id: "q-hist-1-3",
-                question: "Which of these demonstrates good non-verbal communication?",
-                options: ["Looking at your notes constantly", "Sitting at the same level as the patient", "Checking your phone", "Standing with arms crossed"],
-                correctAnswer: 1,
-                explanation: "Positioning yourself at the same level shows respect and makes the interaction more comfortable."
-              }
-            ]
-          },
+  id: "history-taking-1-3",
+  title: "1.3 Practice Quiz: Basic Communication",
+  type: "quiz",
+  content: `Test your knowledge of basic communication principles in clinical interactions. Read each question carefully and think as if you were in a real OSCE station.`,
+  estimatedTime: 15,
+  quizQuestions: [
+    {
+      id: "q-hist-1-1",
+      question: "A patient appears nervous and avoids eye contact. What is the most appropriate response?",
+      options: [
+        "Avoid eye contact as well to not make them uncomfortable",
+        "Force eye contact to establish control",
+        "Gently maintain soft eye contact and offer reassurance",
+        "Ignore it and continue with the assessment"
+      ],
+      correctAnswer: 2,
+      explanation: "Maintaining soft, non-threatening eye contact and offering calm reassurance helps build trust. Avoiding it completely may reinforce discomfort."
+    },
+    {
+      id: "q-hist-1-2",
+      question: "During the opening of your consultation, what should you say after introducing yourself?",
+      options: [
+        "Ask immediately about their symptoms",
+        "Start taking notes in silence",
+        "Explain your role and seek consent to proceed",
+        "Begin physical examination to save time"
+      ],
+      correctAnswer: 2,
+      explanation: "Always explain your role and ask for consent to ensure the patient feels involved and respected. This is a key OSCE expectation."
+    },
+    {
+      id: "q-hist-1-3",
+      question: "Which of the following best demonstrates active listening?",
+      options: [
+        "Nodding, paraphrasing the patient's words, and asking relevant follow-up questions",
+        "Writing everything silently while the patient talks",
+        "Waiting until they finish to ask about their history",
+        "Repeating the same question if unsure"
+      ],
+      correctAnswer: 0,
+      explanation: "Active listening includes showing verbal and non-verbal signs of engagement. Reflecting and paraphrasing confirm understanding and build rapport."
+    },
+    {
+      id: "q-hist-1-4",
+      question: "When is it appropriate to interrupt a patient during their initial explanation?",
+      options: [
+        "If they speak for more than 30 seconds",
+        "Only if the patient becomes aggressive or it's an emergency",
+        "To redirect them quickly to the point",
+        "As soon as you identify the main symptom"
+      ],
+      correctAnswer: 1,
+      explanation: "In general, let the patient speak freely at the beginning. Only interrupt in case of urgent safety concerns."
+    },
+    {
+      id: "q-hist-1-5",
+      question: "Which of the following phrases best shows empathy?",
+      options: [
+        "Okay, let’s move on to the next question.",
+        "I can see this is difficult for you – take your time.",
+        "We don’t have much time, please answer directly.",
+        "It’s probably nothing serious."
+      ],
+      correctAnswer: 1,
+      explanation: "Empathy involves acknowledging the patient’s emotions and creating a safe environment. 'Take your time' encourages openness and reduces anxiety."
+    }
+  ]
+}
+,
         ],
       },
 
@@ -147,95 +271,285 @@ It's simple: listen, ask, write and confirm.`,
         description: "Developing skills for challenging situations and complex history taking.",
         sections: [
           {
-            id: "history-taking-2-1",
-            title: "2.1 SOCRATES Framework for Pain Assessment",
-            type: "content",
-            content: `SOCRATES is a method to assess pain comprehensively:
+  id: "history-taking-2-1",
+  title: "2.1 SOCRATES Framework for Pain Assessment",
+  type: "content",
+  content: `Pain is a common presenting complaint in clinical practice — and one you’ll often encounter in the OSCE. The **SOCRATES** framework provides a structured way to explore pain in detail, helping identify its cause and severity.
 
-**S** - Site: Where is the pain?
-**O** - Onset: When did it start?
-**C** - Character: What does the pain feel like? (stabbing, burning, etc)
-**R** - Radiation: Does the pain spread elsewhere?
-**A** - Associations: Are there other symptoms with it?
-**T** - Time: How long does it last?
-**E** - Exacerbating/Relieving: What makes it worse/better?
-**S** - Severity: On a scale of 1-10, how intense is it?
+### 🧠 What is SOCRATES?
 
-Use this whenever a patient complains of pain.`,
-            estimatedTime: 15,
-          },
+Each letter stands for a key aspect of pain assessment:
+
+1. **S – Site**  
+   > "Can you point to exactly where it hurts?"
+
+   Identify the **location**. Is it localised or diffuse?
+
+2. **O – Onset**  
+   > "When did the pain start?"  
+   > "Did it come on suddenly or gradually?"
+
+   Determine **timing** and **context**.
+
+3. **C – Character**  
+   > "Can you describe what the pain feels like?"
+
+   Is it:
+   - Sharp
+   - Dull
+   - Burning
+   - Throbbing
+   - Crushing
+
+4. **R – Radiation**  
+   > "Does the pain spread anywhere else?"
+
+   Important for conditions like **cardiac pain**, which may radiate to arm, jaw or back.
+
+5. **A – Associated Symptoms**  
+   > "Have you noticed any other symptoms with the pain?"
+
+   For example:
+   - Nausea
+   - Sweating
+   - Fever
+   - Shortness of breath
+
+6. **T – Time Course**  
+   > "Has the pain been constant or does it come and go?"
+
+   Understand **pattern** and **progression**.
+
+7. **E – Exacerbating/Relieving Factors**  
+   > "Is there anything that makes the pain better or worse?"
+
+   Common examples:
+   - Movement
+   - Eating
+   - Rest
+   - Position
+
+8. **S – Severity**  
+   > "On a scale from 0 to 10, how bad is the pain?"
+
+   This provides a **quantitative** assessment to monitor changes.
+
+---
+
+### 🎯 Example in Practice
+
+**Scenario:**  
+Patient says: “I’ve had a dull ache in my lower back for three days.”
+
+**Your response using SOCRATES:**
+
+- Site: "Is the pain limited to your lower back or does it move elsewhere?"
+- Onset: "Did it start suddenly or gradually?"
+- Character: "Is it a sharp stabbing pain or more like a dull ache?"
+- Radiation: "Does it spread to your legs or buttocks?"
+- Associations: "Any tingling, numbness, or weakness?"
+- Time: "Is it constant or does it come and go?"
+- Exacerbating/Relieving: "What makes it worse or better?"
+- Severity: "How bad is it right now, from 0 to 10?"
+
+---
+
+### 🩺 Why This Matters in the OSCE
+
+In the OSCE, you’ll be expected to **explore pain comprehensively**, especially in stations related to:
+- Chest pain
+- Abdominal pain
+- Musculoskeletal injuries
+- Post-operative care
+
+You must **demonstrate structure, empathy and clinical reasoning** — not just ask questions robotically.
+
+---
+
+### 🔍 Quick Tip:
+Always **summarise the pain** at the end:
+> "So you’ve had a dull, constant pain in your lower back for 3 days, which worsens when walking and improves with rest, and you rate it as a 6 out of 10 — is that correct?"
+
+This shows organisation and patient-centred care.`,
+  estimatedTime: 15
+}
+,
           {
-            id: "history-taking-2-2",
-            title: "2.2 Handling Difficult Conversations",
-            type: "content",
-            content: `Sometimes it's difficult to talk with patients. Here are tips:
+  id: "history-taking-2-2",
+  title: "2.2 Handling Difficult Conversations",
+  type: "content",
+  content: `Communicating effectively in challenging situations is a vital skill for healthcare professionals. Difficult conversations may involve distressed, angry, or non-English speaking patients. Handling these well improves patient trust and outcomes.
 
-**Nervous/crying patient:**
-• Say: "I can see you're worried"
-• Offer tissues
-• Give time to calm down
+### Common Difficult Scenarios and Strategies
 
-**Angry patient:**
-• Stay calm
-• Listen without interrupting
-• Don't take it personally
+#### 1. Nervous or Crying Patient  
+- **What to do:**
+  - Acknowledge their emotions:  
+    > "I can see you’re feeling upset, that’s completely understandable."  
+  - Offer tissues and give them a moment to compose themselves.  
+  - Speak in a calm, gentle tone.  
+  - Use comforting body language: sit close (if appropriate), lean slightly forward.
 
-**Language barrier:**
-• Use professional interpreter
-• Speak slowly and clearly
-• Confirm understanding
+- **Why it helps:**  
+  Validating feelings reduces anxiety and builds rapport.
 
-Remember: patience is essential.`,
-            estimatedTime: 15,
-          },
+#### 2. Angry or Frustrated Patient  
+- **What to do:**
+  - Stay calm and composed; keep your voice low and steady.  
+  - Listen actively without interrupting.  
+  - Don’t take the anger personally.  
+  - Use phrases like:  
+    > "I understand you’re upset, let’s see how I can help."  
+  - Set boundaries respectfully if needed.
+
+- **Why it helps:**  
+  Defusing tension allows for more productive communication.
+
+#### 3. Language Barriers  
+- **What to do:**
+  - Always use a **professional interpreter** when possible; avoid relying on family members.  
+  - Speak slowly and clearly, using simple words.  
+  - Use gestures or visual aids if helpful.  
+  - Confirm understanding frequently:  
+    > "Can you tell me in your own words what we just discussed?"
+
+- **Why it helps:**  
+  Ensures accurate communication and patient safety.
+
+#### 4. Delivering Bad News (Brief Overview)  
+- **Approach:**
+  - Prepare yourself and the environment (privacy, time).  
+  - Be clear, honest, and compassionate.  
+  - Allow the patient time to process and ask questions.  
+  - Offer support and follow-up plans.
+
+- **Note:** This topic is often a dedicated OSCE station; practice the SPIKES protocol if possible.
+
+---
+
+### 🧠 Tips for Effective Difficult Conversations
+
+- Maintain open body language; avoid crossing arms.  
+- Use the patient’s name frequently.  
+- Avoid medical jargon.  
+- Manage your own emotions; pause and breathe if overwhelmed.  
+- Document important points carefully after the conversation.
+
+---
+
+### 🎯 OSCE Relevance
+
+During OSCEs, examiners look for your ability to:
+
+- Show empathy and respect  
+- Handle emotions sensitively  
+- Communicate clearly despite barriers  
+- Maintain professionalism under pressure
+
+---
+
+### 🔍 Reflective Question
+
+> Think of a time you witnessed or experienced a difficult conversation in healthcare. What strategies helped or could have helped improve communication?
+
+Use this reflection to guide your practice and personal development.`,
+  estimatedTime: 15
+}
+,
           {
-            id: "history-taking-2-3",
-            title: "2.3 Interactive Case Study: Chest Pain Assessment",
-            type: "case-study",
-            content: `# Case Study: 55-year-old with Chest Pain
+  id: "history-taking-2-3",
+  title: "2.3 Interactive Case Study: Chest Pain Assessment",
+  type: "case-study",
+  content: `# Case Study: 55-year-old with Chest Pain
 
 ## Clinical Scenario
-A 55-year-old male presents to the emergency department with chest pain that started 2 hours ago. He appears anxious and is sweating. His wife accompanied him and is also worried.
+A 55-year-old male presents to the emergency department complaining of chest pain that started 2 hours ago. He appears anxious and is sweating. His wife is with him and also looks worried.
 
 ## Your Role
-You are the triage nurse responsible for taking his initial history. Use the SOCRATES framework and appropriate communication techniques to gather comprehensive information.
+You are the triage nurse responsible for taking the patient's initial history. Use the SOCRATES framework and effective communication skills to gather comprehensive information.
 
 ## Patient Background
-- Works as an office manager (sedentary job)
-- Has a history of high blood pressure
+- Office manager (sedentary lifestyle)
+- History of hypertension
 - Smokes 15 cigarettes per day
-- Father had a heart attack at age 60
+- Father had a myocardial infarction at age 60
 
 ## Initial Presentation
-The patient clutches his chest and says: "It feels like an elephant is sitting on my chest. I've never felt anything like this before."`,
-            estimatedTime: 15,
-            caseQuestions: [
-              {
-                id: "case-hist-2-1",
-                question: "Using the SOCRATES framework, what are the key questions you would ask about the chest pain?",
-                sampleAnswer: "Site: Can you show me exactly where the pain is? Is it in one specific area?\nOnset: When exactly did it start? What were you doing at the time?\nCharacter: You mentioned it feels like an elephant - can you describe it more? Is it crushing, sharp, burning?\nRadiation: Does the pain travel anywhere? To your arms, neck, or back?\nAssociations: Any other symptoms? Shortness of breath, nausea, sweating?\nTime: Has it been constant since it started? Any changes?\nExacerbating/Relieving: Does anything make it better or worse? Rest, movement?\nSeverity: On a scale of 1-10, how would you rate the pain?",
-                keyPoints: [
-                  "Use all components of SOCRATES systematically",
-                  "Ask open-ended questions initially",
-                  "Listen for red flag symptoms",
-                  "Note the patient's exact words",
-                  "Consider cardiac risk factors"
-                ]
-              },
-              {
-                id: "case-hist-2-2", 
-                question: "How would you address the patient's anxiety while gathering the history?",
-                sampleAnswer: "I would acknowledge his distress: 'I can see you're worried about this pain, and that's completely understandable.' I'd explain what I'm doing: 'I'm going to ask you some questions to help us understand what's happening and get you the right care.' I'd reassure him about the process: 'The team is experienced with chest pain, and we'll take good care of you.' I'd also involve his wife appropriately: 'Is it helpful for your wife to stay with you while we talk?'",
-                keyPoints: [
-                  "Acknowledge and validate emotions",
-                  "Explain the process",
-                  "Provide appropriate reassurance",
-                  "Include family members when appropriate",
-                  "Maintain professional calm"
-                ]
-              }
-            ]
-          },
+The patient clutches his chest and says: "It feels like an elephant is sitting on my chest. I've never felt anything like this before."
+
+---
+
+### Tasks
+
+1. Use the **SOCRATES** framework to ask detailed questions about the chest pain.
+
+2. Apply effective communication skills to manage the patient’s anxiety and involve his wife appropriately.
+
+---
+
+### Case Questions
+
+- **Q1:** Using the SOCRATES framework, what key questions would you ask about the chest pain?  
+  *Sample answer:*  
+  - Site: "Can you show me exactly where the pain is?"  
+  - Onset: "When did the pain start?"  
+  - Character: "You said it feels like an elephant is sitting on your chest — can you describe the sensation?"  
+  - Radiation: "Does the pain move anywhere else?"  
+  - Associations: "Have you noticed any other symptoms such as shortness of breath or nausea?"  
+  - Time: "Has the pain been constant since it started?"  
+  - Exacerbating/Relieving factors: "Does anything make it better or worse?"  
+  - Severity: "On a scale of 1 to 10, how severe is the pain?"
+
+- **Q2:** How would you address the patient’s anxiety while gathering the history?  
+  *Sample answer:*  
+  - Acknowledge his distress: "I can see you're worried, which is completely understandable."  
+  - Explain your role and what you’re doing: "I’m going to ask you some questions to understand what's happening so we can provide the best care."  
+  - Reassure him: "The team is experienced, and we’ll take good care of you."  
+  - Involve his wife appropriately: "Would you like your wife to stay with you while we talk?"
+
+---
+
+### Key Learning Points
+
+- Systematic use of SOCRATES to cover all pain aspects.  
+- Maintaining calm, empathetic communication despite patient distress.  
+- Importance of involving family members where appropriate.  
+- Recognising red flags such as sweating and anxiety in chest pain.
+
+---
+
+### Estimated Time: 15 minutes
+
+`,
+  estimatedTime: 15,
+  caseQuestions: [
+    {
+      id: "case-hist-2-1",
+      question: "Using the SOCRATES framework, what are the key questions you would ask about the chest pain?",
+      sampleAnswer: "Site: Can you show me exactly where the pain is? Is it in one specific area?\nOnset: When exactly did it start? What were you doing at the time?\nCharacter: You mentioned it feels like an elephant - can you describe it more? Is it crushing, sharp, burning?\nRadiation: Does the pain travel anywhere? To your arms, neck, or back?\nAssociations: Any other symptoms? Shortness of breath, nausea, sweating?\nTime: Has it been constant since it started? Any changes?\nExacerbating/Relieving: Does anything make it better or worse? Rest, movement?\nSeverity: On a scale of 1-10, how would you rate the pain?",
+      keyPoints: [
+        "Use all components of SOCRATES systematically",
+        "Ask open-ended questions initially",
+        "Listen for red flag symptoms",
+        "Note the patient's exact words",
+        "Consider cardiac risk factors"
+      ]
+    },
+    {
+      id: "case-hist-2-2",
+      question: "How would you address the patient's anxiety while gathering the history?",
+      sampleAnswer: "I would acknowledge his distress: 'I can see you're worried about this pain, and that's completely understandable.' I'd explain what I'm doing: 'I'm going to ask you some questions to help us understand what's happening and get you the right care.' I'd reassure him about the process: 'The team is experienced with chest pain, and we'll take good care of you.' I'd also involve his wife appropriately: 'Is it helpful for your wife to stay with you while we talk?'",
+      keyPoints: [
+        "Acknowledge and validate emotions",
+        "Explain the process",
+        "Provide appropriate reassurance",
+        "Include family members when appropriate",
+        "Maintain professional calm"
+      ]
+    }
+  ]
+}
+,
         ],
       },
 
@@ -246,91 +560,187 @@ The patient clutches his chest and says: "It feels like an elephant is sitting o
         description: "Mastering complex consultations and specialized history-taking techniques.",
         sections: [
           {
-            id: "history-taking-3-1",
-            title: "3.1 Complex History Taking Strategies",
-            type: "content",
-            content: `Complex situations require advanced skills:
+  id: "history-taking-3-1",
+  title: "3.1 Complex History Taking Strategies",
+  type: "content",
+  content: `In advanced clinical scenarios, patients often present with multiple issues, sensitive topics, or require motivational interviewing. Mastering these strategies is essential for expert-level communication in the OSCE.
 
-**Multiple complaints:**
-• Ask: "What's your main concern today?"
-• Organise by priority
-• Connect related symptoms
+### Managing Multiple Complaints  
+- Start by asking:  
+  > "What is your main concern today?"  
+- Prioritise complaints based on urgency and patient distress.  
+- Link related symptoms to understand underlying patterns.  
+- Avoid rushing; manage time but ensure the patient feels heard.
 
-**Sensitive topics:**
-• Sexual history, drugs, violence
-• Be professional and non-judgmental
-• Explain why you need to ask
+### Addressing Sensitive Topics  
+- Topics may include sexual history, substance use, domestic violence, or mental health.  
+- Approach professionally and non-judgmentally:  
+  > "I ask these questions because they help me understand your health better."  
+- Maintain confidentiality and reassure the patient about privacy.  
+- Use open-ended questions first, then specific ones.
 
-**Motivational interviewing:**
-• Explore patient ambivalence
-• "How do you feel about stopping smoking?"
-• Support self-efficacy
+### Motivational Interviewing  
+- Useful for behaviour change (e.g., smoking cessation, diet).  
+- Explore ambivalence:  
+  > "How do you feel about stopping smoking?"  
+- Support self-efficacy:  
+  > "What changes do you think you could make?"  
+- Use reflective listening and summarise progress.
 
-Remember: complex cases require patience and technique.`,
-            estimatedTime: 20,
-          },
+---
+
+### Practical Tips for OSCE Success
+
+- Stay calm and patient, especially with complex or emotional cases.  
+- Use empathetic statements frequently.  
+- Take structured notes to organise information.  
+- Always summarise and check patient understanding.  
+- Practice role-playing sensitive discussions with peers.
+
+---
+
+### Why This Matters
+
+Expert-level communication is not just about gathering facts — it’s about building trust, supporting patient autonomy, and providing holistic care. This is a key differentiator in OSCE exams and real clinical practice.
+
+---
+
+### Estimated Time: 20 minutes
+`,
+  estimatedTime: 20
+}
+,
           {
-            id: "history-taking-3-2",
-            title: "3.2 Cultural Competency and Communication",
-            type: "content", 
-            content: `Caring for people from different cultures:
+  id: "history-taking-3-2",
+  title: "3.2 Cultural Competency and Communication",
+  type: "content",
+  content: `Providing culturally competent care means respecting and responding to the diverse beliefs, values, and practices of patients. It improves patient satisfaction, adherence, and health outcomes.
 
-**Cultural differences:**
-• Eye contact (may be disrespectful in some cultures)
-• Personal space and touch
-• Family role in decisions
-• Beliefs about illness and healing
+### Key Aspects of Cultural Competency
 
-**With interpreters:**
-• Speak directly to the patient
-• Use professional interpreters, not family
-• Confirm understanding
+1. **Understanding Cultural Differences**  
+   - Eye contact may be respectful in some cultures, but disrespectful in others.  
+   - Personal space and physical touch vary widely; always ask permission.  
+   - Family roles differ: some cultures expect family decision-making.  
+   - Beliefs about illness and healing may include spiritual or traditional practices.
 
-**Special populations:**
-• LGBTQ+, refugees, elderly
-• People with disabilities
-• Different religions
+2. **Working with Interpreters**  
+   - Always speak **directly to the patient**, not the interpreter.  
+   - Use professional interpreters whenever possible; avoid family members for sensitive topics.  
+   - Speak clearly, slowly, and avoid jargon.  
+   - Confirm understanding frequently.
 
-Be respectful, humble and curious about other cultures.`,
-            estimatedTime: 20,
-          },
+3. **Communicating with Special Populations**  
+   - LGBTQ+ patients may have specific health needs and sensitivities.  
+   - Refugees may face language, trauma, and trust issues.  
+   - Elderly patients may have hearing or cognitive impairments.  
+   - People with disabilities may require accommodations.  
+   - Religious beliefs can influence decisions about treatment.
+
+---
+
+### Practical Tips for Culturally Competent Care
+
+- Ask open, respectful questions about the patient’s background and preferences.  
+- Avoid assumptions or stereotypes.  
+- Be humble and curious: admit when you don’t know something.  
+- Document any cultural considerations for the care team.  
+- Provide written materials in the patient’s preferred language if possible.
+
+---
+
+### OSCE Relevance
+
+Examiners look for evidence that you:
+
+- Respect patient diversity  
+- Communicate effectively despite language or cultural barriers  
+- Adapt your approach to meet individual needs  
+- Demonstrate empathy and cultural sensitivity
+
+---
+
+### Reflective Question
+
+> Think about how cultural beliefs might influence a patient’s understanding of illness and treatment. How would you approach a patient with a different worldview than your own?
+
+---
+
+### Estimated Time: 20 minutes
+`,
+  estimatedTime: 20
+}
+,
           {
-            id: "history-taking-3-3",
-            title: "3.3 Comprehensive Assessment Quiz",
-            type: "quiz",
-            content: "Test your mastery of advanced communication and history-taking skills.",
-            estimatedTime: 15,
-            quizQuestions: [
-              {
-                id: "q-hist-3-1",
-                question: "When taking a history from a patient with multiple complaints, what is the best initial approach?",
-                options: ["Address each complaint in detail sequentially", "Focus only on the most serious complaint", "Ask the patient to prioritize their concerns", "Use a systematic review of systems first"],
-                correctAnswer: 2,
-                explanation: "Asking patients to prioritize their concerns respects their autonomy and helps focus the consultation on what matters most to them."
-              },
-              {
-                id: "q-hist-3-2",
-                question: "When working with an interpreter, you should:",
-                options: ["Speak directly to the interpreter", "Speak to the patient and maintain eye contact", "Ask the interpreter to summarize", "Use family members when possible"],
-                correctAnswer: 1,
-                explanation: "Always speak directly to the patient and maintain eye contact, treating them as the primary person in the interaction."
-              },
-              {
-                id: "q-hist-3-3",
-                question: "In motivational interviewing, the most effective way to address patient ambivalence is to:",
-                options: ["Tell them what they should do", "Explore both sides of their ambivalence", "Ignore their resistance", "Provide more information"],
-                correctAnswer: 1,
-                explanation: "Exploring both sides of ambivalence helps patients work through their conflicted feelings and find their own motivation for change."
-              },
-              {
-                id: "q-hist-3-4",
-                question: "What is the key principle of shared decision-making?",
-                options: ["The doctor makes the final decision", "The patient chooses without input", "Both patient and provider contribute to decisions", "Decisions are made by committee"],
-                correctAnswer: 2,
-                explanation: "Shared decision-making involves both patient and provider contributing their expertise - clinical knowledge and personal values respectively."
-              }
-            ]
-          },
+  id: "history-taking-3-3",
+  title: "3.3 Comprehensive Assessment Quiz",
+  type: "quiz",
+  content: "Test your mastery of advanced communication and history-taking skills with these challenging questions.",
+  estimatedTime: 15,
+  quizQuestions: [
+    {
+      id: "q-adv-1",
+      question: "When a patient presents with multiple complaints, what is the best way to prioritise during history taking?",
+      options: [
+        "Ask about all complaints at once",
+        "Focus only on the first complaint mentioned",
+        "Ask which concern worries them most and prioritise accordingly",
+        "Ignore the less severe complaints"
+      ],
+      correctAnswer: 2,
+      explanation: "Prioritising based on the patient's main concern ensures patient-centred care and effective time management."
+    },
+    {
+      id: "q-adv-2",
+      question: "How should you approach sensitive topics like substance use or sexual history?",
+      options: [
+        "Avoid them to respect patient privacy",
+        "Ask directly but non-judgmentally, explaining the importance",
+        "Assume the patient will volunteer if relevant",
+        "Ask only if the patient appears suspicious"
+      ],
+      correctAnswer: 1,
+      explanation: "Direct, respectful questioning with explanation helps gather accurate information while maintaining trust."
+    },
+    {
+      id: "q-adv-3",
+      question: "Which technique best supports motivational interviewing?",
+      options: [
+        "Giving advice immediately",
+        "Exploring patient ambivalence and supporting self-efficacy",
+        "Ignoring patient hesitations",
+        "Pressuring the patient to change"
+      ],
+      correctAnswer: 1,
+      explanation: "Motivational interviewing respects patient autonomy and encourages behaviour change through support."
+    },
+    {
+      id: "q-adv-4",
+      question: "When working with a professional interpreter, you should:",
+      options: [
+        "Speak to the interpreter, not the patient",
+        "Speak slowly and clearly directly to the patient",
+        "Use family members if an interpreter is unavailable",
+        "Avoid confirming understanding"
+      ],
+      correctAnswer: 1,
+      explanation: "Always address the patient directly, speak clearly, and confirm understanding to ensure effective communication."
+    },
+    {
+      id: "q-adv-5",
+      question: "How can you demonstrate cultural competence during a clinical encounter?",
+      options: [
+        "Assume all patients prefer the same approach",
+        "Ask open questions about cultural beliefs and preferences",
+        "Avoid discussing culture",
+        "Stick strictly to medical questions only"
+      ],
+      correctAnswer: 1,
+      explanation: "Open questions about culture show respect and help tailor care to individual needs."
+    }
+  ]
+}
+,
         ],
       },
     ],
@@ -349,54 +759,417 @@ Be respectful, humble and curious about other cultures.`,
         description: "Learning the systematic approach to examining the cardiovascular system.",
         sections: [
           {
-            id: "physical-examination-1-1",
-            title: "Inspection, Palpation, Percussion, Auscultation (IPPA)",
-            type: "content",
-            content: `The IPPA method is fundamental to physical examination. For the cardiovascular system, this involves observing for signs of distress, palpating pulses and precordium, and auscultating heart sounds.`, 
-            estimatedTime: 10,
-          },
+  id: "physical-examination-1-1",
+  title: "Inspection, Palpation, Percussion, Auscultation (IPPA)",
+  type: "content",
+  content: `The IPPA method is the cornerstone of a thorough cardiovascular examination. Each step helps gather specific clinical information essential for diagnosis.
+
+### 1. Inspection  
+- Observe the patient's general appearance for signs of distress or cyanosis.  
+- Look for visible pulsations on the chest wall (e.g., apex beat).  
+- Check for jugular venous distention (JVD) on the neck as a sign of right heart failure.  
+- Note any scars, deformities, or abnormal movements.
+
+### 2. Palpation  
+- Palpate the apex beat: location, size, amplitude, and duration.  
+- Feel for any thrills (vibrations over the chest wall indicating turbulent blood flow).  
+- Check peripheral pulses (radial, carotid, femoral) for volume and symmetry.  
+- Assess for signs of oedema in the lower limbs.
+
+### 3. Percussion  
+- Less commonly used in cardiovascular exam but helpful for assessing heart borders and detecting cardiomegaly.  
+- Percuss the left chest to estimate the size of the heart.
+
+### 4. Auscultation  
+- Use the diaphragm and bell of the stethoscope.  
+- Listen to the four main areas:  
+  - Aortic area (2nd right intercostal space)  
+  - Pulmonary area (2nd left intercostal space)  
+  - Tricuspid area (lower left sternal border)  
+  - Mitral area/apex (5th left intercostal space, midclavicular line)  
+- Identify heart sounds (S1, S2) and any extra sounds (S3, S4) or murmurs.  
+- Assess timing (systolic, diastolic) and radiation of murmurs.
+
+---
+
+### Tips for Effective IPPA  
+- Ensure good lighting and patient positioning (usually at 45 degrees).  
+- Use proper stethoscope technique: warm the diaphragm before placing.  
+- Compare symmetrical sites.  
+- Explain each step to the patient to maintain comfort and cooperation.
+
+---
+
+### Why IPPA Matters  
+A structured IPPA approach allows you to systematically detect abnormalities that may indicate heart failure, valve disease, or other cardiac pathology. It’s a fundamental skill tested in OSCEs and daily clinical practice.`,
+  estimatedTime: 10,
+}
+,
           {
             id: "physical-examination-1-2",
             title: "Heart Sounds and Murmurs",
             type: "video",
-            videoUrl: "https://www.youtube.com/embed/example_heart_sounds",
-            content: `A video demonstration of normal and abnormal heart sounds, including common murmurs and their characteristics.`, 
+            videoUrl: "https://www.youtube.com/watch?v=dBwr2GZCmQM",
+            content: `Understanding heart sounds and murmurs is essential for effective cardiovascular assessment and OSCE performance.
+
+### Heart Sounds
+
+- **S1 ("lub")**: Produced by closure of the mitral and tricuspid valves at the start of systole.  
+  - Best heard at the apex of the heart (5th intercostal space, midclavicular line).
+
+- **S2 ("dub")**: Produced by closure of the aortic and pulmonary valves at the end of systole.  
+  - Best heard at the base of the heart (2nd intercostal spaces, right and left sides).
+
+- **Additional heart sounds**:  
+  - **S3**: Early diastolic sound, can indicate heart failure or volume overload.  
+  - **S4**: Late diastolic sound, associated with stiff or hypertrophic ventricles.
+
+### Heart Murmurs
+
+Murmurs are sounds caused by turbulent blood flow, often due to valve abnormalities.
+
+- **Systolic murmurs** (occur between S1 and S2):  
+  - *Ejection murmurs* (e.g., aortic stenosis): harsh, crescendo-decrescendo, best heard at the aortic area, radiates to carotids.  
+  - *Regurgitant murmurs* (e.g., mitral regurgitation): blowing, best heard at the apex, radiates to the axilla.
+
+- **Diastolic murmurs** (occur between S2 and S1):  
+  - Usually pathological, e.g., aortic regurgitation, mitral stenosis.
+
+### How to Assess Murmurs
+
+- **Timing**: systolic vs diastolic  
+- **Location**: where on the chest is it loudest  
+- **Radiation**: where the sound spreads (e.g., carotids, axilla)  
+- **Pitch and quality**: harsh, blowing, rumbling  
+- **Changes with maneuvers**: posture, respiration
+
+---
+
+### Video Demonstration (external link)  
+[Watch Heart Sounds and Murmurs on YouTube](https://www.youtube.com/watch?v=F1mm8qr6-t0)
+
+---
+
+### Tips for OSCE
+
+- Use both diaphragm and bell of your stethoscope.  
+- Familiarise yourself with common murmur sounds through audio resources.  
+- Explain findings clearly to the examiner, demonstrating your knowledge.
+
+---
+
+### Estimated Time: 15 minutes`, 
             estimatedTime: 10,
           },
           {
-            id: "physical-examination-1-3",
-            title: "Quiz: Cardiovascular Findings",
-            type: "quiz",
-            quizQuestions: [
-              {
-                id: "q-cv-1",
-                question: "Which heart sound is associated with the closure of the mitral and tricuspid valves?",
-                options: ["S1", "S2", "S3", "S4"],
-                correctAnswer: 0, // S1 is the first option
-                explanation: "S1 (lub) is caused by the closure of the atrioventricular valves (mitral and tricuspid) at the beginning of systole.",
-              },
-            ],
-            content: `Test your knowledge on cardiovascular examination findings.`, 
-            estimatedTime: 10,
-          },
+  id: "physical-examination-1-3",
+  title: "Quiz: Cardiovascular Findings",
+  type: "quiz",
+  content: "Test your understanding of heart sounds, murmurs, and physical examination findings with these questions.",
+  estimatedTime: 15,
+  quizQuestions: [
+    {
+      id: "q-cv-1",
+      question: "Which heart sound corresponds to the closure of the mitral and tricuspid valves?",
+      options: [
+        "S1",
+        "S2",
+        "S3",
+        "S4"
+      ],
+      correctAnswer: 0,
+      explanation: "S1 is produced by the closure of the mitral and tricuspid valves at the start of systole."
+    },
+    {
+      id: "q-cv-2",
+      question: "Where is the aortic valve best auscultated?",
+      options: [
+        "5th intercostal space, midclavicular line",
+        "2nd right intercostal space",
+        "2nd left intercostal space",
+        "Lower left sternal border"
+      ],
+      correctAnswer: 1,
+      explanation: "The aortic valve is best heard at the 2nd right intercostal space."
+    },
+    {
+      id: "q-cv-3",
+      question: "A harsh crescendo-decrescendo murmur heard best at the right upper sternal border that radiates to the carotids suggests:",
+      options: [
+        "Mitral regurgitation",
+        "Aortic stenosis",
+        "Pulmonary stenosis",
+        "Mitral stenosis"
+      ],
+      correctAnswer: 1,
+      explanation: "This description is typical of aortic stenosis."
+    },
+    {
+      id: "q-cv-4",
+      question: "Which additional heart sound is often heard in patients with heart failure?",
+      options: [
+        "S1",
+        "S2",
+        "S3",
+        "S4"
+      ],
+      correctAnswer: 2,
+      explanation: "S3 is an early diastolic sound associated with volume overload and heart failure."
+    },
+    {
+      id: "q-cv-5",
+      question: "During cardiovascular examination, jugular venous distention indicates:",
+      options: [
+        "Left heart failure",
+        "Right heart failure or fluid overload",
+        "Normal venous pressure",
+        "Aortic valve disease"
+      ],
+      correctAnswer: 1,
+      explanation: "Jugular venous distention reflects increased right atrial pressure, commonly due to right heart failure or fluid overload."
+    }
+  ]
+},
         ],
-      },
-      {
+      },  {
         id: "physical-examination-2",
         title: "Advanced Physical Examination Techniques",
         description: "Delving deeper into physical examination for comprehensive understanding.",
         sections: [
           {
-            id: "physical-examination-2-1",
-            title: "In-depth Physical Examination Analysis",
-            type: "content",
-            content: `This session covers advanced examination techniques for specific body systems, including neurological, respiratory, and abdominal assessments. It emphasizes the correlation of physical findings with patient history and diagnostic reasoning.`, 
-            estimatedTime: 15,
-          },
+  id: "physical-examination-2-1",
+  title: "In-depth Physical Examination Analysis",
+  type: "content",
+  content: `
+This session focuses on advanced physical examination techniques across multiple body systems, emphasizing a holistic and integrative approach to clinical assessment.
+
+### Neurological Examination
+- Detailed cranial nerve testing, assessing sensory and motor function.
+- Evaluation of reflexes and coordination tests.
+- Cognitive screening and assessment of mental status.
+
+### Respiratory Examination
+- Inspection for accessory muscle use and chest shape abnormalities.
+- Palpation for tactile fremitus and chest expansion.
+- Percussion to identify areas of dullness or hyperresonance.
+- Auscultation for breath sounds, added sounds (crackles, wheezes), and vocal resonance.
+
+### Abdominal Examination
+- Inspection of contour, scars, or distension.
+- Palpation for tenderness, masses, and organomegaly.
+- Percussion to assess liver and spleen size.
+- Auscultation of bowel sounds and vascular bruits.
+
+### Correlating Physical Findings with History
+- Understanding how examination findings support or refute clinical hypotheses.
+- Identifying red flags and urgent signs.
+- Integrating data for comprehensive diagnostic reasoning.
+
+---
+
+This advanced physical examination analysis prepares you for complex clinical scenarios, improving diagnostic accuracy and patient management.
+
+---
+Estimated Time: 15 minutes
+`,
+  estimatedTime: 15,
+}
+,
+{
+  id: "physical-examination-2-2",
+  title: "Advanced Techniques in Cardiovascular and Respiratory Examination",
+  type: "content",
+  content: `
+This session dives deeper into specialized examination methods for the cardiovascular and respiratory systems, focusing on detecting subtle signs and improving diagnostic precision.
+
+### Cardiovascular Examination
+- **Advanced pulse assessment:**  
+  - Assess pulse character, rate, and rhythm (regularity, pulse deficit).  
+  - Evaluate for peripheral signs like clubbing, cyanosis, and capillary refill time.  
+- **Jugular venous pressure (JVP):**  
+  - Detailed technique to measure JVP accurately.  
+  - Interpretation in heart failure and fluid overload.  
+- **Auscultation nuances:**  
+  - Detecting subtle murmurs and extra heart sounds (S3, S4).  
+  - Use of maneuvers (e.g., Valsalva, inspiration) to differentiate murmurs.
+
+### Respiratory Examination
+- **Use of diaphragmatic excursion and tactile fremitus:**  
+  - Techniques to identify consolidation or pleural effusion.  
+- **Percussion nuances:**  
+  - Differentiating between dullness from effusion versus consolidation.  
+- **Auscultation subtleties:**  
+  - Recognising fine versus coarse crackles.  
+  - Identifying bronchial breath sounds and whispered pectoriloquy.
+
+---
+
+### Clinical Integration
+- How these advanced findings correlate with patient symptoms and investigations.  
+- Case examples highlighting diagnostic challenges and clinical reasoning.
+
+---
+
+Estimated Time: 15 minutes
+`,
+  estimatedTime: 15,
+},{
+  id: "history-taking-2-3",
+  title: "Interactive Case Studies: Respiratory and Neurological Presentations",
+  type: "case-study",
+  content: `
+# Case Study 1: 60-year-old man with chronic cough and weight loss
+
+## Clinical Scenario
+A 60-year-old man presents with a 3-month history of persistent cough, occasional hemoptysis, and unintended weight loss of 5 kg. He reports night sweats and fatigue.
+
+## Your Role
+You are the nurse conducting the initial assessment. Gather a detailed history to identify possible causes such as infection, malignancy, or chronic lung disease.
+
+---
+
+# Case Study 2: 35-year-old woman with new-onset weakness and dizziness
+
+## Clinical Scenario
+A 35-year-old woman attends the clinic complaining of progressive weakness in her right arm and intermittent dizziness over the last two weeks. She denies trauma or previous neurological problems.
+
+## Your Role
+You are responsible for taking a thorough neurological history and identifying red flags requiring urgent referral.
+
+---
+
+## Instructions
+For each case:
+
+- Identify key symptoms and red flags  
+- Formulate focused questions to clarify diagnosis  
+- Consider relevant social and medical history  
+- Communicate empathetically with the patient
+
+---
+
+### Questions for Case 1
+
+1. What further questions would you ask about the cough and systemic symptoms?  
+2. Which risk factors should be explored?  
+3. What are the urgent signs that need immediate action?  
+4. How would you explain the importance of investigations to the patient?
+
+### Questions for Case 2
+
+1. What details about weakness and dizziness are important to clarify?  
+2. What neurological symptoms would prompt urgent referral?  
+3. How can you support the patient emotionally during the consultation?  
+4. How would you summarise your initial impression to the patient?
+
+---
+
+### Estimated Time: 25 minutes
+`,
+  estimatedTime: 25,
+  caseQuestions: [
+    // Case 1
+    {
+      id: "case-2-3-1-1",
+      question: "What further questions would you ask about the cough and systemic symptoms?",
+      sampleAnswer: `Duration and progression of cough, nature (dry or productive), presence of blood, fever, night sweats, weight changes, smoking history, occupational exposure.`,
+      keyPoints: ["Clarify symptom details", "Identify possible infection or malignancy"]
+    },
+    {
+      id: "case-2-3-1-2",
+      question: "Which risk factors should be explored?",
+      sampleAnswer: `Smoking, exposure to tuberculosis, family history of cancer, previous lung disease, immunosuppression.`,
+      keyPoints: ["Assess risk profile", "Inform differential diagnosis"]
+    },
+    {
+      id: "case-2-3-1-3",
+      question: "What are the urgent signs that need immediate action?",
+      sampleAnswer: `Massive hemoptysis, severe breathlessness, signs of infection (high fever, sepsis), weight loss with cachexia.`,
+      keyPoints: ["Recognise emergencies", "Prompt referral"]
+    },
+    {
+      id: "case-2-3-1-4",
+      question: "How would you explain the importance of investigations to the patient?",
+      sampleAnswer: `Explain that tests like chest X-ray and sputum analysis help identify the cause, ensure timely treatment, and improve outcomes.`,
+      keyPoints: ["Effective communication", "Patient education"]
+    },
+    // Case 2
+    {
+      id: "case-2-3-2-1",
+      question: "What details about weakness and dizziness are important to clarify?",
+      sampleAnswer: `Onset, duration, progression, distribution of weakness, associated symptoms like numbness, headache, visual changes, syncope.`,
+      keyPoints: ["Detailed symptom assessment", "Identify neurological pattern"]
+    },
+    {
+      id: "case-2-3-2-2",
+      question: "What neurological symptoms would prompt urgent referral?",
+      sampleAnswer: `Sudden severe weakness, facial droop, speech difficulty, loss of consciousness, worsening headache.`,
+      keyPoints: ["Recognise stroke and emergencies"]
+    },
+    {
+      id: "case-2-3-2-3",
+      question: "How can you support the patient emotionally during the consultation?",
+      sampleAnswer: `Listen actively, provide reassurance, acknowledge fears, explain the process clearly, involve family if appropriate.`,
+      keyPoints: ["Empathy and communication skills"]
+    },
+    {
+      id: "case-2-3-2-4",
+      question: "How would you summarise your initial impression to the patient?",
+      sampleAnswer: `Summarise symptoms, explain suspected causes, outline next steps like investigations and referrals, and reassure patient.`,
+      keyPoints: ["Clear communication", "Patient-centred approach"]
+    }
+  ]
+},    
         ],
-      },
-    ],
-  },
+{
+  id: "history-taking-3",
+  title: "Session 3: Expert-Level Communication (Advanced)",
+  description: "Mastering complex consultations and specialised history-taking techniques.",
+  sections: [
+    {
+      id: "history-taking-3-1",
+      title: "3.1 Complex History Taking Strategies",
+      type: "content",
+      content: `
+This session covers advanced communication techniques to effectively gather complex patient histories. You will learn how to manage multiple complaints, discuss sensitive topics with empathy, and use motivational interviewing to support behaviour change.
+
+### Managing Multiple Complaints
+- Prioritise the patient's concerns by asking: "What is your main problem today?"
+- Organise symptoms by importance and chronology.
+- Explore relationships between symptoms to identify patterns.
+
+### Discussing Sensitive Topics
+- Topics may include sexual health, substance use, domestic violence, and mental health.
+- Use a non-judgemental and professional approach.
+- Explain why questions are necessary: "I ask these questions to provide the best care for you."
+- Ensure privacy and confidentiality.
+
+### Motivational Interviewing Techniques
+- Explore patient ambivalence about change.
+- Use open-ended questions: "How do you feel about quitting smoking?"
+- Reflective listening: "It sounds like you're worried about how smoking affects your health."
+- Support self-efficacy by affirming patient strengths.
+
+### Handling Emotional Responses
+- Recognise distress and offer support.
+- Use empathetic statements.
+- Know when to pause or redirect the conversation.
+
+---
+
+### Tips for Effective Complex History Taking
+- Prepare the patient for sensitive questions.
+- Build rapport and trust.
+- Summarise information regularly to ensure understanding.
+- Be patient and flexible in your approach.
+      `,
+      estimatedTime: 20,
+    }
+  ]
+},
+        
+      ],
+    },
   {
     id: "topic-3",
     title: "Medication Management & Calculations",
@@ -570,52 +1343,6 @@ Be respectful, humble and curious about other cultures.`,
           },
         ],
       },
-    ],
-  },
-  {
-    id: "topic-6",
-    title: "Emergency Procedures & CPR",
-    description: "Responding effectively to medical emergencies and performing life-saving interventions.",
-    icon: Zap,
-    slug: "emergency-procedures-cpr",
-    totalEstimatedTime: 30,
-    sessions: [
-      {
-        id: "emergency-1",
-        title: "Basic Life Support (BLS) and Choking Management",
-        description: "Learning the essential steps of CPR and how to manage choking in adults and children.",
-        sections: [
-          {
-            id: "emergency-1-1",
-            title: "Adult Basic Life Support Algorithm",
-            type: "content",
-            content: `Follow the DRSABC (Danger, Response, Shout for help, Airway, Breathing, Circulation) algorithm for adult BLS. This section provides a step-by-step guide.`, 
-            estimatedTime: 10,
-          },
-          {
-            id: "emergency-1-2",
-            title: "Choking Management in Adults and Infants",
-            type: "video",
-            videoUrl: "https://www.youtube.com/embed/example_choking",
-            content: `Video demonstration of back blows and abdominal thrusts for adults, and back blows and chest thrusts for infants.`, 
-            estimatedTime: 10,
-          },
-          {
-            id: "emergency-1-3",
-            title: "Quiz: Emergency Scenarios",
-            type: "quiz",
-            quizQuestions: [
-              {
-                id: "q-em-1",
-                question: "What is the correct compression-to-ventilation ratio for adult CPR with a single rescuer?",
-                options: ["15:2", "30:2", "5:1", "Continuous compressions"],
-                correctAnswer: 1, // "30:2" is the second option
-                explanation: "For adult CPR with a single rescuer, the recommended compression-to-ventilation ratio is 30 compressions to 2 ventilations.",
-              },
-            ],
-            content: `Test your response to various emergency scenarios.`, 
-            estimatedTime: 10,
-          },
         ],
       },
       {
@@ -1069,4 +1796,3 @@ Be respectful, humble and curious about other cultures.`,
     ],
   },
 ];
-
