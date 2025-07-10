@@ -39,6 +39,7 @@ export type LearningSection = {
   content: string;
   estimatedTime: number;
   quizQuestions?: QuizQuestion[];
+  caseQuestions?: CaseQuestion[];
   caseStudyContent?: string;
   videoUrl?: string;
   externalUrl?: string;
@@ -48,8 +49,15 @@ export type QuizQuestion = {
   id: string;
   question: string;
   options: string[];
-  correctAnswer: string;
+  correctAnswer: number; // Changed from string to number to match InteractiveQuiz
   explanation: string;
+};
+
+export type CaseQuestion = {
+  id: string;
+  question: string;
+  sampleAnswer: string;
+  keyPoints: string[];
 };
 
 export const learningContent: LearningTopic[] = [
@@ -59,47 +67,442 @@ export const learningContent: LearningTopic[] = [
     description: "Mastering the art of effective patient communication and comprehensive history taking.",
     icon: Stethoscope,
     slug: "history-taking-communication",
-    totalEstimatedTime: 30,
+    totalEstimatedTime: 120, // Updated to reflect all 3 sessions
     sessions: [
+      // SESSION 1 - INICIANTE (Beginner Level)
       {
         id: "history-taking-1",
-        title: "Introduction to History Taking",
-        description: "Understanding the foundational principles of effective communication and history taking.",
+        title: "Session 1: Basic Communication Principles (Beginner)",
+        description: "Foundation skills for effective patient communication and basic history taking.",
         sections: [
           {
             id: "history-taking-1-1",
-            title: "Principles of Effective Communication",
+            title: "1.1 Principles of Effective Communication",
             type: "content",
-            content: `Building rapport with patients is paramount. This section covers active listening, empathy, and non-verbal cues to establish trust and gather accurate information. Effective communication ensures patient comfort and cooperation, which is crucial for a successful history taking process.`, 
-            estimatedTime: 10,
+            content: `# Building Rapport with Patients
+
+Effective communication is the cornerstone of quality healthcare. This section explores the fundamental principles that every healthcare professional must master:
+
+## Key Communication Principles
+
+### 1. Active Listening
+- Give your full attention to the patient
+- Use non-verbal cues to show engagement
+- Reflect back what you've heard to confirm understanding
+
+### 2. Empathy and Compassion
+- Acknowledge the patient's feelings and concerns
+- Use phrases like "I understand this must be difficult"
+- Show genuine care for their wellbeing
+
+### 3. Non-Verbal Communication
+- Maintain appropriate eye contact
+- Use open body language
+- Be aware of your facial expressions
+- Position yourself at the same level as the patient when possible
+
+### 4. Creating a Safe Environment
+- Ensure privacy and confidentiality
+- Be non-judgmental in your approach
+- Allow patients to express themselves freely
+
+## Practical Tips
+- Start with open-ended questions
+- Use silence effectively to allow patients to think
+- Summarize key points to ensure understanding
+- Always introduce yourself and explain your role`,
+            estimatedTime: 15,
           },
           {
             id: "history-taking-1-2",
-            title: "SOCRATES Framework",
+            title: "1.2 Basic History Taking Structure",
             type: "content",
-            content: `The SOCRATES acronym is a systematic approach to pain assessment: Site, Onset, Character, Radiation, Associations, Time course, Exacerbating/Relieving factors, Severity. Applying this framework ensures a thorough understanding of the patient's pain experience.`, 
-            estimatedTime: 10,
+            content: `# Systematic Approach to History Taking
+
+A structured approach ensures you gather comprehensive information while making the patient feel heard and cared for.
+
+## The Basic Framework
+
+### 1. Opening the Consultation
+- Greet the patient warmly
+- Introduce yourself and your role
+- Explain the purpose of the consultation
+- Ask permission before proceeding
+
+### 2. Chief Complaint
+- "What brings you here today?"
+- Allow the patient to tell their story
+- Avoid interrupting initially
+
+### 3. History of Present Illness
+- When did it start?
+- How has it changed over time?
+- What makes it better or worse?
+- Any associated symptoms?
+
+### 4. Past Medical History
+- Previous illnesses or surgeries
+- Current medications
+- Allergies and adverse reactions
+- Family history (if relevant)
+
+### 5. Social History
+- Occupation and living situation
+- Smoking, alcohol, and substance use
+- Exercise and diet habits
+- Support systems
+
+## Documentation Tips
+- Write legibly and contemporaneously
+- Use standard abbreviations
+- Include both positive and negative findings
+- Sign and date all entries`,
+            estimatedTime: 15,
           },
           {
             id: "history-taking-1-3",
-            title: "Interactive Case Study: Abdominal Pain",
-            type: "case-study",
-            content: `A 45-year-old male presents with acute abdominal pain. Use the communication principles and SOCRATES framework to take a comprehensive history. Consider differential diagnoses based on the information gathered.`, 
+            title: "1.3 Practice Quiz: Basic Communication",
+            type: "quiz",
+            content: "Test your understanding of basic communication principles.",
             estimatedTime: 10,
+            quizQuestions: [
+              {
+                id: "q-hist-1-1",
+                question: "What is the most important aspect of building rapport with a patient?",
+                options: ["Speaking quickly to save time", "Active listening and showing empathy", "Taking detailed notes", "Asking only closed questions"],
+                correctAnswer: 1,
+                explanation: "Active listening and showing empathy are fundamental to building trust and rapport with patients."
+              },
+              {
+                id: "q-hist-1-2",
+                question: "When should you interrupt a patient during their initial story?",
+                options: ["Immediately if they're going off-topic", "After 30 seconds", "Only if there's an emergency", "Never, let them finish first"],
+                correctAnswer: 2,
+                explanation: "Allow patients to tell their story initially, only interrupting for genuine emergencies."
+              },
+              {
+                id: "q-hist-1-3",
+                question: "Which of these demonstrates good non-verbal communication?",
+                options: ["Looking at your notes constantly", "Sitting at the same level as the patient", "Checking your phone", "Standing with arms crossed"],
+                correctAnswer: 1,
+                explanation: "Positioning yourself at the same level shows respect and makes the interaction more comfortable."
+              }
+            ]
           },
         ],
       },
+
+      // SESSION 2 - INTERMEDIÁRIO (Intermediate Level)
       {
         id: "history-taking-2",
-        title: "Advanced History Taking Techniques",
-        description: "Delving deeper into history taking for comprehensive understanding.",
+        title: "Session 2: Advanced Communication Techniques (Intermediate)",
+        description: "Developing skills for challenging situations and complex history taking.",
         sections: [
           {
             id: "history-taking-2-1",
-            title: "In-depth History Taking Analysis",
+            title: "2.1 SOCRATES Framework for Pain Assessment",
             type: "content",
-            content: `This session explores advanced techniques for eliciting sensitive information, handling challenging patient encounters, and structuring complex medical histories. It also covers the importance of collateral history and documentation best practices.`, 
+            content: `# SOCRATES: Systematic Pain Assessment
+
+The SOCRATES framework provides a comprehensive structure for evaluating pain and symptoms systematically.
+
+## SOCRATES Breakdown
+
+### S - Site
+- Where exactly is the pain?
+- Point to the specific location
+- Is it localized or diffuse?
+
+### O - Onset
+- When did it start?
+- Was it sudden or gradual?
+- What were you doing when it began?
+
+### C - Character
+- What does it feel like?
+- Sharp, dull, burning, cramping?
+- Use the patient's own words
+
+### R - Radiation
+- Does the pain travel anywhere?
+- Does it move or spread?
+- Where does it go?
+
+### A - Associations
+- Any other symptoms?
+- Nausea, sweating, shortness of breath?
+- What happens alongside the pain?
+
+### T - Time course
+- How long does it last?
+- Is it constant or intermittent?
+- Does it follow a pattern?
+
+### E - Exacerbating/Relieving factors
+- What makes it worse?
+- What makes it better?
+- Have you tried anything for it?
+
+### S - Severity
+- Rate from 1-10
+- How does it affect daily activities?
+- Is it getting better or worse?
+
+## Clinical Application
+Use SOCRATES for any symptom, not just pain. It ensures comprehensive assessment and helps with differential diagnosis.`,
+            estimatedTime: 20,
+          },
+          {
+            id: "history-taking-2-2",
+            title: "2.2 Handling Difficult Conversations",
+            type: "content",
+            content: `# Managing Challenging Patient Interactions
+
+Healthcare professionals often encounter difficult situations that require specialized communication skills.
+
+## Common Challenging Scenarios
+
+### 1. Emotional or Distressed Patients
+- Acknowledge their emotions
+- Use phrases like "I can see you're upset"
+- Allow time for emotions
+- Offer tissues and comfort
+
+### 2. Angry or Aggressive Patients
+- Stay calm and professional
+- Listen to their concerns
+- Don't take it personally
+- Set boundaries if necessary
+
+### 3. Patients in Denial
+- Avoid arguing or confronting
+- Explore their understanding
+- Provide information gradually
+- Respect their coping mechanisms
+
+### 4. Language Barriers
+- Use professional interpreters
+- Speak slowly and clearly
+- Check understanding frequently
+- Be aware of cultural differences
+
+## De-escalation Techniques
+- Lower your voice
+- Use open body language
+- Validate their feelings
+- Focus on problem-solving
+- Know when to seek help
+
+## Cultural Sensitivity
+- Respect different beliefs
+- Ask about preferences
+- Be aware of your own biases
+- Adapt your approach accordingly`,
+            estimatedTime: 20,
+          },
+          {
+            id: "history-taking-2-3",
+            title: "2.3 Interactive Case Study: Chest Pain Assessment",
+            type: "case-study",
+            content: `# Case Study: 55-year-old with Chest Pain
+
+## Clinical Scenario
+A 55-year-old male presents to the emergency department with chest pain that started 2 hours ago. He appears anxious and is sweating. His wife accompanied him and is also worried.
+
+## Your Role
+You are the triage nurse responsible for taking his initial history. Use the SOCRATES framework and appropriate communication techniques to gather comprehensive information.
+
+## Patient Background
+- Works as an office manager (sedentary job)
+- Has a history of high blood pressure
+- Smokes 15 cigarettes per day
+- Father had a heart attack at age 60
+
+## Initial Presentation
+The patient clutches his chest and says: "It feels like an elephant is sitting on my chest. I've never felt anything like this before."`,
             estimatedTime: 15,
+            caseQuestions: [
+              {
+                id: "case-hist-2-1",
+                question: "Using the SOCRATES framework, what are the key questions you would ask about the chest pain?",
+                sampleAnswer: "Site: Can you show me exactly where the pain is? Is it in one specific area?\nOnset: When exactly did it start? What were you doing at the time?\nCharacter: You mentioned it feels like an elephant - can you describe it more? Is it crushing, sharp, burning?\nRadiation: Does the pain travel anywhere? To your arms, neck, or back?\nAssociations: Any other symptoms? Shortness of breath, nausea, sweating?\nTime: Has it been constant since it started? Any changes?\nExacerbating/Relieving: Does anything make it better or worse? Rest, movement?\nSeverity: On a scale of 1-10, how would you rate the pain?",
+                keyPoints: [
+                  "Use all components of SOCRATES systematically",
+                  "Ask open-ended questions initially",
+                  "Listen for red flag symptoms",
+                  "Note the patient's exact words",
+                  "Consider cardiac risk factors"
+                ]
+              },
+              {
+                id: "case-hist-2-2", 
+                question: "How would you address the patient's anxiety while gathering the history?",
+                sampleAnswer: "I would acknowledge his distress: 'I can see you're worried about this pain, and that's completely understandable.' I'd explain what I'm doing: 'I'm going to ask you some questions to help us understand what's happening and get you the right care.' I'd reassure him about the process: 'The team is experienced with chest pain, and we'll take good care of you.' I'd also involve his wife appropriately: 'Is it helpful for your wife to stay with you while we talk?'",
+                keyPoints: [
+                  "Acknowledge and validate emotions",
+                  "Explain the process",
+                  "Provide appropriate reassurance",
+                  "Include family members when appropriate",
+                  "Maintain professional calm"
+                ]
+              }
+            ]
+          },
+        ],
+      },
+
+      // SESSION 3 - AVANÇADO (Advanced Level)
+      {
+        id: "history-taking-3",
+        title: "Session 3: Expert-Level Communication (Advanced)",
+        description: "Mastering complex consultations and specialized history-taking techniques.",
+        sections: [
+          {
+            id: "history-taking-3-1",
+            title: "3.1 Complex History Taking Strategies",
+            type: "content",
+            content: `# Advanced History Taking Techniques
+
+Mastering complex consultations requires sophisticated communication skills and clinical judgment.
+
+## Complex Scenarios
+
+### 1. Multiple Presenting Complaints
+- Prioritize by urgency and severity
+- Use systematic review of systems
+- Look for connections between symptoms
+- Manage time effectively
+
+### 2. Psychiatric History Taking
+- Create a safe, non-judgmental environment
+- Use appropriate screening tools
+- Ask about risk factors sensitively
+- Consider mental state examination
+
+### 3. Sensitive Topics
+- Sexual history
+- Substance abuse
+- Domestic violence
+- End-of-life concerns
+
+## Advanced Techniques
+
+### Narrative Medicine Approach
+- Let patients tell their story
+- Focus on the patient's perspective
+- Understand illness experience
+- Explore meaning and impact
+
+### Motivational Interviewing
+- Explore ambivalence about change
+- Support self-efficacy
+- Use reflective listening
+- Guide toward behavior change
+
+### Shared Decision Making
+- Present options clearly
+- Discuss risks and benefits
+- Elicit patient preferences
+- Reach mutual agreement
+
+## Professional Development
+- Reflect on difficult cases
+- Seek feedback from colleagues
+- Continue learning communication skills
+- Practice self-care to prevent burnout`,
+            estimatedTime: 25,
+          },
+          {
+            id: "history-taking-3-2",
+            title: "3.2 Cultural Competency and Communication",
+            type: "content", 
+            content: `# Cultural Competency in Healthcare Communication
+
+Understanding and respecting cultural differences is essential for effective healthcare delivery.
+
+## Cultural Considerations
+
+### 1. Communication Styles
+- Direct vs. indirect communication
+- Eye contact norms
+- Personal space preferences
+- Touch and physical examination
+
+### 2. Health Beliefs and Practices
+- Traditional healing methods
+- Religious considerations
+- Family decision-making roles
+- Concepts of illness and wellness
+
+### 3. Language and Interpretation
+- Working with interpreters effectively
+- Avoiding family as interpreters
+- Understanding medical interpretation
+- Non-verbal communication across cultures
+
+## Best Practices
+
+### Cultural Assessment
+- Ask about cultural preferences
+- Explore health beliefs respectfully
+- Understand family dynamics
+- Consider social determinants
+
+### Inclusive Communication
+- Use culturally appropriate examples
+- Avoid assumptions and stereotypes
+- Adapt communication style
+- Show respect for differences
+
+### Building Cultural Competence
+- Self-awareness of biases
+- Continuous learning
+- Seek cultural consultants
+- Practice humility and curiosity
+
+## Special Populations
+- LGBTQ+ patients
+- Refugees and immigrants
+- Elderly patients
+- Patients with disabilities`,
+            estimatedTime: 25,
+          },
+          {
+            id: "history-taking-3-3",
+            title: "3.3 Comprehensive Assessment Quiz",
+            type: "quiz",
+            content: "Test your mastery of advanced communication and history-taking skills.",
+            estimatedTime: 15,
+            quizQuestions: [
+              {
+                id: "q-hist-3-1",
+                question: "When taking a history from a patient with multiple complaints, what is the best initial approach?",
+                options: ["Address each complaint in detail sequentially", "Focus only on the most serious complaint", "Ask the patient to prioritize their concerns", "Use a systematic review of systems first"],
+                correctAnswer: 2,
+                explanation: "Asking patients to prioritize their concerns respects their autonomy and helps focus the consultation on what matters most to them."
+              },
+              {
+                id: "q-hist-3-2",
+                question: "When working with an interpreter, you should:",
+                options: ["Speak directly to the interpreter", "Speak to the patient and maintain eye contact", "Ask the interpreter to summarize", "Use family members when possible"],
+                correctAnswer: 1,
+                explanation: "Always speak directly to the patient and maintain eye contact, treating them as the primary person in the interaction."
+              },
+              {
+                id: "q-hist-3-3",
+                question: "In motivational interviewing, the most effective way to address patient ambivalence is to:",
+                options: ["Tell them what they should do", "Explore both sides of their ambivalence", "Ignore their resistance", "Provide more information"],
+                correctAnswer: 1,
+                explanation: "Exploring both sides of ambivalence helps patients work through their conflicted feelings and find their own motivation for change."
+              },
+              {
+                id: "q-hist-3-4",
+                question: "What is the key principle of shared decision-making?",
+                options: ["The doctor makes the final decision", "The patient chooses without input", "Both patient and provider contribute to decisions", "Decisions are made by committee"],
+                correctAnswer: 2,
+                explanation: "Shared decision-making involves both patient and provider contributing their expertise - clinical knowledge and personal values respectively."
+              }
+            ]
           },
         ],
       },
@@ -142,7 +545,7 @@ export const learningContent: LearningTopic[] = [
                 id: "q-cv-1",
                 question: "Which heart sound is associated with the closure of the mitral and tricuspid valves?",
                 options: ["S1", "S2", "S3", "S4"],
-                correctAnswer: "S1",
+                correctAnswer: 0, // S1 is the first option
                 explanation: "S1 (lub) is caused by the closure of the atrioventricular valves (mitral and tricuspid) at the beginning of systole.",
               },
             ],
@@ -196,7 +599,7 @@ export const learningContent: LearningTopic[] = [
                 id: "q-med-1",
                 question: "A patient is prescribed 500mg of a drug. The available stock is 250mg tablets. How many tablets should be administered?",
                 options: ["1", "2", "3", "4"],
-                correctAnswer: "2",
+                correctAnswer: 1, // "2" is the second option
                 explanation: "500mg / 250mg per tablet = 2 tablets.",
               },
             ],
@@ -317,7 +720,7 @@ export const learningContent: LearningTopic[] = [
                 id: "q-vs-1",
                 question: "A patient has a blood pressure of 90/60 mmHg, heart rate of 110 bpm, and respiratory rate of 24 breaths/min. What is the most likely clinical state?",
                 options: ["Normal", "Hypotension and Tachycardia", "Hypertension and Bradycardia", "Bradypnea"],
-                correctAnswer: "Hypotension and Tachycardia",
+                correctAnswer: 1, // "Hypotension and Tachycardia" is the second option
                 explanation: "The patient exhibits low blood pressure (hypotension) and a high heart rate (tachycardia), indicating potential instability.",
               },
             ],
@@ -379,7 +782,7 @@ export const learningContent: LearningTopic[] = [
                 id: "q-em-1",
                 question: "What is the correct compression-to-ventilation ratio for adult CPR with a single rescuer?",
                 options: ["15:2", "30:2", "5:1", "Continuous compressions"],
-                correctAnswer: "30:2",
+                correctAnswer: 1, // "30:2" is the second option
                 explanation: "For adult CPR with a single rescuer, the recommended compression-to-ventilation ratio is 30 compressions to 2 ventilations.",
               },
             ],
@@ -492,7 +895,7 @@ export const learningContent: LearningTopic[] = [
                 id: "q-doc-1",
                 question: "Which part of the SOAP note includes the patient's chief complaint and symptoms?",
                 options: ["Subjective", "Objective", "Assessment", "Plan"],
-                correctAnswer: "Subjective",
+                correctAnswer: 0, // "Subjective" is the first option
                 explanation: "The Subjective section of a SOAP note contains information reported by the patient, such as their chief complaint and symptoms.",
               },
             ],
@@ -813,7 +1216,7 @@ export const learningContent: LearningTopic[] = [
                 id: "q-qi-1",
                 question: "Which of the following is the strongest level of evidence?",
                 options: ["Expert opinion", "Case series", "Randomized Controlled Trial (RCT)", "Cohort study"],
-                correctAnswer: "Randomized Controlled Trial (RCT)",
+                correctAnswer: 2, // "Randomized Controlled Trial (RCT)" is the third option
                 explanation: "Randomized Controlled Trials (RCTs) are considered the gold standard for evaluating the effectiveness of interventions due to their rigorous design.",
               },
             ],

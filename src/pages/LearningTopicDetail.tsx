@@ -13,7 +13,7 @@ import {
   Clock, 
   PlayCircle, 
   FileText, 
-  Quiz,
+  HelpCircle,
   Users,
   Trophy,
   ChevronRight,
@@ -137,7 +137,7 @@ const LearningTopicDetail = () => {
           <CaseStudy
             title={currentSectionData.title}
             scenario={currentSectionData.caseStudyContent || currentSectionData.content}
-            questions={currentSectionData.quizQuestions || []}
+            questions={currentSectionData.caseQuestions || []}
             onComplete={handleSectionComplete}
             isCompleted={completedSections.has(`${currentSession}-${currentSection}`)}
           />
