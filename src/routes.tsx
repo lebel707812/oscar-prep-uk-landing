@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Outlet } from 'react-router-dom';
 import Index from './pages/Index';
 import Auth from './pages/Auth';
 import Dashboard from './pages/Dashboard';
@@ -12,6 +12,8 @@ import BlogPost from './pages/BlogPost';
 import BlogCategory from './pages/BlogCategory';
 import BlogDashboard from './pages/BlogDashboard';
 import BlogEditor from './pages/BlogEditor';
+import LearningHub from './pages/LearningHub';
+import LearningTopicDetail from './pages/LearningTopicDetail';
 
 const router = createBrowserRouter([
   {
@@ -25,14 +27,44 @@ const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: <Dashboard />,
-  },
-  {
-    path: '/dashboard/mock-exams',
-    element: <MockExams />,
-  },
-  {
-    path: '/dashboard/scenario-library',
-    element: <ScenarioLibrary />,
+    children: [
+      {
+        index: true,
+        element: <Dashboard />,
+      },
+      {
+        path: 'mock-exams',
+        element: <MockExams />,
+      },
+      {
+        path: 'scenario-library',
+        element: <ScenarioLibrary />,
+      },
+      {
+        path: 'pacient-AI',
+        element: <PacientAI />,
+      },
+      {
+        path: 'blog',
+        element: <BlogDashboard />,
+      },
+      {
+        path: 'blog/new',
+        element: <BlogEditor />,
+      },
+      {
+        path: 'blog/edit/:id',
+        element: <BlogEditor />,
+      },
+      {
+        path: 'learning-hub',
+        element: <LearningHub />,
+      },
+      {
+        path: 'learning-hub/:topicSlug/:sessionId',
+        element: <LearningTopicDetail />,
+      },
+    ],
   },
   {
     path: '/mock-exam-runner',
@@ -41,10 +73,6 @@ const router = createBrowserRouter([
   {
     path: '/start-free-trial',
     element: <StartFreeTrial />,
-  },
-  {
-    path: '/dashboard/pacient-AI',
-    element: <PacientAI />,
   },
   {
     path: '/blog',
@@ -57,18 +85,6 @@ const router = createBrowserRouter([
   {
     path: '/blog/:slug',
     element: <BlogPost />,
-  },
-  {
-    path: '/dashboard/blog',
-    element: <BlogDashboard />,
-  },
-  {
-    path: '/dashboard/blog/new',
-    element: <BlogEditor />,
-  },
-  {
-    path: '/dashboard/blog/edit/:id',
-    element: <BlogEditor />,
   },
 ]);
 
