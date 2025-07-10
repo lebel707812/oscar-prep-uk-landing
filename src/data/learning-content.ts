@@ -79,85 +79,33 @@ export const learningContent: LearningTopic[] = [
             id: "history-taking-1-1",
             title: "1.1 Principles of Effective Communication",
             type: "content",
-            content: `# Building Rapport with Patients
+            content: `Para se comunicar bem com pacientes, você precisa:
 
-Effective communication is the cornerstone of quality healthcare. This section explores the fundamental principles that every healthcare professional must master:
+• Cumprimentar o paciente com educação
+• Olhar nos olhos enquanto conversa  
+• Escutar sem interromper
+• Mostrar que você se importa
+• Falar de forma clara e simples
+• Dar tempo para o paciente falar
 
-## Key Communication Principles
-
-### 1. Active Listening
-- Give your full attention to the patient
-- Use non-verbal cues to show engagement
-- Reflect back what you've heard to confirm understanding
-
-### 2. Empathy and Compassion
-- Acknowledge the patient's feelings and concerns
-- Use phrases like "I understand this must be difficult"
-- Show genuine care for their wellbeing
-
-### 3. Non-Verbal Communication
-- Maintain appropriate eye contact
-- Use open body language
-- Be aware of your facial expressions
-- Position yourself at the same level as the patient when possible
-
-### 4. Creating a Safe Environment
-- Ensure privacy and confidentiality
-- Be non-judgmental in your approach
-- Allow patients to express themselves freely
-
-## Practical Tips
-- Start with open-ended questions
-- Use silence effectively to allow patients to think
-- Summarize key points to ensure understanding
-- Always introduce yourself and explain your role`,
-            estimatedTime: 15,
+Lembre-se: o paciente está nervoso e precisa se sentir seguro com você.`,
+            estimatedTime: 10,
           },
           {
             id: "history-taking-1-2",
             title: "1.2 Basic History Taking Structure",
             type: "content",
-            content: `# Systematic Approach to History Taking
+            content: `Siga esta ordem sempre:
 
-A structured approach ensures you gather comprehensive information while making the patient feel heard and cared for.
+1. **Apresente-se**: "Olá, eu sou [nome], sou enfermeiro(a)"
+2. **Pergunte o motivo**: "O que te trouxe aqui hoje?"
+3. **Deixe falar**: Não interrompa no início
+4. **Faça perguntas**: Quando, onde, como começou?
+5. **Anote tudo**: Escreva as informações importantes
+6. **Confirme**: "Entendi certo que...?"
 
-## The Basic Framework
-
-### 1. Opening the Consultation
-- Greet the patient warmly
-- Introduce yourself and your role
-- Explain the purpose of the consultation
-- Ask permission before proceeding
-
-### 2. Chief Complaint
-- "What brings you here today?"
-- Allow the patient to tell their story
-- Avoid interrupting initially
-
-### 3. History of Present Illness
-- When did it start?
-- How has it changed over time?
-- What makes it better or worse?
-- Any associated symptoms?
-
-### 4. Past Medical History
-- Previous illnesses or surgeries
-- Current medications
-- Allergies and adverse reactions
-- Family history (if relevant)
-
-### 5. Social History
-- Occupation and living situation
-- Smoking, alcohol, and substance use
-- Exercise and diet habits
-- Support systems
-
-## Documentation Tips
-- Write legibly and contemporaneously
-- Use standard abbreviations
-- Include both positive and negative findings
-- Sign and date all entries`,
-            estimatedTime: 15,
+É simples: ouvir, perguntar, anotar e confirmar.`,
+            estimatedTime: 10,
           },
           {
             id: "history-taking-1-3",
@@ -202,103 +150,43 @@ A structured approach ensures you gather comprehensive information while making 
             id: "history-taking-2-1",
             title: "2.1 SOCRATES Framework for Pain Assessment",
             type: "content",
-            content: `# SOCRATES: Systematic Pain Assessment
+            content: `SOCRATES é um método para avaliar dor de forma completa:
 
-The SOCRATES framework provides a comprehensive structure for evaluating pain and symptoms systematically.
+**S** - Site: Onde é a dor?
+**O** - Onset: Quando começou?
+**C** - Character: Como é a dor? (pontada, queimação, etc)
+**R** - Radiation: A dor irradia para outro lugar?
+**A** - Associations: Tem outros sintomas junto?
+**T** - Time: Quanto tempo dura?
+**E** - Exacerbating/Relieving: O que piora/melhora?
+**S** - Severity: Numa escala de 1-10, qual a intensidade?
 
-## SOCRATES Breakdown
-
-### S - Site
-- Where exactly is the pain?
-- Point to the specific location
-- Is it localized or diffuse?
-
-### O - Onset
-- When did it start?
-- Was it sudden or gradual?
-- What were you doing when it began?
-
-### C - Character
-- What does it feel like?
-- Sharp, dull, burning, cramping?
-- Use the patient's own words
-
-### R - Radiation
-- Does the pain travel anywhere?
-- Does it move or spread?
-- Where does it go?
-
-### A - Associations
-- Any other symptoms?
-- Nausea, sweating, shortness of breath?
-- What happens alongside the pain?
-
-### T - Time course
-- How long does it last?
-- Is it constant or intermittent?
-- Does it follow a pattern?
-
-### E - Exacerbating/Relieving factors
-- What makes it worse?
-- What makes it better?
-- Have you tried anything for it?
-
-### S - Severity
-- Rate from 1-10
-- How does it affect daily activities?
-- Is it getting better or worse?
-
-## Clinical Application
-Use SOCRATES for any symptom, not just pain. It ensures comprehensive assessment and helps with differential diagnosis.`,
-            estimatedTime: 20,
+Use sempre que o paciente reclamar de dor.`,
+            estimatedTime: 15,
           },
           {
             id: "history-taking-2-2",
             title: "2.2 Handling Difficult Conversations",
             type: "content",
-            content: `# Managing Challenging Patient Interactions
+            content: `Às vezes é difícil conversar com pacientes. Aqui estão dicas:
 
-Healthcare professionals often encounter difficult situations that require specialized communication skills.
+**Paciente nervoso/chorando:**
+• Diga: "Vejo que está preocupado"
+• Ofereça lenços
+• Dê tempo para se acalmar
 
-## Common Challenging Scenarios
+**Paciente bravo:**
+• Mantenha a calma
+• Escute sem interromper
+• Não leve para o lado pessoal
 
-### 1. Emotional or Distressed Patients
-- Acknowledge their emotions
-- Use phrases like "I can see you're upset"
-- Allow time for emotions
-- Offer tissues and comfort
+**Barreira de idioma:**
+• Use tradutor profissional
+• Fale devagar e claro
+• Confirme se entendeu
 
-### 2. Angry or Aggressive Patients
-- Stay calm and professional
-- Listen to their concerns
-- Don't take it personally
-- Set boundaries if necessary
-
-### 3. Patients in Denial
-- Avoid arguing or confronting
-- Explore their understanding
-- Provide information gradually
-- Respect their coping mechanisms
-
-### 4. Language Barriers
-- Use professional interpreters
-- Speak slowly and clearly
-- Check understanding frequently
-- Be aware of cultural differences
-
-## De-escalation Techniques
-- Lower your voice
-- Use open body language
-- Validate their feelings
-- Focus on problem-solving
-- Know when to seek help
-
-## Cultural Sensitivity
-- Respect different beliefs
-- Ask about preferences
-- Be aware of your own biases
-- Adapt your approach accordingly`,
-            estimatedTime: 20,
+Lembre-se: paciência é fundamental.`,
+            estimatedTime: 15,
           },
           {
             id: "history-taking-2-3",
@@ -361,111 +249,50 @@ The patient clutches his chest and says: "It feels like an elephant is sitting o
             id: "history-taking-3-1",
             title: "3.1 Complex History Taking Strategies",
             type: "content",
-            content: `# Advanced History Taking Techniques
+            content: `Situações complexas exigem habilidades avançadas:
 
-Mastering complex consultations requires sophisticated communication skills and clinical judgment.
+**Múltiplas queixas:**
+• Pergunte: "Qual sua maior preocupação hoje?"
+• Organize por prioridade
+• Conecte sintomas relacionados
 
-## Complex Scenarios
+**Tópicos sensíveis:**
+• História sexual, drogas, violência
+• Seja profissional e sem julgamento
+• Explique por que precisa perguntar
 
-### 1. Multiple Presenting Complaints
-- Prioritize by urgency and severity
-- Use systematic review of systems
-- Look for connections between symptoms
-- Manage time effectively
+**Entrevista motivacional:**
+• Explore a ambivalência do paciente
+• "Como você se sente sobre parar de fumar?"
+• Apoie a autoeficácia
 
-### 2. Psychiatric History Taking
-- Create a safe, non-judgmental environment
-- Use appropriate screening tools
-- Ask about risk factors sensitively
-- Consider mental state examination
-
-### 3. Sensitive Topics
-- Sexual history
-- Substance abuse
-- Domestic violence
-- End-of-life concerns
-
-## Advanced Techniques
-
-### Narrative Medicine Approach
-- Let patients tell their story
-- Focus on the patient's perspective
-- Understand illness experience
-- Explore meaning and impact
-
-### Motivational Interviewing
-- Explore ambivalence about change
-- Support self-efficacy
-- Use reflective listening
-- Guide toward behavior change
-
-### Shared Decision Making
-- Present options clearly
-- Discuss risks and benefits
-- Elicit patient preferences
-- Reach mutual agreement
-
-## Professional Development
-- Reflect on difficult cases
-- Seek feedback from colleagues
-- Continue learning communication skills
-- Practice self-care to prevent burnout`,
-            estimatedTime: 25,
+Lembre-se: casos complexos precisam de paciência e técnica.`,
+            estimatedTime: 20,
           },
           {
             id: "history-taking-3-2",
             title: "3.2 Cultural Competency and Communication",
             type: "content", 
-            content: `# Cultural Competency in Healthcare Communication
+            content: `Cuidar de pessoas de diferentes culturas:
 
-Understanding and respecting cultural differences is essential for effective healthcare delivery.
+**Diferenças culturais:**
+• Contato visual (pode ser desrespeitoso em algumas culturas)
+• Espaço pessoal e toque
+• Papel da família nas decisões
+• Crenças sobre doença e cura
 
-## Cultural Considerations
+**Com intérpretes:**
+• Fale diretamente com o paciente
+• Use intérpretes profissionais, não família
+• Confirme o entendimento
 
-### 1. Communication Styles
-- Direct vs. indirect communication
-- Eye contact norms
-- Personal space preferences
-- Touch and physical examination
+**Populações especiais:**
+• LGBTQ+, refugiados, idosos
+• Pessoas com deficiência
+• Diferentes religiões
 
-### 2. Health Beliefs and Practices
-- Traditional healing methods
-- Religious considerations
-- Family decision-making roles
-- Concepts of illness and wellness
-
-### 3. Language and Interpretation
-- Working with interpreters effectively
-- Avoiding family as interpreters
-- Understanding medical interpretation
-- Non-verbal communication across cultures
-
-## Best Practices
-
-### Cultural Assessment
-- Ask about cultural preferences
-- Explore health beliefs respectfully
-- Understand family dynamics
-- Consider social determinants
-
-### Inclusive Communication
-- Use culturally appropriate examples
-- Avoid assumptions and stereotypes
-- Adapt communication style
-- Show respect for differences
-
-### Building Cultural Competence
-- Self-awareness of biases
-- Continuous learning
-- Seek cultural consultants
-- Practice humility and curiosity
-
-## Special Populations
-- LGBTQ+ patients
-- Refugees and immigrants
-- Elderly patients
-- Patients with disabilities`,
-            estimatedTime: 25,
+Seja respeitoso, humilde e curioso sobre outras culturas.`,
+            estimatedTime: 20,
           },
           {
             id: "history-taking-3-3",
