@@ -1,4 +1,4 @@
-import { LearningTopic } from "@/integrations/supabase/types";
+import { LearningTopic } from "../learning-content";
 import { Stethoscope } from "lucide-react";
 
 import content1_1 from "@/content/learning/history-taking-1-1.md?raw";
