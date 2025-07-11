@@ -61,7 +61,7 @@ const router = createBrowserRouter([
         element: <LearningHub />,
       },
       {
-        path: 'learning-hub/:topicSlug/:sessionId',
+        path: 'learning-hub/topic/:topicSlug',
         element: <LearningTopicDetail />,
       },
     ],

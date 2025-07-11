@@ -6,7 +6,7 @@ export const topic2: LearningTopic = {
   title: "Physical Examination",
   description: "Master systematic physical examination techniques and clinical assessment skills.",
   icon: Heart,
-  slug: "physical-examination",
+  slug: "physical-examination-techniques",
   totalEstimatedTime: 110,
   sessions: [
     {
