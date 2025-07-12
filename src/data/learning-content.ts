@@ -51,6 +51,7 @@ import { topic3 } from "./topics/topic-3-medication-management";
 import { topic4 } from "./topics/topic-4-wound-care";
 import { topic5 } from "./topics/topic-5-vital-signs-monitoring";
 import { topic6 } from "./topics/topic-6-emergency-procedures-cpr";
+import { topic7 } from "./topics/topic-7-patient-safety-risk-assessment";
 
 export const learningContent: LearningTopic[] = [
   topic1,
@@ -59,5 +60,6 @@ export const learningContent: LearningTopic[] = [
   topic4,
   topic5,
   topic6,
+  topic7,
   // Add more topics here
 ];
