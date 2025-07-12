@@ -1,11 +1,11 @@
 import { LearningTopic } from "../learning-content";
-import { FirstAid } from "lucide-react";
+import { Cross } from "lucide-react";
 
 export const topic6: LearningTopic = {
   id: "topic-6",
   title: "Emergency Procedures & CPR",
   description: "Mastering essential emergency procedures and CPR techniques for critical situations.",
-  icon: FirstAid,
+  icon: Cross,
   slug: "emergency-procedures-cpr",
   totalEstimatedTime: 105, // Will update after adding content
   sessions: [

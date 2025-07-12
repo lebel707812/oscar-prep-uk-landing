@@ -63,6 +63,10 @@ Healthcare is inherently complex, and despite best efforts, patient safety incid
 *   **Root Cause Analysis (RCA):** A systematic process for identifying the underlying causes of problems or incidents, rather than just addressing symptoms.
 *   **Learning from Incidents:** Analyzing reported incidents helps identify systemic weaknesses and develop targeted interventions to improve safety.`,
           estimatedTime: 20,
+          id: "",
+          title: "",
+          type: "content"
+        },
         {
           id: "patient-safety-1-3",
           title: "1.3 Quiz: Patient Safety Fundamentals",
@@ -127,6 +131,10 @@ Risk assessment is a systematic process of identifying potential hazards, analyz
 *   **Failure Mode and Effects Analysis (FMEA):** A systematic, proactive method for evaluating a process to identify where and how it might fail and to assess the impact of different failures.
 *   **Root Cause Analysis (RCA):** (As mentioned previously) Used retrospectively to understand why an incident occurred.`,
           estimatedTime: 20,
+          id: "",
+          title: "",
+          type: "content"
+        },
         {
           content: `# 2.2 Strategies for Risk Mitigation and Prevention
 
@@ -151,6 +159,10 @@ Once risks are identified and analyzed, the next crucial step is to implement ef
 
 Patient safety is an ongoing journey. Regular audits, feedback mechanisms, and a commitment to continuous improvement are essential to adapt to new challenges and further enhance safety.`,
           estimatedTime: 25,
+          id: "",
+          title: "",
+          type: "content"
+        },
         {
           id: "patient-safety-2-3",
           title: "2.3 Case Study: Incident Analysis and Learning",
