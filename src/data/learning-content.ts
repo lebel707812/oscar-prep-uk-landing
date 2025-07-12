@@ -48,10 +48,12 @@ export interface LearningTopic {
 import { topic1 } from "./topics/topic-1-history-taking";
 import { topic2 } from "./topics/topic-2-physical-examination";
 import { topic3 } from "./topics/topic-3-medication-management";
+import { topic4 } from "./topics/topic-4-wound-care";
 
 export const learningContent: LearningTopic[] = [
   topic1,
   topic2,
   topic3,
+  topic4,
   // Add more topics here
 ];
