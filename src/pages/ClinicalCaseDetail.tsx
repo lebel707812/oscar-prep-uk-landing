@@ -189,6 +189,258 @@ const ClinicalCaseDetail = () => {
           completed: false
         }
       ]
+    },
+    'case-3': {
+      id: 'case-3',
+      title: 'Community-Acquired Pneumonia',
+      description: 'An 80-year-old male presents with cough, fever, and shortness of breath. Practice respiratory assessment and treatment planning.',
+      difficulty: 'Beginner',
+      category: 'Respiratory Medicine',
+      estimatedTime: '6-8 minutes',
+      learningObjectives: [
+        'Perform a comprehensive respiratory assessment',
+        'Identify signs and symptoms of pneumonia',
+        'Formulate an initial management plan',
+        'Understand the importance of vaccination in the elderly'
+      ],
+      scenario: 'An 80-year-old male is brought to the clinic by his daughter. He has had a cough, fever, and increasing shortness of breath for the past 3 days. He appears lethargic and has a productive cough.',
+      patientInfo: {
+        age: 80,
+        gender: 'Male',
+        presentingComplaint: 'Cough, fever, and shortness of breath',
+        background: 'History of hypertension and mild COPD, lives at home with daughter'
+      },
+      steps: [
+        {
+          id: 'step-1',
+          title: 'Initial Assessment',
+          description: 'Assess vital signs and general appearance',
+          type: 'assessment',
+          timeLimit: 90,
+          completed: false
+        },
+        {
+          id: 'step-2',
+          title: 'History Taking',
+          description: 'Take a focused history, including symptoms, medical history, and social history',
+          type: 'history',
+          timeLimit: 150,
+          completed: false
+        },
+        {
+          id: 'step-3',
+          title: 'Physical Examination',
+          description: 'Perform a respiratory and cardiovascular examination',
+          type: 'examination',
+          timeLimit: 180,
+          completed: false
+        },
+        {
+          id: 'step-4',
+          title: 'Investigations',
+          description: 'Order relevant investigations (e.g., chest X-ray, blood tests)',
+          type: 'investigation',
+          timeLimit: 120,
+          completed: false
+        },
+        {
+          id: 'step-5',
+          title: 'Management Plan',
+          description: 'Develop and communicate a management plan, including treatment and follow-up',
+          type: 'management',
+          timeLimit: 120,
+          completed: false
+        }
+      ]
+    },
+    'case-4': {
+      id: 'case-4',
+      title: 'Chest Pain Evaluation',
+      description: 'A 55-year-old female presents with chest pain. Learn to differentiate between cardiac and non-cardiac causes.',
+      difficulty: 'Intermediate',
+      category: 'Cardiology',
+      estimatedTime: '8-10 minutes',
+      learningObjectives: [
+        'Differentiate between cardiac and non-cardiac chest pain',
+        'Perform a focused cardiovascular assessment',
+        'Identify risk factors for cardiovascular disease',
+        'Formulate an initial diagnostic and management plan'
+      ],
+      scenario: 'A 55-year-old female presents to the clinic complaining of central chest pain that started an hour ago. She describes it as a pressure-like sensation, radiating to her left arm. She has a history of hypertension.',
+      patientInfo: {
+        age: 55,
+        gender: 'Female',
+        presentingComplaint: 'Central chest pain radiating to left arm',
+        background: 'History of hypertension, no known cardiac history'
+      },
+      steps: [
+        {
+          id: 'step-1',
+          title: 'Initial Assessment',
+          description: 'Assess vital signs and general appearance, rule out immediate life threats',
+          type: 'assessment',
+          timeLimit: 90,
+          completed: false
+        },
+        {
+          id: 'step-2',
+          title: 'History Taking',
+          description: 'Take a detailed history of the chest pain, including SOCRATES and associated symptoms',
+          type: 'history',
+          timeLimit: 180,
+          completed: false
+        },
+        {
+          id: 'step-3',
+          title: 'Physical Examination',
+          description: 'Perform a cardiovascular and respiratory examination',
+          type: 'examination',
+          timeLimit: 180,
+          completed: false
+        },
+        {
+          id: 'step-4',
+          title: 'Investigations',
+          description: 'Order and interpret relevant investigations (e.g., ECG, cardiac enzymes)',
+          type: 'investigation',
+          timeLimit: 120,
+          completed: false
+        },
+        {
+          id: 'step-5',
+          title: 'Management Plan',
+          description: 'Develop and communicate a management plan based on findings',
+          type: 'management',
+          timeLimit: 120,
+          completed: false
+        }
+      ]
+    },
+    'case-5': {
+      id: 'case-5',
+      title: 'Mental Health Assessment',
+      description: 'A 28-year-old patient presents with anxiety and depression symptoms. Practice mental health screening and communication skills.',
+      difficulty: 'Intermediate',
+      category: 'Mental Health',
+      estimatedTime: '10-12 minutes',
+      learningObjectives: [
+        'Conduct a sensitive mental health assessment',
+        'Identify signs and symptoms of anxiety and depression',
+        'Utilise effective communication techniques',
+        'Formulate an initial care plan and referral strategy'
+      ],
+      scenario: 'A 28-year-old patient attends the clinic reporting persistent feelings of sadness, loss of interest in activities, and difficulty sleeping for the past 2 months. They also mention feeling anxious in social situations.',
+      patientInfo: {
+        age: 28,
+        gender: 'Prefer not to say',
+        presentingComplaint: 'Persistent sadness, loss of interest, anxiety',
+        background: 'No significant past medical history, works as a graphic designer'
+      },
+      steps: [
+        {
+          id: 'step-1',
+          title: 'Establish Rapport and Initial Assessment',
+          description: 'Create a safe and supportive environment, assess immediate risks',
+          type: 'assessment',
+          timeLimit: 120,
+          completed: false
+        },
+        {
+          id: 'step-2',
+          title: 'History Taking (Mental Health Focus)',
+          description: 'Explore symptoms, duration, impact on daily life, and past mental health history',
+          type: 'history',
+          timeLimit: 240,
+          completed: false
+        },
+        {
+          id: 'step-3',
+          title: 'Risk Assessment',
+          description: 'Assess for self-harm, suicide, or harm to others',
+          type: 'assessment',
+          timeLimit: 90,
+          completed: false
+        },
+        {
+          id: 'step-4',
+          title: 'Formulation and Management Discussion',
+          description: 'Discuss potential diagnoses, treatment options, and support available',
+          type: 'management',
+          timeLimit: 180,
+          completed: false
+        },
+        {
+          id: 'step-5',
+          title: 'Safety Planning and Follow-up',
+          description: 'Develop a safety plan if needed and arrange appropriate follow-up or referral',
+          type: 'management',
+          timeLimit: 90,
+          completed: false
+        }
+      ]
+    },
+    'case-6': {
+      id: 'case-6',
+      title: 'Paediatric Fever Assessment',
+      description: 'A 3-year-old child presents with high fever and irritability. Learn age-appropriate assessment techniques.',
+      difficulty: 'Advanced',
+      category: 'Paediatrics',
+      estimatedTime: '8-10 minutes',
+      learningObjectives: [
+        'Perform an age-appropriate paediatric assessment',
+        'Identify red flag signs in a febrile child',
+        'Understand the importance of parental concerns',
+        'Formulate an initial management plan for febrile illness in children'
+      ],
+      scenario: 'A 3-year-old child is brought to the Emergency Department by his parents. He has had a high fever (39.5°C) for 6 hours, is irritable, and refusing to eat or drink. Parents are very concerned.',
+      patientInfo: {
+        age: 3,
+        gender: 'Male',
+        presentingComplaint: 'High fever and irritability',
+        background: 'Up-to-date with immunisations, no significant past medical history'
+      },
+      steps: [
+        {
+          id: 'step-1',
+          title: 'Initial Assessment and Safety',
+          description: 'Assess general appearance, vital signs, and ensure child safety',
+          type: 'assessment',
+          timeLimit: 90,
+          completed: false
+        },
+        {
+          id: 'step-2',
+          title: 'History Taking (from Parents)',
+          description: 'Obtain a detailed history from the parents, focusing on fever characteristics and associated symptoms',
+          type: 'history',
+          timeLimit: 180,
+          completed: false
+        },
+        {
+          id: 'step-3',
+          title: 'Physical Examination',
+          description: 'Perform a comprehensive paediatric examination, looking for sources of infection and red flags',
+          type: 'examination',
+          timeLimit: 240,
+          completed: false
+        },
+        {
+          id: 'step-4',
+          title: 'Investigations',
+          description: 'Consider and discuss appropriate investigations (e.g., urine dip, blood tests)',
+          type: 'investigation',
+          timeLimit: 120,
+          completed: false
+        },
+        {
+          id: 'step-5',
+          title: 'Management and Safety Netting',
+          description: 'Develop a management plan, provide parental advice, and arrange follow-up',
+          type: 'management',
+          timeLimit: 120,
+          completed: false
+        }
+      ]
     }
   };
 
@@ -602,4 +854,6 @@ const ClinicalCaseDetail = () => {
 };
 
 export default ClinicalCaseDetail;
+
+
 
