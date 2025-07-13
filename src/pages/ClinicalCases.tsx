@@ -212,7 +212,7 @@ const ClinicalCases = () => {
   };
 
   const handleCaseClick = (caseId: string) => {
-    navigate(`/clinical-case/${caseId}`);
+    navigate(`/clinical-cases/${caseId}`);
   };
 
   if (loading) {

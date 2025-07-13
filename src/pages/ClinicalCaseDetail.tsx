@@ -454,7 +454,7 @@ const ClinicalCaseDetail = () => {
         description: "The requested clinical case could not be found.",
         variant: "destructive",
       });
-      navigate('/dashboard/clinical-cases');
+      navigate('/clinical-cases');
     }
   }, [caseId, navigate, toast]);
 

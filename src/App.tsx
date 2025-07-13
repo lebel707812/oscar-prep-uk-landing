@@ -147,11 +147,7 @@ const App = () => {
 
                   <Route
                     path="/dashboard/clinical-cases"
-                    element={
-                      <ProtectedRoute>
-                        <LazyInteractiveClinicalCases />
-                      </ProtectedRoute>
-                    }
+                    element={<LazyInteractiveClinicalCases />}
                   />
                   <Route
                     path="/mock-exam-runner"
@@ -209,7 +205,10 @@ const App = () => {
                       </ProtectedRoute>
                     }
                   />
-                  <Route path="*" element={<NotFound />} />
+                  <Route
+                    path="/clinical-cases/:caseId"
+                    element={<LazyClinicalCaseDetail />}
+                  />
                 </Routes>
               </Suspense>
             </BrowserRouter>
@@ -221,4 +220,10 @@ const App = () => {
 };
 
 export default App;
+
+
+const LazyClinicalCaseDetail = lazy(() => import("./pages/ClinicalCaseDetail"));
+
+
+                  <Route path="*" element={<NotFound />} />
 

@@ -7,6 +7,7 @@ import TopicProgressSection from "@/components/TopicProgressSection";
 import DashboardStats from "@/components/ui/DashboardStats";
 import RecentActivity from "@/components/ui/RecentActivity";
 import QuickActions from "@/components/ui/QuickActions";
+import UnifiedHeader from "@/components/ui/UnifiedHeader";
 import { Outlet, useLocation } from "react-router-dom";
 
 import {
