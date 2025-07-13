@@ -312,28 +312,22 @@ export const fetchUserAchievements = async (userId?: string): Promise<UserAchiev
 };
 
 export const updateAchievementProgress = async (
-  achievementSlug: string,
-  progress: Record<string, any>
+  achievementId: string,
+  progress: Record<string, any>,
+  isCompleted: boolean
 ): Promise<void> => {
   const userId = (await supabase.auth.getUser()).data.user?.id;
   if (!userId) return;
-
-  // Get achievement definition
-  const { data: achievement } = await supabase
-    .from('achievement_definitions')
-    .select('id')
-    .eq('slug', achievementSlug)
-    .single();
-
-  if (!achievement) return;
 
   const { error } = await supabase
     .from('user_achievements')
     .upsert({
       user_id: userId,
-      achievement_id: achievement.id,
-      progress
-    });
+      achievement_id: achievementId,
+      progress,
+      is_completed: isCompleted,
+      completed_at: isCompleted ? new Date().toISOString() : null
+    }, { onConflict: 'user_id,achievement_id' });
 
   if (error) throw error;
 };
@@ -632,4 +626,6 @@ export const mockLeaderboard = [
   { position: 4, name: 'James Wilson', points: 2750, avatar: '' },
   { position: 5, name: 'Maria Garcia', points: 2650, avatar: '' }
 ];
+
+
 
