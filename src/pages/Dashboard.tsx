@@ -3,7 +3,6 @@ import { format } from "date-fns";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { Button } from "@/components/ui/button";
-import UnifiedHeader from "@/components/ui/UnifiedHeader";
 import TopicProgressSection from "@/components/TopicProgressSection";
 import DashboardStats from "@/components/ui/DashboardStats";
 import RecentActivity from "@/components/ui/RecentActivity";
@@ -121,7 +120,11 @@ const Dashboard: React.FC = () => {
   const categories = ["All", ...Array.from(new Set(Object.values(stationCategories)))];
 
   // Verificar se estamos na rota principal do dashboard
-  const isMainDashboard = location.pathname === '/dashboard' || location.pathname === '/dashboard/';
+  const isMainDashboard = location.pathname === 
+'/dashboard'
+ || location.pathname === 
+'/dashboard/'
+;
 
   const parseDateAsLocal = (dateString: string) => {
     const [year, month, day] = dateString.split("-").map(Number);
@@ -381,4 +384,6 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
+
+
 
