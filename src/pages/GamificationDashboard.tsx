@@ -26,6 +26,8 @@ import {
   fetchUserStreaks,
   fetchTodaysChallenges,
   fetchUserDailyChallengeProgress,
+  fetchAchievementDefinitions,
+  fetchUserAchievements,
   mockUserStats,
   mockRecentPoints,
   mockBadges,
@@ -36,22 +38,25 @@ import {
   type UserBadge,
   type UserStreak,
   type DailyChallenge,
-  type UserDailyChallengeProgress
+  type UserDailyChallengeProgress,
+  type AchievementDefinition,
+  type UserAchievement
 } from '@/integrations/supabase/gamification';
 import { useAuth } from '@/contexts/AuthContext';
-import { useProgress } from '@/contexts/ProgressContext'; // Import useProgress
-import { achievements as allAchievements } from '@/data/achievements'; // Import all achievements
+import { useProgress } from '@/contexts/ProgressContext';
 import UnifiedHeader from '@/components/ui/UnifiedHeader';
 import Footer from '@/components/Footer';
 
 export default function GamificationDashboard() {
   const { user } = useAuth();
-  const { earnedAchievements } = useProgress(); // Use earnedAchievements from context
+  const { earnedAchievements } = useProgress();
   const [userStats, setUserStats] = useState<UserTotalPoints | null>(null);
   const [badges, setBadges] = useState<UserBadge[]>([]);
   const [streaks, setStreaks] = useState<UserStreak[]>([]);
   const [dailyChallenges, setDailyChallenges] = useState<DailyChallenge[]>([]);
   const [challengeProgress, setChallengeProgress] = useState<UserDailyChallengeProgress[]>([]);
+  const [allAchievements, setAllAchievements] = useState<AchievementDefinition[]>([]);
+  const [userAchievements, setUserAchievements] = useState<UserAchievement[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -62,10 +67,28 @@ export default function GamificationDashboard() {
 
   const loadGamificationData = async () => {
     try {
-      // For now, use mock data since Supabase might not be configured yet
-      // In production, these would be real API calls
-      
-      // Mock user stats
+      // Fetch real data from Supabase
+      const [totalPointsData, badgesData, streaksData, dailyChallengesData, challengeProgressData, achievementDefsData, userAchievementsData] = await Promise.all([
+        fetchUserTotalPoints(user?.id),
+        fetchUserBadges(user?.id),
+        fetchUserStreaks(user?.id),
+        fetchTodaysChallenges(),
+        fetchUserDailyChallengeProgress(),
+        fetchAchievementDefinitions(),
+        fetchUserAchievements(user?.id)
+      ]);
+
+      setUserStats(totalPointsData);
+      setBadges(badgesData);
+      setStreaks(streaksData);
+      setDailyChallenges(dailyChallengesData);
+      setChallengeProgress(challengeProgressData);
+      setAllAchievements(achievementDefsData);
+      setUserAchievements(userAchievementsData);
+
+    } catch (error) {
+      console.error('Error loading gamification data:', error);
+      // Fallback to mock data if Supabase fails or is not configured
       setUserStats({
         user_id: user?.id || '',
         total_points: mockUserStats.totalPoints,
@@ -74,8 +97,6 @@ export default function GamificationDashboard() {
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
       });
-
-      // Mock badges (convert mock data to proper format)
       const mockUserBadges: UserBadge[] = mockBadges.map((badge, index) => ({
         id: `badge-${index}`,
         user_id: user?.id || '',
@@ -98,14 +119,8 @@ export default function GamificationDashboard() {
           updated_at: new Date().toISOString()
         }
       })).filter(badge => mockBadges[parseInt(badge.id.split('-')[1])].earned);
-
       setBadges(mockUserBadges);
-
-      // Mock achievements are no longer needed here, we use earnedAchievements from context
-      // setAchievements(mockUserAchievements);
-
-      // Mock streaks
-      const mockStreaks: UserStreak[] = [
+      setStreaks([
         {
           id: 'streak-1',
           user_id: user?.id || '',
@@ -117,11 +132,7 @@ export default function GamificationDashboard() {
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString()
         }
-      ];
-
-      setStreaks(mockStreaks);
-
-      // Mock daily challenges
+      ]);
       const mockChallenges: DailyChallenge[] = [
         {
           id: 'challenge-1',
@@ -157,10 +168,7 @@ export default function GamificationDashboard() {
           updated_at: new Date().toISOString()
         }
       ];
-
       setDailyChallenges(mockChallenges);
-
-      // Mock challenge progress
       const mockProgress: UserDailyChallengeProgress[] = [
         {
           id: 'progress-1',
@@ -184,11 +192,9 @@ export default function GamificationDashboard() {
           challenge: mockChallenges[1]
         }
       ];
-
       setChallengeProgress(mockProgress);
-
-    } catch (error) {
-      console.error('Error loading gamification data:', error);
+      setAllAchievements([]); // No achievements if Supabase fails
+      setUserAchievements([]); // No user achievements if Supabase fails
     } finally {
       setLoading(false);
     }
@@ -463,7 +469,7 @@ export default function GamificationDashboard() {
               <CardContent>
                 <div className="space-y-4">
                   {allAchievements.map((achievement) => {
-                    const userEarned = earnedAchievements.find(ea => ea.id === achievement.id);
+                    const userEarned = userAchievements.find(ua => ua.achievement_id === achievement.id);
                     const isCompleted = !!userEarned;
                     return (
                       <div 
@@ -474,7 +480,7 @@ export default function GamificationDashboard() {
                           <div className="flex items-center gap-3">
                             <div 
                               className={`w-10 h-10 rounded-full flex items-center justify-center ${isCompleted ? '' : 'grayscale'}`}
-                              style={{ backgroundColor: isCompleted ? '#3B82F6' : '#E5E7EB' }} // Placeholder color
+                              style={{ backgroundColor: isCompleted ? achievement.color : '#E5E7EB' }} // Use achievement color
                             >
                               {isCompleted ? (
                                 <Trophy className="h-5 w-5 text-white" /> // Usar ícone da conquista se disponível
@@ -496,7 +502,7 @@ export default function GamificationDashboard() {
                             </Badge>
                             {isCompleted && (
                               <p className="text-sm text-gray-500 mt-1">
-                                Earned on {new Date(userEarned?.earnedAt || '').toLocaleDateString()}
+                                Earned on {new Date(userEarned?.earned_at || '').toLocaleDateString()}
                               </p>
                             )}
                           </div>
