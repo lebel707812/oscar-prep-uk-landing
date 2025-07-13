@@ -15,6 +15,7 @@ import BlogDashboard from './pages/BlogDashboard';
 import BlogEditor from './pages/BlogEditor';
 import LearningHub from './pages/LearningHub';
 import LearningTopicDetail from './pages/LearningTopicDetail';
+import Layout from './components/ui/Layout';
 
 const router = createBrowserRouter([
   {
@@ -38,10 +39,6 @@ const router = createBrowserRouter([
         element: <MockExams />,
       },
       {
-        path: 'clinical-cases',
-        element: <ClinicalCases />,
-      },
-      {
         path: 'blog',
         element: <BlogDashboard />,
       },
@@ -62,6 +59,10 @@ const router = createBrowserRouter([
         element: <LearningTopicDetail />,
       },
     ],
+  },
+  {
+    path: '/clinical-cases',
+    element: <ClinicalCases />,
   },
   {
     path: '/mock-exam-runner',
@@ -90,5 +91,7 @@ const router = createBrowserRouter([
 ]);
 
 export default router;
+
+
 
 
