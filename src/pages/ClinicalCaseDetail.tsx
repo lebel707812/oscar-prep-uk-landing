@@ -6,31 +6,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { Separator } from "@/components/ui/separator";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { 
-  Clock, 
-  ArrowLeft, 
-  Play, 
-  Pause, 
-  RotateCcw, 
-  CheckCircle, 
-  AlertCircle,
-  Target,
-  BookOpen,
-  Stethoscope,
-  ClipboardList
-} from "lucide-react";
+import { Clock, Play, Pause, RotateCcw, CheckCircle, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-interface CaseStep {
+interface ClinicalStep {
   id: string;
   title: string;
   description: string;
-  type: 'assessment' | 'history' | 'examination' | 'investigation' | 'management';
   timeLimit: number; // in seconds
   completed: boolean;
-  feedback?: string;
 }
 
 interface ClinicalCaseData {
@@ -39,19 +23,11 @@ interface ClinicalCaseData {
   description: string;
   difficulty: string;
   category: string;
-  estimatedTime: string;
-  learningObjectives: string[];
-  scenario: string;
-  patientInfo: {
-    age: number;
-    gender: string;
-    presentingComplaint: string;
-    background: string;
-  };
-  steps: CaseStep[];
+  totalTime: number;
+  steps: ClinicalStep[];
 }
 
-const ClinicalCaseDetail = () => {
+const ClinicalCaseDetail: React.FC = () => {
   const { caseId } = useParams<{ caseId: string }>();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -74,380 +50,99 @@ const ClinicalCaseDetail = () => {
 
   // Mock data for demonstration - in real app, this would come from API
   const mockCaseData: { [key: string]: ClinicalCaseData } = {
-    'case-1': {
-      id: 'case-1',
-      title: 'Acute Abdominal Pain Assessment',
-      description: 'A 45-year-old male presents with sudden onset severe abdominal pain.',
-      difficulty: 'Intermediate',
-      category: 'Emergency Medicine',
-      estimatedTime: '8-10 minutes',
-      learningObjectives: [
-        'Perform systematic abdominal examination',
-        'Identify red flag symptoms',
-        'Develop differential diagnosis',
-        'Communicate findings effectively'
-      ],
-      scenario: 'You are working in the Emergency Department when a 45-year-old male presents with sudden onset severe abdominal pain that started 2 hours ago. He appears distressed and is holding his abdomen.',
-      patientInfo: {
-        age: 45,
-        gender: 'Male',
-        presentingComplaint: 'Sudden onset severe abdominal pain',
-        background: 'Previously fit and well, no significant medical history'
-      },
+    "case-1": {
+      id: "case-1",
+      title: "Acute Abdominal Pain Assessment",
+      description: "A 45-year-old male presents with sudden onset severe abdominal pain. Practice your assessment skills and differential diagnosis.",
+      difficulty: "Intermediate",
+      category: "Emergency Medicine",
+      totalTime: 600, // 10 minutes
       steps: [
         {
-          id: 'step-1',
-          title: 'Initial Assessment',
-          description: 'Introduce yourself and perform initial assessment of the patient',
-          type: 'assessment',
-          timeLimit: 120,
+          id: "initial-assessment",
+          title: "Initial Assessment",
+          description: "Conduct primary survey and obtain vital signs",
+          timeLimit: 120, // 2 minutes
           completed: false
         },
         {
-          id: 'step-2',
-          title: 'History Taking',
-          description: 'Take a focused history of the presenting complaint',
-          type: 'history',
-          timeLimit: 180,
+          id: "history-taking",
+          title: "History Taking",
+          description: "Take a focused history including pain characteristics, associated symptoms, and relevant medical history",
+          timeLimit: 180, // 3 minutes
           completed: false
         },
         {
-          id: 'step-3',
-          title: 'Physical Examination',
-          description: 'Perform a systematic abdominal examination',
-          type: 'examination',
-          timeLimit: 240,
+          id: "physical-examination",
+          title: "Physical Examination",
+          description: "Perform systematic abdominal examination and relevant system examination",
+          timeLimit: 180, // 3 minutes
           completed: false
         },
         {
-          id: 'step-4',
-          title: 'Investigations',
-          description: 'Order appropriate investigations and interpret results',
-          type: 'investigation',
-          timeLimit: 120,
+          id: "differential-diagnosis",
+          title: "Differential Diagnosis",
+          description: "Formulate differential diagnosis and discuss most likely causes",
+          timeLimit: 60, // 1 minute
           completed: false
         },
         {
-          id: 'step-5',
-          title: 'Management Plan',
-          description: 'Develop and communicate management plan',
-          type: 'management',
-          timeLimit: 120,
+          id: "management-plan",
+          title: "Management Plan",
+          description: "Outline immediate management and further investigations",
+          timeLimit: 60, // 1 minute
           completed: false
         }
       ]
     },
-    'case-2': {
-      id: 'case-2',
-      title: 'Diabetic Ketoacidosis Management',
-      description: 'A 22-year-old female with Type 1 Diabetes presents with nausea, vomiting, and altered mental status.',
-      difficulty: 'Advanced',
-      category: 'Endocrinology',
-      estimatedTime: '10-12 minutes',
-      learningObjectives: [
-        'Recognise signs and symptoms of DKA',
-        'Perform appropriate investigations',
-        'Initiate emergency management',
-        'Monitor treatment response'
-      ],
-      scenario: 'A 22-year-old female with known Type 1 Diabetes is brought to A&E by her flatmate who found her confused and vomiting. She has been unwell for 2 days with flu-like symptoms.',
-      patientInfo: {
-        age: 22,
-        gender: 'Female',
-        presentingComplaint: 'Nausea, vomiting, and confusion',
-        background: 'Type 1 Diabetes diagnosed age 12, usually well controlled'
-      },
+    "case-2": {
+      id: "case-2",
+      title: "Diabetic Ketoacidosis Management",
+      description: "A 22-year-old female with Type 1 Diabetes presents with nausea, vomiting, and altered mental status. Learn to recognise and manage DKA.",
+      difficulty: "Advanced",
+      category: "Endocrinology",
+      totalTime: 720, // 12 minutes
       steps: [
         {
-          id: 'step-1',
-          title: 'Initial Assessment',
-          description: 'Assess airway, breathing, circulation and consciousness level',
-          type: 'assessment',
-          timeLimit: 90,
+          id: "initial-assessment",
+          title: "Initial Assessment",
+          description: "Rapid assessment and stabilization",
+          timeLimit: 120,
           completed: false
         },
         {
-          id: 'step-2',
-          title: 'History Taking',
-          description: 'Take focused history from patient and collateral history',
-          type: 'history',
-          timeLimit: 150,
-          completed: false
-        },
-        {
-          id: 'step-3',
-          title: 'Physical Examination',
-          description: 'Perform targeted examination focusing on DKA signs',
-          type: 'examination',
+          id: "history-examination",
+          title: "History & Examination",
+          description: "Focused history and physical examination",
           timeLimit: 180,
           completed: false
         },
         {
-          id: 'step-4',
-          title: 'Urgent Investigations',
-          description: 'Order and interpret urgent blood tests and investigations',
-          type: 'investigation',
+          id: "investigations",
+          title: "Investigations",
+          description: "Order and interpret relevant investigations",
           timeLimit: 120,
           completed: false
         },
         {
-          id: 'step-5',
-          title: 'Emergency Management',
-          description: 'Initiate appropriate emergency treatment for DKA',
-          type: 'management',
-          timeLimit: 180,
-          completed: false
-        }
-      ]
-    },
-    'case-3': {
-      id: 'case-3',
-      title: 'Community-Acquired Pneumonia',
-      description: 'An 80-year-old male presents with cough, fever, and shortness of breath. Practice respiratory assessment and treatment planning.',
-      difficulty: 'Beginner',
-      category: 'Respiratory Medicine',
-      estimatedTime: '6-8 minutes',
-      learningObjectives: [
-        'Perform a comprehensive respiratory assessment',
-        'Identify signs and symptoms of pneumonia',
-        'Formulate an initial management plan',
-        'Understand the importance of vaccination in the elderly'
-      ],
-      scenario: 'An 80-year-old male is brought to the clinic by his daughter. He has had a cough, fever, and increasing shortness of breath for the past 3 days. He appears lethargic and has a productive cough.',
-      patientInfo: {
-        age: 80,
-        gender: 'Male',
-        presentingComplaint: 'Cough, fever, and shortness of breath',
-        background: 'History of hypertension and mild COPD, lives at home with daughter'
-      },
-      steps: [
-        {
-          id: 'step-1',
-          title: 'Initial Assessment',
-          description: 'Assess vital signs and general appearance',
-          type: 'assessment',
-          timeLimit: 90,
+          id: "diagnosis",
+          title: "Diagnosis",
+          description: "Confirm diagnosis of DKA",
+          timeLimit: 60,
           completed: false
         },
         {
-          id: 'step-2',
-          title: 'History Taking',
-          description: 'Take a focused history, including symptoms, medical history, and social history',
-          type: 'history',
-          timeLimit: 150,
-          completed: false
-        },
-        {
-          id: 'step-3',
-          title: 'Physical Examination',
-          description: 'Perform a respiratory and cardiovascular examination',
-          type: 'examination',
+          id: "management",
+          title: "Management",
+          description: "Implement DKA management protocol",
           timeLimit: 180,
           completed: false
         },
         {
-          id: 'step-4',
-          title: 'Investigations',
-          description: 'Order relevant investigations (e.g., chest X-ray, blood tests)',
-          type: 'investigation',
-          timeLimit: 120,
-          completed: false
-        },
-        {
-          id: 'step-5',
-          title: 'Management Plan',
-          description: 'Develop and communicate a management plan, including treatment and follow-up',
-          type: 'management',
-          timeLimit: 120,
-          completed: false
-        }
-      ]
-    },
-    'case-4': {
-      id: 'case-4',
-      title: 'Chest Pain Evaluation',
-      description: 'A 55-year-old female presents with chest pain. Learn to differentiate between cardiac and non-cardiac causes.',
-      difficulty: 'Intermediate',
-      category: 'Cardiology',
-      estimatedTime: '8-10 minutes',
-      learningObjectives: [
-        'Differentiate between cardiac and non-cardiac chest pain',
-        'Perform a focused cardiovascular assessment',
-        'Identify risk factors for cardiovascular disease',
-        'Formulate an initial diagnostic and management plan'
-      ],
-      scenario: 'A 55-year-old female presents to the clinic complaining of central chest pain that started an hour ago. She describes it as a pressure-like sensation, radiating to her left arm. She has a history of hypertension.',
-      patientInfo: {
-        age: 55,
-        gender: 'Female',
-        presentingComplaint: 'Central chest pain radiating to left arm',
-        background: 'History of hypertension, no known cardiac history'
-      },
-      steps: [
-        {
-          id: 'step-1',
-          title: 'Initial Assessment',
-          description: 'Assess vital signs and general appearance, rule out immediate life threats',
-          type: 'assessment',
-          timeLimit: 90,
-          completed: false
-        },
-        {
-          id: 'step-2',
-          title: 'History Taking',
-          description: 'Take a detailed history of the chest pain, including SOCRATES and associated symptoms',
-          type: 'history',
-          timeLimit: 180,
-          completed: false
-        },
-        {
-          id: 'step-3',
-          title: 'Physical Examination',
-          description: 'Perform a cardiovascular and respiratory examination',
-          type: 'examination',
-          timeLimit: 180,
-          completed: false
-        },
-        {
-          id: 'step-4',
-          title: 'Investigations',
-          description: 'Order and interpret relevant investigations (e.g., ECG, cardiac enzymes)',
-          type: 'investigation',
-          timeLimit: 120,
-          completed: false
-        },
-        {
-          id: 'step-5',
-          title: 'Management Plan',
-          description: 'Develop and communicate a management plan based on findings',
-          type: 'management',
-          timeLimit: 120,
-          completed: false
-        }
-      ]
-    },
-    'case-5': {
-      id: 'case-5',
-      title: 'Mental Health Assessment',
-      description: 'A 28-year-old patient presents with anxiety and depression symptoms. Practice mental health screening and communication skills.',
-      difficulty: 'Intermediate',
-      category: 'Mental Health',
-      estimatedTime: '10-12 minutes',
-      learningObjectives: [
-        'Conduct a sensitive mental health assessment',
-        'Identify signs and symptoms of anxiety and depression',
-        'Utilise effective communication techniques',
-        'Formulate an initial care plan and referral strategy'
-      ],
-      scenario: 'A 28-year-old patient attends the clinic reporting persistent feelings of sadness, loss of interest in activities, and difficulty sleeping for the past 2 months. They also mention feeling anxious in social situations.',
-      patientInfo: {
-        age: 28,
-        gender: 'Prefer not to say',
-        presentingComplaint: 'Persistent sadness, loss of interest, anxiety',
-        background: 'No significant past medical history, works as a graphic designer'
-      },
-      steps: [
-        {
-          id: 'step-1',
-          title: 'Establish Rapport and Initial Assessment',
-          description: 'Create a safe and supportive environment, assess immediate risks',
-          type: 'assessment',
-          timeLimit: 120,
-          completed: false
-        },
-        {
-          id: 'step-2',
-          title: 'History Taking (Mental Health Focus)',
-          description: 'Explore symptoms, duration, impact on daily life, and past mental health history',
-          type: 'history',
-          timeLimit: 240,
-          completed: false
-        },
-        {
-          id: 'step-3',
-          title: 'Risk Assessment',
-          description: 'Assess for self-harm, suicide, or harm to others',
-          type: 'assessment',
-          timeLimit: 90,
-          completed: false
-        },
-        {
-          id: 'step-4',
-          title: 'Formulation and Management Discussion',
-          description: 'Discuss potential diagnoses, treatment options, and support available',
-          type: 'management',
-          timeLimit: 180,
-          completed: false
-        },
-        {
-          id: 'step-5',
-          title: 'Safety Planning and Follow-up',
-          description: 'Develop a safety plan if needed and arrange appropriate follow-up or referral',
-          type: 'management',
-          timeLimit: 90,
-          completed: false
-        }
-      ]
-    },
-    'case-6': {
-      id: 'case-6',
-      title: 'Paediatric Fever Assessment',
-      description: 'A 3-year-old child presents with high fever and irritability. Learn age-appropriate assessment techniques.',
-      difficulty: 'Advanced',
-      category: 'Paediatrics',
-      estimatedTime: '8-10 minutes',
-      learningObjectives: [
-        'Perform an age-appropriate paediatric assessment',
-        'Identify red flag signs in a febrile child',
-        'Understand the importance of parental concerns',
-        'Formulate an initial management plan for febrile illness in children'
-      ],
-      scenario: 'A 3-year-old child is brought to the Emergency Department by his parents. He has had a high fever (39.5°C) for 6 hours, is irritable, and refusing to eat or drink. Parents are very concerned.',
-      patientInfo: {
-        age: 3,
-        gender: 'Male',
-        presentingComplaint: 'High fever and irritability',
-        background: 'Up-to-date with immunisations, no significant past medical history'
-      },
-      steps: [
-        {
-          id: 'step-1',
-          title: 'Initial Assessment and Safety',
-          description: 'Assess general appearance, vital signs, and ensure child safety',
-          type: 'assessment',
-          timeLimit: 90,
-          completed: false
-        },
-        {
-          id: 'step-2',
-          title: 'History Taking (from Parents)',
-          description: 'Obtain a detailed history from the parents, focusing on fever characteristics and associated symptoms',
-          type: 'history',
-          timeLimit: 180,
-          completed: false
-        },
-        {
-          id: 'step-3',
-          title: 'Physical Examination',
-          description: 'Perform a comprehensive paediatric examination, looking for sources of infection and red flags',
-          type: 'examination',
-          timeLimit: 240,
-          completed: false
-        },
-        {
-          id: 'step-4',
-          title: 'Investigations',
-          description: 'Consider and discuss appropriate investigations (e.g., urine dip, blood tests)',
-          type: 'investigation',
-          timeLimit: 120,
-          completed: false
-        },
-        {
-          id: 'step-5',
-          title: 'Management and Safety Netting',
-          description: 'Develop a management plan, provide parental advice, and arrange follow-up',
-          type: 'management',
-          timeLimit: 120,
+          id: "monitoring",
+          title: "Monitoring",
+          description: "Plan ongoing monitoring and care",
+          timeLimit: 60,
           completed: false
         }
       ]
@@ -457,20 +152,17 @@ const ClinicalCaseDetail = () => {
   useEffect(() => {
     if (caseId && mockCaseData[caseId]) {
       setCaseData(mockCaseData[caseId]);
-      setTimeRemaining(mockCaseData[caseId].steps[0]?.timeLimit || 0);
+      setTimeRemaining(mockCaseData[caseId].steps[0].timeLimit);
     } else {
-      toast({
-        title: "Case not found",
-        description: "The requested clinical case could not be found.",
-        variant: "destructive",
-      });
+      // Case not found, redirect to clinical cases page
       navigate('/clinical-cases');
     }
-  }, [caseId, navigate, toast]);
+  }, [caseId, navigate]);
 
+  // Timer effect
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    
+
     if (isTimerRunning && timeRemaining > 0) {
       interval = setInterval(() => {
         setTimeRemaining((prev) => {
@@ -502,12 +194,15 @@ const ClinicalCaseDetail = () => {
   };
 
   const resetCase = () => {
-    setCaseStarted(false);
-    setIsTimerRunning(false);
-    setCurrentStep(0);
-    setCaseCompleted(false);
     if (caseData) {
-      setTimeRemaining(caseData.steps[0]?.timeLimit || 0);
+      setCaseStarted(false);
+      setIsTimerRunning(false);
+      setCurrentStep(0);
+      setTimeRemaining(caseData.steps[0].timeLimit);
+      setCaseCompleted(false);
+      setShowFeedback(false);
+      setStepPerformances([]);
+      
       const resetSteps = caseData.steps.map(step => ({ ...step, completed: false }));
       setCaseData({ ...caseData, steps: resetSteps });
     }
@@ -559,45 +254,22 @@ const ClinicalCaseDetail = () => {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const getStepIcon = (type: string) => {
-    switch (type) {
-      case 'assessment':
-        return <Stethoscope className="h-4 w-4" />;
-      case 'history':
-        return <ClipboardList className="h-4 w-4" />;
-      case 'examination':
-        return <Stethoscope className="h-4 w-4" />;
-      case 'investigation':
-        return <BookOpen className="h-4 w-4" />;
-      case 'management':
-        return <Target className="h-4 w-4" />;
-      default:
-        return <BookOpen className="h-4 w-4" />;
-    }
-  };
-
-  const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty.toLowerCase()) {
-      case "beginner":
-        return "bg-green-100 text-green-800 border-green-200";
-      case "intermediate":
-        return "bg-yellow-100 text-yellow-800 border-yellow-200";
-      case "advanced":
-        return "bg-red-100 text-red-800 border-red-200";
-      default:
-        return "bg-gray-100 text-gray-800 border-gray-200";
-    }
+  const getProgressPercentage = () => {
+    if (!caseData) return 0;
+    return ((currentStep + (caseCompleted ? 1 : 0)) / caseData.steps.length) * 100;
   };
 
   if (!caseData) {
     return (
       <Layout>
         <div className="container mx-auto px-4 py-8">
-          <div className="flex items-center justify-center min-h-[400px]">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-              <p className="text-gray-600">Loading case...</p>
-            </div>
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">Case Not Found</h1>
+            <p className="text-gray-600 mb-6">The clinical case you're looking for doesn't exist.</p>
+            <Button onClick={() => navigate('/clinical-cases')}>
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Clinical Cases
+            </Button>
           </div>
         </div>
       </Layout>
@@ -618,280 +290,186 @@ const ClinicalCaseDetail = () => {
         <div className="container mx-auto px-4 py-8">
           {/* Header */}
           <div className="mb-6">
-          <Button 
-            variant="ghost" 
-            onClick={() => navigate('/dashboard/clinical-cases')}
-            className="mb-4"
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Clinical Cases
-          </Button>
-          
-          <div className="flex items-center gap-3 mb-4">
-            <h1 className="text-3xl font-bold text-gray-900">{caseData.title}</h1>
-            <Badge variant="outline" className={getDifficultyColor(caseData.difficulty)}>
-              {caseData.difficulty}
-            </Badge>
-          </div>
-          
-          <p className="text-lg text-gray-600 mb-4">{caseData.description}</p>
-          
-          <div className="flex items-center gap-4 text-sm text-gray-500">
-            <span>Category: {caseData.category}</span>
-            <span>Duration: {caseData.estimatedTime}</span>
-          </div>
-        </div>
-
-        {!caseStarted ? (
-          /* Case Overview */
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Scenario</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-700">{caseData.scenario}</p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Patient Information</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    <div className="flex justify-between">
-                      <span className="font-medium">Age:</span>
-                      <span>{caseData.patientInfo.age} years</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="font-medium">Gender:</span>
-                      <span>{caseData.patientInfo.gender}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="font-medium">Presenting Complaint:</span>
-                      <span>{caseData.patientInfo.presentingComplaint}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="font-medium">Background:</span>
-                      <span>{caseData.patientInfo.background}</span>
-                    </div>
+            <Button 
+              variant="ghost" 
+              onClick={() => navigate('/clinical-cases')}
+              className="mb-4"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Clinical Cases
+            </Button>
+            
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">{caseData.title}</h1>
+                <p className="text-gray-600 mb-4">{caseData.description}</p>
+                <div className="flex gap-2">
+                  <Badge variant="secondary">{caseData.difficulty}</Badge>
+                  <Badge variant="outline">{caseData.category}</Badge>
+                </div>
+              </div>
+              
+              {/* Timer and Controls */}
+              <div className="flex flex-col items-center lg:items-end gap-4">
+                <div className="text-center lg:text-right">
+                  <div className="text-3xl font-mono font-bold text-blue-600 mb-1">
+                    {formatTime(timeRemaining)}
                   </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Target className="h-5 w-5" />
-                    Learning Objectives
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    {caseData.learningObjectives.map((objective, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span className="text-sm">{objective}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Case Steps</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    {caseData.steps.map((step, index) => (
-                      <div key={step.id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                        <div className="flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full">
-                          <span className="text-sm font-medium text-blue-600">{index + 1}</span>
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1">
-                            {getStepIcon(step.type)}
-                            <span className="font-medium text-sm">{step.title}</span>
-                          </div>
-                          <p className="text-xs text-gray-600">{step.description}</p>
-                        </div>
-                        <div className="text-xs text-gray-500">
-                          {formatTime(step.timeLimit)}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Button onClick={startCase} size="lg" className="w-full">
-                <Play className="h-4 w-4 mr-2" />
-                Start Case
-              </Button>
-            </div>
-          </div>
-        ) : (
-          /* Case in Progress */
-          <div className="space-y-6">
-            {/* Timer and Progress */}
-            <Card>
-              <CardContent className="pt-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-5 w-5 text-blue-600" />
-                      <span className="text-2xl font-mono font-bold">
-                        {formatTime(timeRemaining)}
-                      </span>
-                    </div>
-                    <div className="flex gap-2">
-                      <Button variant="outline" size="sm" onClick={pauseTimer}>
-                        {isTimerRunning ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-                      </Button>
-                      <Button variant="outline" size="sm" onClick={resetCase}>
-                        <RotateCcw className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                  
-                  <div className="text-right">
-                    <p className="text-sm text-gray-600">
-                      Step {currentStep + 1} of {caseData.steps.length}
-                    </p>
-                    <Progress 
-                      value={(currentStep / caseData.steps.length) * 100} 
-                      className="w-32"
-                    />
+                  <div className="text-sm text-gray-500">
+                    Step {currentStep + 1} of {caseData.steps.length}
                   </div>
                 </div>
-
-                {timeRemaining <= 30 && timeRemaining > 0 && (
-                  <Alert className="border-orange-200 bg-orange-50">
-                    <AlertCircle className="h-4 w-4 text-orange-600" />
-                    <AlertDescription className="text-orange-800">
-                      Warning: Only {timeRemaining} seconds remaining for this step!
-                    </AlertDescription>
-                  </Alert>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Current Step */}
-            {!caseCompleted && (
-              <Card>
-                <CardHeader>
-                  <div className="flex items-center gap-3">
-                    {getStepIcon(caseData.steps[currentStep].type)}
-                    <CardTitle>{caseData.steps[currentStep].title}</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-base mb-6">
-                    {caseData.steps[currentStep].description}
-                  </CardDescription>
-                  
-                  <div className="bg-blue-50 p-4 rounded-lg mb-6">
-                    <h4 className="font-medium mb-2">Instructions:</h4>
-                    <p className="text-sm text-gray-700">
-                      Complete this step within the time limit. Click "Complete Step" when you have 
-                      finished this part of the examination. You can pause the timer if needed.
-                    </p>
-                  </div>
-
-                  <Button onClick={completeStep} className="w-full">
-                    <CheckCircle className="h-4 w-4 mr-2" />
-                    Complete Step
-                  </Button>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Case Completed */}
-            {caseCompleted && (
-              <Card>
-                <CardContent className="pt-6">
-                  <div className="text-center">
-                    <CheckCircle className="h-16 w-16 text-green-600 mx-auto mb-4" />
-                    <h2 className="text-2xl font-bold text-gray-900 mb-2">Case Completed!</h2>
-                    <p className="text-gray-600 mb-6">
-                      Congratulations! You have successfully completed this clinical case.
-                    </p>
-                    
-                    <div className="flex gap-4 justify-center">
-                      <Button variant="outline" onClick={resetCase}>
-                        <RotateCcw className="h-4 w-4 mr-2" />
-                        Restart Case
+                
+                <div className="flex gap-2">
+                  {!caseStarted ? (
+                    <Button onClick={startCase} className="bg-green-600 hover:bg-green-700">
+                      <Play className="w-4 h-4 mr-2" />
+                      Start Case
+                    </Button>
+                  ) : (
+                    <>
+                      <Button 
+                        onClick={pauseTimer} 
+                        variant="outline"
+                        disabled={caseCompleted}
+                      >
+                        {isTimerRunning ? (
+                          <Pause className="w-4 h-4 mr-2" />
+                        ) : (
+                          <Play className="w-4 h-4 mr-2" />
+                        )}
+                        {isTimerRunning ? 'Pause' : 'Resume'}
                       </Button>
-                      <Button onClick={() => navigate('/dashboard/clinical-cases')}>
-                        Back to Cases
+                      <Button onClick={resetCase} variant="outline">
+                        <RotateCcw className="w-4 h-4 mr-2" />
+                        Reset
                       </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+            
+            {/* Progress Bar */}
+            <div className="mt-6">
+              <div className="flex justify-between text-sm text-gray-600 mb-2">
+                <span>Progress</span>
+                <span>{Math.round(getProgressPercentage())}% Complete</span>
+              </div>
+              <Progress value={getProgressPercentage()} className="h-2" />
+            </div>
+          </div>
 
-            {/* Steps Overview */}
-            <Card>
+          {/* Current Step */}
+          {caseStarted && !caseCompleted && (
+            <Card className="mb-6">
               <CardHeader>
-                <CardTitle>Progress Overview</CardTitle>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-xl">
+                    {caseData.steps[currentStep].title}
+                  </CardTitle>
+                  <Badge variant="outline">
+                    <Clock className="w-3 h-3 mr-1" />
+                    {formatTime(caseData.steps[currentStep].timeLimit)}
+                  </Badge>
+                </div>
+                <CardDescription>
+                  {caseData.steps[currentStep].description}
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-2">
-                  {caseData.steps.map((step, index) => (
-                    <div 
-                      key={step.id} 
-                      className={`flex items-center gap-3 p-3 rounded-lg ${
-                        index === currentStep ? 'bg-blue-50 border border-blue-200' :
-                        step.completed ? 'bg-green-50' : 'bg-gray-50'
-                      }`}
-                    >
-                      <div className={`flex items-center justify-center w-8 h-8 rounded-full ${
-                        step.completed ? 'bg-green-100' :
-                        index === currentStep ? 'bg-blue-100' : 'bg-gray-100'
-                      }`}>
-                        {step.completed ? (
-                          <CheckCircle className="h-4 w-4 text-green-600" />
-                        ) : (
-                          <span className={`text-sm font-medium ${
-                            index === currentStep ? 'text-blue-600' : 'text-gray-600'
-                          }`}>
-                            {index + 1}
-                          </span>
-                        )}
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2">
-                          {getStepIcon(step.type)}
-                          <span className={`font-medium text-sm ${
-                            step.completed ? 'text-green-800' :
-                            index === currentStep ? 'text-blue-800' : 'text-gray-700'
-                          }`}>
-                            {step.title}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        {formatTime(step.timeLimit)}
-                      </div>
-                    </div>
-                  ))}
+                <div className="flex justify-between items-center">
+                  <div className="text-sm text-gray-600">
+                    Complete this step when you're ready to move on
+                  </div>
+                  <Button 
+                    onClick={completeStep}
+                    className="bg-blue-600 hover:bg-blue-700"
+                  >
+                    <CheckCircle className="w-4 h-4 mr-2" />
+                    Complete Step
+                  </Button>
                 </div>
               </CardContent>
             </Card>
-          </div>
-        )}
+          )}
+
+          {/* Case Completed */}
+          {caseCompleted && (
+            <Card className="mb-6 border-green-200 bg-green-50">
+              <CardHeader>
+                <CardTitle className="text-xl text-green-800 flex items-center">
+                  <CheckCircle className="w-5 h-5 mr-2" />
+                  Case Completed!
+                </CardTitle>
+                <CardDescription className="text-green-700">
+                  Congratulations! You have successfully completed this clinical case.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex gap-4">
+                  <Button onClick={() => setShowFeedback(true)}>
+                    View Detailed Feedback
+                  </Button>
+                  <Button onClick={resetCase} variant="outline">
+                    <RotateCcw className="w-4 h-4 mr-2" />
+                    Try Again
+                  </Button>
+                  <Button onClick={() => navigate('/clinical-cases')} variant="outline">
+                    Back to Cases
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Steps Overview */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Case Steps</CardTitle>
+              <CardDescription>
+                Overview of all steps in this clinical case
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {caseData.steps.map((step, index) => (
+                  <div 
+                    key={step.id}
+                    className={`flex items-center justify-between p-4 rounded-lg border ${
+                      step.completed ? 'bg-green-50 border-green-200' :
+                      index === currentStep && caseStarted ? 'bg-blue-50 border-blue-200' : 'bg-gray-50 border-gray-200'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                        step.completed ? 'bg-green-600 text-white' :
+                        index === currentStep && caseStarted ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'
+                      }`}>
+                        {step.completed ? <CheckCircle className="w-4 h-4" /> : index + 1}
+                      </div>
+                      <div>
+                        <span className={`font-medium text-sm ${
+                          step.completed ? 'text-green-800' :
+                          index === currentStep ? 'text-blue-800' : 'text-gray-700'
+                        }`}>
+                          {step.title}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {formatTime(step.timeLimit)}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       )}
     </Layout>
   );
 };
 
 export default ClinicalCaseDetail;
-
-
 
