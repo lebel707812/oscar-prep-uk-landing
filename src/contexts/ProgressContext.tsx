@@ -1,14 +1,8 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
-import { createClient } from '@supabase/supabase-js';
 import { learningContent } from "@/data/learning-content";
 import { useToast } from "@/components/ui/use-toast";
-import { AchievementDefinition } from '@/integrations/supabase/gamification';
-
-// Defina suas variáveis de ambiente do Supabase
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || process.env.REACT_APP_SUPABASE_URL || '';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || process.env.REACT_APP_SUPABASE_ANON_KEY || '';
-
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+import { AchievementDefinition, fetchAchievementDefinitions, updateAchievementProgress, fetchUserAchievements } from '@/integrations/supabase/gamification';
+import { supabase } from '@/integrations/supabase/client'; // Importa a instância única do Supabase
 
 interface ProgressState {
   [topicId: string]: {
@@ -58,53 +52,92 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
   const [userId, setUserId] = useState<string | null>(null);
   const { toast } = useToast();
 
-  // Fetch achievement definitions from Supabase
-  useEffect(() => {
-    const fetchAchievementDefs = async () => {
-      const { data, error } = await supabase
-        .from('achievement_definitions')
-        .select('*')
-        .eq('is_active', true);
-      if (error) {
-        console.error('Error fetching achievement definitions:', error);
-      } else {
-        setAllAchievements(data);
-      }
+  // Funções de cálculo de progresso (movidas para fora do useCallback para evitar dependências circulares)
+  const calculateTopicProgress = (currentProgress: ProgressState, topicId: string) => {
+    const topic = learningContent.find(t => t.id === topicId);
+    if (!topic) return { completedSections: 0, totalSections: 0, completedQuizzes: 0, totalQuizzes: 0, completedCaseStudies: 0, totalCaseStudies: 0 };
+
+    let completedSections = 0;
+    let totalSections = 0;
+    let completedQuizzes = 0;
+    let totalQuizzes = 0;
+    let completedCaseStudies = 0;
+    let totalCaseStudies = 0;
+
+    topic.sessions.forEach(session => {
+      session.sections.forEach(section => {
+        totalSections++;
+        if (currentProgress[topicId]?.[session.id]?.completedSections.includes(section.id)) {
+          completedSections++;
+        }
+        if (section.type === 'quiz') {
+          totalQuizzes++;
+          if (currentProgress[topicId]?.[session.id]?.completedSections.includes(section.id)) {
+            completedQuizzes++;
+          }
+        }
+        if (section.type === 'case-study') {
+          totalCaseStudies++;
+          if (currentProgress[topicId]?.[session.id]?.completedSections.includes(section.id)) {
+            completedCaseStudies++;
+          }
+        }
+      });
+    });
+
+    return { completedSections, totalSections, completedQuizzes, totalQuizzes, completedCaseStudies, totalCaseStudies };
+  };
+
+  const calculateOverallProgress = (currentProgress: ProgressState) => {
+    let totalCompletedSectionsAcrossAllTopics = 0;
+    let totalSectionsAcrossAllTopics = 0;
+
+    learningContent.forEach(topic => {
+      const topicProgress = calculateTopicProgress(currentProgress, topic.id);
+      totalCompletedSectionsAcrossAllTopics += topicProgress.completedSections;
+      totalSectionsAcrossAllTopics += topicProgress.totalSections;
+    });
+
+    const percentage = totalSectionsAcrossAllTopics > 0 ? Math.round((totalCompletedSectionsAcrossAllTopics / totalSectionsAcrossAllTopics) * 100) : 0;
+
+    return {
+      completedTopics: learningContent.filter(topic => {
+        const tp = calculateTopicProgress(currentProgress, topic.id);
+        return tp.completedSections === tp.totalSections && tp.totalSections > 0;
+      }).length,
+      totalTopics: learningContent.length,
+      percentage
     };
-    fetchAchievementDefs();
-  }, []);
+  };
 
   // Função para verificar e conceder conquistas
-  const checkAchievements = useCallback((currentProgress: ProgressState, currentAllAchievements: AchievementDefinition[]) => {
+  const checkAchievements = useCallback(async (currentProgress: ProgressState, currentAllAchievements: AchievementDefinition[], currentEarnedAchievements: EarnedAchievement[]) => {
     const newlyEarned: EarnedAchievement[] = [];
 
-    currentAllAchievements.forEach(achievementDef => {
+    for (const achievementDef of currentAllAchievements) {
       // Check if already earned
-      if (earnedAchievements.some(ea => ea.id === achievementDef.id)) {
-        return; // Already earned, skip
+      if (currentEarnedAchievements.some(ea => ea.id === achievementDef.id)) {
+        continue; // Already earned, skip
       }
 
       let criteriaMet = false;
-      // Implement criteria checking based on achievementDef.requirements
-      // This part needs to be adapted based on your actual achievement requirements structure
-      // For now, let's use some placeholder logic based on the old achievements.ts criteria
 
       switch (achievementDef.slug) {
         case 'first-topic-complete':
           criteriaMet = learningContent.some(topic => {
-            const tp = getTopicProgress(topic.id);
+            const tp = calculateTopicProgress(currentProgress, topic.id);
             return tp.completedSections === tp.totalSections && tp.totalSections > 0;
           });
           break;
         case 'knowledge-explorer':
           criteriaMet = learningContent.filter(topic => {
-            const tp = getTopicProgress(topic.id);
+            const tp = calculateTopicProgress(currentProgress, topic.id);
             return tp.completedSections === tp.totalSections && tp.totalSections > 0;
           }).length >= 5;
           break;
         case 'learning-master':
           criteriaMet = learningContent.every(topic => {
-            const tp = getTopicProgress(topic.id);
+            const tp = calculateTopicProgress(currentProgress, topic.id);
             return tp.completedSections === tp.totalSections && tp.totalSections > 0;
           });
           break;
@@ -144,17 +177,19 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
             )
           );
           break;
-        // Add more cases for other achievement slugs as needed
         default:
-          // If achievementDef.requirements is a JSON object, you'd parse and check it here
-          // For example, if requirements.min_topics_completed exists:
-          // if (achievementDef.requirements.min_topics_completed) {
-          //   const completedTopicsCount = learningContent.filter(topic => {
-          //     const tp = getTopicProgress(topic.id);
-          //     return tp.completedSections === tp.totalSections && tp.totalSections > 0;
-          //   }).length;
-          //   criteriaMet = completedTopicsCount >= achievementDef.requirements.min_topics_completed;
-          // }
+          // Handle achievements with requirements from Supabase
+          if (achievementDef.requirements) {
+            // Example: if requirements.min_topics_completed exists
+            if (achievementDef.requirements.min_topics_completed) {
+              const completedTopicsCount = learningContent.filter(topic => {
+                const tp = calculateTopicProgress(currentProgress, topic.id);
+                return tp.completedSections === tp.totalSections && tp.totalSections > 0;
+              }).length;
+              criteriaMet = completedTopicsCount >= achievementDef.requirements.min_topics_completed;
+            }
+            // Add more generic requirement checks here
+          }
           break;
       }
 
@@ -165,20 +200,19 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
           title: "Conquista Desbloqueada!",
           description: `Você ganhou a conquista: ${achievementDef.name}`,
         });
+
+        // Save to Supabase
+        if (userId) {
+          await updateAchievementProgress(achievementDef.id, {}, true); // Mark as completed
+        }
       }
-    });
+    }
 
     if (newlyEarned.length > 0) {
       setEarnedAchievements(prev => [...prev, ...newlyEarned]);
-      // Salvar no Supabase
-      if (userId) {
-        const achievementsToSave = newlyEarned.map(ach => ({ user_id: userId, achievement_id: ach.id, earned_at: ach.earnedAt }));
-        supabase.from('user_achievements').insert(achievementsToSave).then(({ error }) => {
-          if (error) console.error('Error saving achievements to Supabase:', error);
-        });
-      }
+      // No need to save to Supabase here, it's done inside the loop for each newly earned achievement
     }
-  }, [earnedAchievements, userId, toast, getTopicProgress]);
+  }, [toast, userId]);
 
   // Efeito para carregar o progresso e conquistas do Supabase
   useEffect(() => {
@@ -206,18 +240,15 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
             }
           });
           setProgress(newProgress);
-          // checkAchievements(newProgress); // Check achievements after loading progress and definitions
         }
 
         // Carregar conquistas
-        const { data: achievementsData, error: achievementsError } = await supabase
-          .from('user_achievements')
-          .select('achievement_id, earned_at');
+        const { data: achievementsData, error: achievementsError } = await fetchUserAchievements(user.id);
 
         if (achievementsError) {
           console.error('Error fetching achievements from Supabase:', achievementsError);
         } else {
-          setEarnedAchievements(achievementsData.map(ach => ({ id: ach.achievement_id, earnedAt: ach.earned_at })));
+          setEarnedAchievements(achievementsData.map(ach => ({ id: ach.achievement_id, earnedAt: ach.completed_at || new Date().toISOString() })));
         }
       } else {
         // Fallback para localStorage se não houver usuário logado
@@ -225,7 +256,6 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
         if (savedProgress) {
           const parsedProgress = JSON.parse(savedProgress);
           setProgress(parsedProgress);
-          // checkAchievements(parsedProgress); // Check achievements after loading progress and definitions
         }
         const savedAchievements = localStorage.getItem('earnedAchievements');
         if (savedAchievements) {
@@ -252,14 +282,14 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
     return () => {
       authListener.subscription.unsubscribe();
     };
-  }, []); // Removed checkAchievements from dependencies to avoid infinite loop
+  }, []);
 
   // Effect to run checkAchievements after progress and allAchievements are loaded
   useEffect(() => {
     if (Object.keys(progress).length > 0 && allAchievements.length > 0) {
-      checkAchievements(progress, allAchievements);
+      checkAchievements(progress, allAchievements, earnedAchievements);
     }
-  }, [progress, allAchievements, checkAchievements]);
+  }, [progress, allAchievements, earnedAchievements, checkAchievements]);
 
   const markSectionComplete = useCallback(async (topicId: string, sessionId: string, sectionId: string) => {
     let updatedProgress: ProgressState = {};
@@ -277,8 +307,6 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
       return newProgress;
     });
 
-    // checkAchievements(updatedProgress); // Moved to separate useEffect
-
     if (userId) {
       const { error } = await supabase
         .from('user_learning_progress')
@@ -288,7 +316,7 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
         console.error('Error saving section progress to Supabase:', error);
       }
     }
-  }, [userId]); // Removed checkAchievements from dependencies
+  }, [userId]);
 
   const markSessionComplete = useCallback(async (topicId: string, sessionId: string, status: 'good' | 'mastered' | 'needs-work') => {
     let updatedProgress: ProgressState = {};
@@ -304,8 +332,6 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
       return newProgress;
     });
 
-    // checkAchievements(updatedProgress); // Moved to separate useEffect
-
     if (userId) {
       const { error } = await supabase
         .from('user_learning_progress')
@@ -318,42 +344,9 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
         console.error('Error updating session status in Supabase:', error);
       }
     }
-  }, [userId]); // Removed checkAchievements from dependencies
+  }, [userId]);
 
-  const getTopicProgress = useCallback((topicId: string) => {
-    const topic = learningContent.find(t => t.id === topicId);
-    if (!topic) return { completedSections: 0, totalSections: 0, completedQuizzes: 0, totalQuizzes: 0, completedCaseStudies: 0, totalCaseStudies: 0 };
-
-    let completedSections = 0;
-    let totalSections = 0;
-    let completedQuizzes = 0;
-    let totalQuizzes = 0;
-    let completedCaseStudies = 0;
-    let totalCaseStudies = 0;
-
-    topic.sessions.forEach(session => {
-      session.sections.forEach(section => {
-        totalSections++;
-        if (progress[topicId]?.[session.id]?.completedSections.includes(section.id)) {
-          completedSections++;
-        }
-        if (section.type === 'quiz') {
-          totalQuizzes++;
-          if (progress[topicId]?.[session.id]?.completedSections.includes(section.id)) {
-            completedQuizzes++;
-          }
-        }
-        if (section.type === 'case-study') {
-          totalCaseStudies++;
-          if (progress[topicId]?.[session.id]?.completedSections.includes(section.id)) {
-            completedCaseStudies++;
-          }
-        }
-      });
-    });
-
-    return { completedSections, totalSections, completedQuizzes, totalQuizzes, completedCaseStudies, totalCaseStudies };
-  }, [progress]);
+  const getTopicProgress = useCallback((topicId: string) => calculateTopicProgress(progress, topicId), [progress]);
 
   const getSessionProgress = useCallback((topicId: string, sessionId: string) => {
     const topic = learningContent.find(t => t.id === topicId);
@@ -368,27 +361,7 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
     return { completed, total, status };
   }, [progress]);
 
-  const getOverallProgress = useCallback(() => {
-    let totalCompletedSectionsAcrossAllTopics = 0;
-    let totalSectionsAcrossAllTopics = 0;
-
-    learningContent.forEach(topic => {
-      const topicProgress = getTopicProgress(topic.id);
-      totalCompletedSectionsAcrossAllTopics += topicProgress.completedSections;
-      totalSectionsAcrossAllTopics += topicProgress.totalSections;
-    });
-
-    const percentage = totalSectionsAcrossAllTopics > 0 ? Math.round((totalCompletedSectionsAcrossAllTopics / totalSectionsAcrossAllTopics) * 100) : 0;
-
-    return {
-      completedTopics: learningContent.filter(topic => {
-        const tp = getTopicProgress(topic.id);
-        return tp.completedSections === tp.totalSections && tp.totalSections > 0;
-      }).length,
-      totalTopics: learningContent.length,
-      percentage
-    };
-  }, [getTopicProgress]);
+  const getOverallProgress = useCallback(() => calculateOverallProgress(progress), [progress]);
 
   return (
     <ProgressContext.Provider value={{
@@ -412,4 +385,6 @@ export const useProgress = () => {
   }
   return context;
 };
+
+
 

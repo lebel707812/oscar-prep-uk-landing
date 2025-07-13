@@ -3,7 +3,13 @@ import { createClient } from "@supabase/supabase-js";
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: true, // Garante que a sessão seja persistida
+    autoRefreshToken: true, // Tenta automaticamente renovar o token
+    detectSessionInUrl: true, // Detecta a sessão na URL (para callbacks de auth)
+  },
+});
 
 export const checkUser = async () => {
   const { data: { user } } = await supabase.auth.getUser();
@@ -350,5 +356,7 @@ export const deleteScenario = async (scenarioId: string) => {
 
   return { success: true };
 };
+
+
 
 
