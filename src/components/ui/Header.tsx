@@ -55,10 +55,8 @@ const Header = () => {
   const navItems = [
     { path: '/dashboard', label: 'Dashboard', Icon: LayoutDashboard },
     { path: '/dashboard/mock-exams', label: 'Mock Exams', Icon: FileText },
-    { path: '/dashboard/scenario-library', label: 'Scenario Library', Icon: Library },
+    { path: '/dashboard/clinical-cases', label: 'Clinical Cases', Icon: Library },
     { path: '/dashboard/session-history', label: 'Session History', Icon: History },
-
-    { path: '/dashboard/clinical-cases', label: 'Clinical Cases', Icon: BookOpen },
     { path: '/learning-hub', label: 'Learning Hub', Icon: BookOpen },
   ];
 

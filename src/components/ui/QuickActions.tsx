@@ -94,36 +94,29 @@ const QuickActions: React.FC<QuickActionsProps> = ({ className }) => {
       icon: FileText,
       color: 'text-blue-600',
       bgColor: 'bg-blue-50',
-      borderColor: 'border-blue-200',      action: () => navigate("/dashboard/mock-exams"),      badge: "Practice"\'
+      borderColor: 'border-blue-200',
+      action: () => navigate("/dashboard/mock-exams"),
+      badge: "Practice"
     },
     {
-      title: "Interactive Clinical Cases",
-      description: "Practice with interactive clinical scenarios and get feedback",
-      icon: BookOpen,
+      title: "Clinical Cases",
+      description: "Practice with interactive scenarios and explore our comprehensive case library",
+      icon: Library,
       color: 'text-purple-600',
       bgColor: 'bg-purple-50',
       borderColor: 'border-purple-200',
       action: () => navigate('/dashboard/clinical-cases'),
-      badge: "New"
+      badge: "Interactive"
     },
-
     {
-      title: "Scenario Library",
-      description: "Explore diverse clinical scenarios",
-      icon: Library,
-      color: 'text-orange-600',
-      bgColor: 'bg-orange-50',
-      borderColor: 'border-orange-200',
-      action: () => navigate('/dashboard/scenario-library'),
-      badge: "Scenarios"
-    },
-s",
+      title: "Achievements",
       description: "View your progress and unlocked achievements",
       icon: Trophy,
       color: 'text-yellow-600',
       bgColor: 'bg-yellow-50',
       borderColor: 'border-yellow-200',
-      action: () => navigate('/dashboard/gamification'),      badge: "Gamification"'
+      action: () => navigate('/dashboard/gamification'),
+      badge: "Gamification"
     },
     {
       title: "Forum",

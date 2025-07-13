@@ -6,7 +6,8 @@ import StartFreeTrial from './pages/StartFreeTrial';
 import MockExams from './pages/MockExams';
 import MockExamRunner from './pages/MockExamRunner';
 
-import ScenarioLibrary from './pages/ScenarioLibrary';
+import ClinicalCases from './pages/ClinicalCases';
+import ClinicalCaseDetail from './pages/ClinicalCaseDetail';
 import BlogIndex from './pages/BlogIndex';
 import BlogPost from './pages/BlogPost';
 import BlogCategory from './pages/BlogCategory';
@@ -14,7 +15,6 @@ import BlogDashboard from './pages/BlogDashboard';
 import BlogEditor from './pages/BlogEditor';
 import LearningHub from './pages/LearningHub';
 import LearningTopicDetail from './pages/LearningTopicDetail';
-import InteractiveClinicalCases from './pages/InteractiveClinicalCases';
 
 const router = createBrowserRouter([
   {
@@ -38,13 +38,8 @@ const router = createBrowserRouter([
         element: <MockExams />,
       },
       {
-        path: 'scenario-library',
-        element: <ScenarioLibrary />,
-      },
-
-      {
         path: 'clinical-cases',
-        element: <InteractiveClinicalCases />,
+        element: <ClinicalCases />,
       },
       {
         path: 'blog',
@@ -71,6 +66,10 @@ const router = createBrowserRouter([
   {
     path: '/mock-exam-runner',
     element: <MockExamRunner />,
+  },
+  {
+    path: '/clinical-case/:caseId',
+    element: <ClinicalCaseDetail />,
   },
   {
     path: '/start-free-trial',
