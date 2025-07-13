@@ -40,7 +40,7 @@ const LazyBlogDashboard = lazy(() => import("./pages/BlogDashboard"));
 const LazyBlogEditor = lazy(() => import("./pages/BlogEditor"));
 const LazyForumNewTopic = lazy(() => import("./pages/ForumNewTopic"));
 const LazyMockExamRunner = lazy(() => import("./pages/MockExamRunner"));
-const LazyInteractiveClinicalCases = lazy(() => import("./pages/InteractiveClinicalCases"));
+const LazyInteractiveClinicalCases = lazy(() => import("./pages/ClinicalCases"));
 
 const queryClient = new QueryClient();
 
