@@ -11,7 +11,6 @@ import {
   Trophy, 
   MessageCircle, 
   Library,
-  Brain,
   Target,
   Clock,
   TrendingUp
@@ -95,18 +94,19 @@ const QuickActions: React.FC<QuickActionsProps> = ({ className }) => {
       icon: FileText,
       color: 'text-blue-600',
       bgColor: 'bg-blue-50',
-      borderColor: 'border-blue-200',
-      action: () => navigate('/dashboard/mock-exams'),      badge: "Practice"'
+      borderColor: 'border-blue-200',      action: () => navigate("/dashboard/mock-exams"),      badge: "Practice"\'
     },
     {
-      title: "PacientAI",
-      description: "Practice with intelligent virtual patients",
-      icon: Brain,
+      title: "Interactive Clinical Cases",
+      description: "Practice with interactive clinical scenarios and get feedback",
+      icon: BookOpen,
       color: 'text-purple-600',
       bgColor: 'bg-purple-50',
       borderColor: 'border-purple-200',
-      action: () => navigate('/dashboard/pacient-ai'),      badge: "AI"'
+      action: () => navigate('/dashboard/clinical-cases'),
+      badge: "New"
     },
+
     {
       title: "Scenario Library",
       description: "Explore diverse clinical scenarios",
@@ -117,8 +117,7 @@ const QuickActions: React.FC<QuickActionsProps> = ({ className }) => {
       action: () => navigate('/dashboard/scenario-library'),
       badge: "Scenarios"
     },
-    {
-      title: "Achievements",
+s",
       description: "View your progress and unlocked achievements",
       icon: Trophy,
       color: 'text-yellow-600',

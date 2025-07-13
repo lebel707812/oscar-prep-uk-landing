@@ -5,7 +5,7 @@ import Dashboard from './pages/Dashboard';
 import StartFreeTrial from './pages/StartFreeTrial';
 import MockExams from './pages/MockExams';
 import MockExamRunner from './pages/MockExamRunner';
-import PacientAI from './pages/PacientAI';
+
 import ScenarioLibrary from './pages/ScenarioLibrary';
 import BlogIndex from './pages/BlogIndex';
 import BlogPost from './pages/BlogPost';
@@ -14,6 +14,7 @@ import BlogDashboard from './pages/BlogDashboard';
 import BlogEditor from './pages/BlogEditor';
 import LearningHub from './pages/LearningHub';
 import LearningTopicDetail from './pages/LearningTopicDetail';
+import InteractiveClinicalCases from './pages/InteractiveClinicalCases';
 
 const router = createBrowserRouter([
   {
@@ -40,9 +41,10 @@ const router = createBrowserRouter([
         path: 'scenario-library',
         element: <ScenarioLibrary />,
       },
+
       {
-        path: 'pacient-AI',
-        element: <PacientAI />,
+        path: 'clinical-cases',
+        element: <InteractiveClinicalCases />,
       },
       {
         path: 'blog',

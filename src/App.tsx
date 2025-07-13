@@ -33,13 +33,14 @@ const LazyLearningTopicDetail = lazy(() => import("./pages/LearningTopicDetail")
 const LazyTopicReview = lazy(() => import("./pages/TopicReview"));
 const LazySessionHistory = lazy(() => import("./pages/SessionHistory"));
 const LazySessionReview = lazy(() => import("./pages/SessionReview"));
-const LazyPacientAI = lazy(() => import("./pages/PacientAI"));
+
 const LazyScenarioLibrary = lazy(() => import("./pages/ScenarioLibrary"));
 const LazyBlogCategory = lazy(() => import("./pages/BlogCategory"));
 const LazyBlogDashboard = lazy(() => import("./pages/BlogDashboard"));
 const LazyBlogEditor = lazy(() => import("./pages/BlogEditor"));
 const LazyForumNewTopic = lazy(() => import("./pages/ForumNewTopic"));
 const LazyMockExamRunner = lazy(() => import("./pages/MockExamRunner"));
+const LazyInteractiveClinicalCases = lazy(() => import("./pages/InteractiveClinicalCases"));
 
 const queryClient = new QueryClient();
 
@@ -143,11 +144,12 @@ const App = () => {
                       </ProtectedRoute>
                     }
                   />
+
                   <Route
-                    path="/dashboard/pacient-ai"
+                    path="/dashboard/clinical-cases"
                     element={
                       <ProtectedRoute>
-                        <LazyPacientAI />
+                        <LazyInteractiveClinicalCases />
                       </ProtectedRoute>
                     }
                   />

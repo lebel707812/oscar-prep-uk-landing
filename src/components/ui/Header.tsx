@@ -57,9 +57,9 @@ const Header = () => {
     { path: '/dashboard/mock-exams', label: 'Mock Exams', Icon: FileText },
     { path: '/dashboard/scenario-library', label: 'Scenario Library', Icon: Library },
     { path: '/dashboard/session-history', label: 'Session History', Icon: History },
-    { path: '/dashboard/pacient-ai', label: 'PacientAI', Icon: User },
+
+    { path: '/dashboard/clinical-cases', label: 'Clinical Cases', Icon: BookOpen },
     { path: '/learning-hub', label: 'Learning Hub', Icon: BookOpen },
-    { path: '/blog', label: 'Blog', Icon: BookOpen }, // Adicionado o link para o blog
   ];
 
   const NavButton = ({
