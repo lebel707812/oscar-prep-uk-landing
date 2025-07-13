@@ -147,7 +147,11 @@ const App = () => {
 
                   <Route
                     path="/dashboard/clinical-cases"
-                    element={<LazyInteractiveClinicalCases />}
+                    element={
+                      <ProtectedRoute>
+                        <LazyInteractiveClinicalCases />
+                      </ProtectedRoute>
+                    }
                   />
                   <Route
                     path="/mock-exam-runner"
@@ -207,7 +211,11 @@ const App = () => {
                   />
                   <Route
                     path="/clinical-cases/:caseId"
-                    element={<LazyClinicalCaseDetail />}
+                    element={
+                      <ProtectedRoute>
+                        <LazyClinicalCaseDetail />
+                      </ProtectedRoute>
+                    }
                   />
                 </Routes>
               </Suspense>

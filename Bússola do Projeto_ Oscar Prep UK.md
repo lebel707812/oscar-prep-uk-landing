@@ -61,3 +61,34 @@ As seguintes tarefas são consideradas primordiais e devem ser o foco do desenvo
 - **Limites de uso na freemium (ex: bloqueio de funcionalidades):** (Categoria: Monetização)
 
 
+
+
+## Atualizações Recentes
+
+### Correção do Botão "Start Case" nos Casos Clínicos Interativos
+
+**Problema Resolvido:** O botão "Start Case" na seção de Casos Clínicos Interativos não estava navegando corretamente para a página de detalhes do caso, resultando em um erro 404 ou redirecionamento incorreto. Além disso, a página `ClinicalCaseDetail.tsx` não estava sendo renderizada adequadamente.
+
+**Ações Realizadas:**
+- Corrigido o redirecionamento no `ClinicalCaseDetail.tsx` de `/dashboard/clinical-cases` para `/clinical-cases` quando um caso não é encontrado.
+- Adicionada a rota correta `/clinical-cases/:caseId` no `App.tsx` para permitir o acesso direto aos detalhes do caso.
+- Ajustada a função `handleCaseClick` em `ClinicalCases.tsx` para usar a rota `/clinical-cases/${caseId}`.
+- Corrigida a importação ausente de `UnifiedHeader` no `Dashboard.tsx` que estava causando um erro de referência.
+
+**Resultado:** O botão "Start Case" agora funciona conforme o esperado, navegando para a página de detalhes do caso clínico, que é renderizada corretamente com todas as informações e o timer em funcionamento. As alterações foram commitadas e enviadas para o repositório GitHub.
+
+
+
+## Próximos Passos
+
+Com a correção do botão "Start Case" e o carregamento da página de detalhes do caso clínico, os próximos passos focam em garantir a funcionalidade completa da plataforma e aprimorar a experiência do usuário:
+
+1.  **Reativar e testar a autenticação:** Concluído. As proteções de rota foram reativadas e o sistema de autenticação está funcionando corretamente.
+2.  **Implementar a lógica de avanço de passos nos casos clínicos:** Atualmente, o caso clínico exibe o primeiro passo e o timer. É necessário implementar a funcionalidade para que o usuário possa avançar entre os passos do caso, marcar passos como concluídos e receber feedback.
+3.  **Desenvolver o feedback inteligente:** A funcionalidade de feedback inteligente nas respostas dos simulados e casos clínicos é uma prioridade. Isso envolve a criação de um sistema que analise as interações do usuário e forneça insights personalizados para o aprendizado.
+4.  **Testar a funcionalidade de timer e simulação de estação:** Garantir que o timer funcione corretamente para cada passo do caso clínico e que a simulação de estação (8-10 min) esteja alinhada com as condições reais do exame OSCE.
+5.  **Revisar e aprimorar a interface do usuário (UI) e a experiência do usuário (UX):** Com as funcionalidades básicas em funcionamento, focar em refinar a UI/UX para tornar a plataforma mais intuitiva e agradável de usar.
+6.  **Integração com o Supabase:** Investigar e resolver os problemas de conexão ou configuração com o Supabase que causaram o erro de autenticação inicial, garantindo que a plataforma possa interagir com o banco de dados de forma confiável.
+
+Estas são as próximas prioridades para continuar o desenvolvimento da plataforma Oscar Prep UK, garantindo uma experiência robusta e funcional para os usuários.
+
