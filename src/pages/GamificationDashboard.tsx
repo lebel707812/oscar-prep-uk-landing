@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  Trophy, 
-  Star, 
-  Flame, 
-  Target, 
-  Award, 
+import {
+  Trophy,
+  Star,
+  Flame,
+  Target,
+  Award,
   TrendingUp,
   Calendar,
   Users,
@@ -21,36 +20,35 @@ import {
   Lock,
   CheckCircle
 } from 'lucide-react';
-import { 
+import {
   fetchUserTotalPoints,
   fetchUserBadges,
-  fetchUserAchievements,
   fetchUserStreaks,
   fetchTodaysChallenges,
   fetchUserDailyChallengeProgress,
   mockUserStats,
   mockRecentPoints,
   mockBadges,
-  mockAchievements,
   mockLeaderboard,
   getRarityColor,
   getDifficultyColor,
   type UserTotalPoints,
   type UserBadge,
-  type UserAchievement,
   type UserStreak,
   type DailyChallenge,
   type UserDailyChallengeProgress
 } from '@/integrations/supabase/gamification';
 import { useAuth } from '@/contexts/AuthContext';
+import { useProgress } from '@/contexts/ProgressContext'; // Import useProgress
+import { achievements as allAchievements } from '@/data/achievements'; // Import all achievements
 import UnifiedHeader from '@/components/ui/UnifiedHeader';
 import Footer from '@/components/Footer';
 
 export default function GamificationDashboard() {
   const { user } = useAuth();
+  const { earnedAchievements } = useProgress(); // Use earnedAchievements from context
   const [userStats, setUserStats] = useState<UserTotalPoints | null>(null);
   const [badges, setBadges] = useState<UserBadge[]>([]);
-  const [achievements, setAchievements] = useState<UserAchievement[]>([]);
   const [streaks, setStreaks] = useState<UserStreak[]>([]);
   const [dailyChallenges, setDailyChallenges] = useState<DailyChallenge[]>([]);
   const [challengeProgress, setChallengeProgress] = useState<UserDailyChallengeProgress[]>([]);
@@ -103,35 +101,8 @@ export default function GamificationDashboard() {
 
       setBadges(mockUserBadges);
 
-      // Mock achievements
-      const mockUserAchievements: UserAchievement[] = mockAchievements.map((achievement, index) => ({
-        id: `achievement-${index}`,
-        user_id: user?.id || '',
-        achievement_id: `achievement-def-${index}`,
-        progress: { percentage: achievement.progress },
-        is_completed: achievement.completed,
-        completed_at: achievement.completed ? new Date().toISOString() : undefined,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-        achievement: {
-          id: `achievement-def-${index}`,
-          name: achievement.name,
-          slug: achievement.name.toLowerCase().replace(/\s+/g, '-'),
-          description: `Complete the ${achievement.name} achievement`,
-          color: '#3B82F6',
-          category: 'study',
-          difficulty: 'medium' as any,
-          points_reward: 100,
-          requirements: {},
-          is_active: true,
-          is_hidden: false,
-          sort_order: index,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        }
-      }));
-
-      setAchievements(mockUserAchievements);
+      // Mock achievements are no longer needed here, we use earnedAchievements from context
+      // setAchievements(mockUserAchievements);
 
       // Mock streaks
       const mockStreaks: UserStreak[] = [
@@ -440,7 +411,7 @@ export default function GamificationDashboard() {
                   {mockBadges.map((badge, index) => (
                     <div 
                       key={index} 
-                      className={`p-6 rounded-lg border-2 transition-all ${
+                      className={`p-6 rounded-lg border-2 ${
                         badge.earned 
                           ? 'border-green-200 bg-green-50' 
                           : 'border-gray-200 bg-gray-50 opacity-60'
@@ -491,45 +462,57 @@ export default function GamificationDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {achievements.map((userAchievement) => (
-                    <div 
-                      key={userAchievement.id} 
-                      className="p-6 border rounded-lg hover:shadow-md transition-shadow"
-                    >
-                      <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center gap-3">
-                          <div 
-                            className="w-10 h-10 rounded-full flex items-center justify-center"
-                            style={{ backgroundColor: userAchievement.achievement?.color }}
-                          >
-                            {getDifficultyIcon(userAchievement.achievement?.difficulty || 'medium')}
+                  {allAchievements.map((achievement) => {
+                    const userEarned = earnedAchievements.find(ea => ea.id === achievement.id);
+                    const isCompleted = !!userEarned;
+                    return (
+                      <div 
+                        key={achievement.id} 
+                        className={`p-6 border rounded-lg ${isCompleted ? 'border-green-200 bg-green-50' : 'hover:shadow-md transition-shadow'}`}
+                      >
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="flex items-center gap-3">
+                            <div 
+                              className={`w-10 h-10 rounded-full flex items-center justify-center ${isCompleted ? '' : 'grayscale'}`}
+                              style={{ backgroundColor: isCompleted ? '#3B82F6' : '#E5E7EB' }} // Placeholder color
+                            >
+                              {isCompleted ? (
+                                <Trophy className="h-5 w-5 text-white" /> // Usar ícone da conquista se disponível
+                              ) : (
+                                <Lock className="h-5 w-5 text-gray-400" />
+                              )}
+                            </div>
+                            <div>
+                              <h3 className="font-semibold">{achievement.name}</h3>
+                              <p className="text-sm text-gray-600">{achievement.description}</p>
+                            </div>
                           </div>
-                          <div>
-                            <h3 className="font-semibold">{userAchievement.achievement?.name}</h3>
-                            <p className="text-sm text-gray-600">{userAchievement.achievement?.description}</p>
+                          <div className="text-right">
+                            <Badge 
+                              variant={isCompleted ? "default" : "secondary"}
+                              className={isCompleted ? "bg-green-100 text-green-800" : ""}
+                            >
+                              {isCompleted ? 'Earned' : 'Locked'}
+                            </Badge>
+                            {isCompleted && (
+                              <p className="text-sm text-gray-500 mt-1">
+                                Earned on {new Date(userEarned?.earnedAt || '').toLocaleDateString()}
+                              </p>
+                            )}
                           </div>
                         </div>
-                        <div className="text-right">
-                          <Badge 
-                            variant={userAchievement.is_completed ? "default" : "secondary"}
-                            className={userAchievement.is_completed ? "bg-green-100 text-green-800" : ""}
-                          >
-                            {userAchievement.is_completed ? 'Completed' : 'In Progress'}
-                          </Badge>
-                          <p className="text-sm text-gray-500 mt-1">
-                            +{userAchievement.achievement?.points_reward} pts
-                          </p>
-                        </div>
+                        {!isCompleted && (
+                          <div className="space-y-2">
+                            <div className="flex justify-between text-sm">
+                              <span>Progress</span>
+                              <span>0%</span> {/* Não temos progresso parcial para conquistas ainda */}
+                            </div>
+                            <Progress value={0} className="h-2" />
+                          </div>
+                        )}
                       </div>
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-sm">
-                          <span>Progress</span>
-                          <span>{userAchievement.progress.percentage || 0}%</span>
-                        </div>
-                        <Progress value={userAchievement.progress.percentage || 0} className="h-2" />
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>
@@ -690,4 +673,5 @@ export default function GamificationDashboard() {
     </>
   );
 }
+
 

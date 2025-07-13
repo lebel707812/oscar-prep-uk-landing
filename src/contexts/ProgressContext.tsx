@@ -1,9 +1,10 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { learningContent } from "@/data/learning-content";
+import { achievements, Achievement } from "@/data/achievements";
+import { useToast } from "@/components/ui/use-toast";
 
 // Defina suas variáveis de ambiente do Supabase
-// Certifique-se de que elas estão configuradas no seu ambiente de desenvolvimento e produção
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || process.env.REACT_APP_SUPABASE_URL || '';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || process.env.REACT_APP_SUPABASE_ANON_KEY || '';
 
@@ -18,8 +19,14 @@ interface ProgressState {
   };
 }
 
+interface EarnedAchievement {
+  id: string;
+  earnedAt: string;
+}
+
 interface ProgressContextType {
   progress: ProgressState;
+  earnedAchievements: EarnedAchievement[];
   markSectionComplete: (topicId: string, sessionId: string, sectionId: string) => void;
   markSessionComplete: (topicId: string, sessionId: string, status: 'good' | 'mastered' | 'needs-work') => void;
   getTopicProgress: (topicId: string) => {
@@ -46,70 +53,112 @@ const ProgressContext = createContext<ProgressContextType | undefined>(undefined
 
 export const ProgressProvider = ({ children }: { children: ReactNode }) => {
   const [progress, setProgress] = useState<ProgressState>({});
+  const [earnedAchievements, setEarnedAchievements] = useState<EarnedAchievement[]>([]);
   const [userId, setUserId] = useState<string | null>(null);
+  const { toast } = useToast();
 
-  // Efeito para carregar o progresso do Supabase quando o usuário é autenticado
+  // Função para verificar e conceder conquistas
+  const checkAchievements = useCallback((currentProgress: ProgressState) => {
+    const newlyEarned: EarnedAchievement[] = [];
+    achievements.forEach(achievement => {
+      if (!earnedAchievements.some(ea => ea.id === achievement.id) && achievement.criteria(currentProgress)) {
+        const newAchievement = { id: achievement.id, earnedAt: new Date().toISOString() };
+        newlyEarned.push(newAchievement);
+        toast({
+          title: "Conquista Desbloqueada!",
+          description: `Você ganhou a conquista: ${achievement.name}`,
+        });
+      }
+    });
+
+    if (newlyEarned.length > 0) {
+      setEarnedAchievements(prev => [...prev, ...newlyEarned]);
+      // Salvar no Supabase
+      if (userId) {
+        const achievementsToSave = newlyEarned.map(ach => ({ user_id: userId, achievement_id: ach.id, earned_at: ach.earnedAt }));
+        supabase.from('user_achievements').insert(achievementsToSave).then(({ error }) => {
+          if (error) console.error('Error saving achievements to Supabase:', error);
+        });
+      }
+    }
+  }, [earnedAchievements, userId, toast]);
+
+  // Efeito para carregar o progresso e conquistas do Supabase
   useEffect(() => {
-    const fetchUserAndProgress = async () => {
+    const fetchUserAndData = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
         setUserId(user.id);
-        const { data, error } = await supabase
+        // Carregar progresso
+        const { data: progressData, error: progressError } = await supabase
           .from('user_learning_progress')
           .select('topic_id, session_id, section_id, status');
 
-        if (error) {
-          console.error('Error fetching progress from Supabase:', error);
-          // Fallback para localStorage se houver erro ou não houver dados no Supabase
-          const savedProgress = localStorage.getItem('learningProgress');
-          if (savedProgress) {
-            setProgress(JSON.parse(savedProgress));
-          }
-          return;
+        if (progressError) {
+          console.error('Error fetching progress from Supabase:', progressError);
+        } else {
+          const newProgress: ProgressState = {};
+          progressData.forEach(item => {
+            if (!newProgress[item.topic_id]) newProgress[item.topic_id] = {};
+            if (!newProgress[item.topic_id][item.session_id]) {
+              newProgress[item.topic_id][item.session_id] = { completedSections: [], status: 'not-started' };
+            }
+            newProgress[item.topic_id][item.session_id].completedSections.push(item.section_id);
+            if (item.status) {
+              newProgress[item.topic_id][item.session_id].status = item.status as 'good' | 'mastered' | 'needs-work';
+            }
+          });
+          setProgress(newProgress);
+          checkAchievements(newProgress); // Verificar conquistas após carregar o progresso
         }
 
-        const newProgress: ProgressState = {};
-        data.forEach(item => {
-          if (!newProgress[item.topic_id]) newProgress[item.topic_id] = {};
-          if (!newProgress[item.topic_id][item.session_id]) {
-            newProgress[item.topic_id][item.session_id] = { completedSections: [], status: 'not-started' };
-          }
-          newProgress[item.topic_id][item.session_id].completedSections.push(item.section_id);
-          if (item.status) {
-            newProgress[item.topic_id][item.session_id].status = item.status as 'good' | 'mastered' | 'needs-work';
-          }
-        });
-        setProgress(newProgress);
-        localStorage.setItem('learningProgress', JSON.stringify(newProgress)); // Manter localStorage sincronizado
+        // Carregar conquistas
+        const { data: achievementsData, error: achievementsError } = await supabase
+          .from('user_achievements')
+          .select('achievement_id, earned_at');
+
+        if (achievementsError) {
+          console.error('Error fetching achievements from Supabase:', achievementsError);
+        } else {
+          setEarnedAchievements(achievementsData.map(ach => ({ id: ach.achievement_id, earnedAt: ach.earned_at })));
+        }
       } else {
-        // Se não houver usuário logado, carregar do localStorage
+        // Fallback para localStorage se não houver usuário logado
         const savedProgress = localStorage.getItem('learningProgress');
         if (savedProgress) {
-          setProgress(JSON.parse(savedProgress));
+          const parsedProgress = JSON.parse(savedProgress);
+          setProgress(parsedProgress);
+          checkAchievements(parsedProgress);
+        }
+        const savedAchievements = localStorage.getItem('earnedAchievements');
+        if (savedAchievements) {
+          setEarnedAchievements(JSON.parse(savedAchievements));
         }
       }
     };
 
-    fetchUserAndProgress();
+    fetchUserAndData();
 
-    // Listener para mudanças de autenticação
     const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session?.user) {
         setUserId(session.user.id);
-        fetchUserAndProgress(); // Recarregar progresso se o usuário logar
+        fetchUserAndData();
       } else {
         setUserId(null);
-        setProgress({}); // Limpar progresso se o usuário deslogar
+        setProgress({});
+        setEarnedAchievements([]);
         localStorage.removeItem('learningProgress');
+        localStorage.removeItem('earnedAchievements');
       }
     });
 
     return () => {
       authListener.subscription.unsubscribe();
     };
-  }, []);
+  }, [checkAchievements]);
 
   const markSectionComplete = useCallback(async (topicId: string, sessionId: string, sectionId: string) => {
+    let updatedProgress: ProgressState = {};
     setProgress(prevProgress => {
       const newProgress = { ...prevProgress };
       if (!newProgress[topicId]) newProgress[topicId] = {};
@@ -120,28 +169,25 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
         newProgress[topicId][sessionId].completedSections.push(sectionId);
       }
       localStorage.setItem('learningProgress', JSON.stringify(newProgress));
+      updatedProgress = newProgress;
       return newProgress;
     });
+
+    checkAchievements(updatedProgress);
 
     if (userId) {
       const { error } = await supabase
         .from('user_learning_progress')
-        .insert({
-          user_id: userId,
-          topic_id: topicId,
-          session_id: sessionId,
-          section_id: sectionId,
-          status: 'completed' // Status padrão para seções de conteúdo
-        })
-        .select(); // Adicionado .select() para retornar os dados inseridos, útil para depuração
+        .insert({ user_id: userId, topic_id: topicId, session_id: sessionId, section_id: sectionId, status: 'completed' });
 
-      if (error && error.code !== '23505') { // 23505 é erro de chave única duplicada, que é esperado se já estiver completo
+      if (error && error.code !== '23505') {
         console.error('Error saving section progress to Supabase:', error);
       }
     }
-  }, [userId]);
+  }, [userId, checkAchievements]);
 
   const markSessionComplete = useCallback(async (topicId: string, sessionId: string, status: 'good' | 'mastered' | 'needs-work') => {
+    let updatedProgress: ProgressState = {};
     setProgress(prevProgress => {
       const newProgress = { ...prevProgress };
       if (!newProgress[topicId]) newProgress[topicId] = {};
@@ -150,28 +196,25 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
       }
       newProgress[topicId][sessionId].status = status;
       localStorage.setItem('learningProgress', JSON.stringify(newProgress));
+      updatedProgress = newProgress;
       return newProgress;
     });
 
+    checkAchievements(updatedProgress);
+
     if (userId) {
-      // Atualiza o status da sessão no Supabase. Como o status é por sessão, e não por seção individual,
-      // você pode precisar de uma lógica mais sofisticada aqui se quiser rastrear o status de cada seção.
-      // Para simplificar, vamos atualizar o status da última seção completada da sessão.
-      // Ou, idealmente, ter um campo 'session_status' na tabela user_learning_progress ou uma tabela separada para sessões.
-      // Por enquanto, vamos atualizar o status de qualquer seção dentro daquela sessão para refletir o status da sessão.
       const { error } = await supabase
         .from('user_learning_progress')
         .update({ status: status })
         .eq('user_id', userId)
         .eq('topic_id', topicId)
         .eq('session_id', sessionId);
-        // .eq('section_id', /* ID da última seção completada da sessão, se aplicável */);
 
       if (error) {
         console.error('Error updating session status in Supabase:', error);
       }
     }
-  }, [userId]);
+  }, [userId, checkAchievements]);
 
   const getTopicProgress = useCallback((topicId: string) => {
     const topic = learningContent.find(t => t.id === topicId);
@@ -221,7 +264,7 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
     return { completed, total, status };
   }, [progress]);
 
-    const getOverallProgress = useCallback(() => {
+  const getOverallProgress = useCallback(() => {
     let totalCompletedSectionsAcrossAllTopics = 0;
     let totalSectionsAcrossAllTopics = 0;
 
@@ -233,9 +276,6 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
 
     const percentage = totalSectionsAcrossAllTopics > 0 ? Math.round((totalCompletedSectionsAcrossAllTopics / totalSectionsAcrossAllTopics) * 100) : 0;
 
-    // Para o Overall Progress, vamos considerar a porcentagem de seções completadas
-    // e não o número de tópicos completamente finalizados, que é mais granular.
-    // Se o usuário quiser o número de tópicos completos, pode ser uma função separada.
     return { 
       completedTopics: learningContent.filter(topic => {
         const tp = getTopicProgress(topic.id);
@@ -249,6 +289,7 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
   return (
     <ProgressContext.Provider value={{
       progress,
+      earnedAchievements,
       markSectionComplete,
       markSessionComplete,
       getTopicProgress,
