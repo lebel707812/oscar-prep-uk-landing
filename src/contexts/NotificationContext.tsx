@@ -175,12 +175,12 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
       return updated;
     });
 
-    // Salvar no Supabase se o usuário estiver logado
+  // Save to Supabase if user is logged in
     if (userId) {
       saveToSupabase(newNotification);
     }
 
-    // Mostrar toast para notificações importantes
+    // Show toast for important notifications
     if (notificationData.type === 'achievement' || notificationData.type === 'milestone') {
       toast({
         title: notificationData.title,

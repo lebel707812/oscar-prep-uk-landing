@@ -89,35 +89,35 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ className }) => {
 
   const stats = [
     {
-      title: 'Progresso Geral',
+      title: 'Overall Progress',
       value: `${overallProgress.percentage}%`,
-      description: `${completedSessions} de ${totalSessions} sessões`,
+      description: `${completedSessions} of ${totalSessions} sessions`,
       icon: Target,
       color: 'text-blue-600',
       bgColor: 'bg-blue-50',
       progress: overallProgress.percentage
     },
     {
-      title: 'Tópicos Concluídos',
+      title: 'Topics Completed',
       value: `${completedTopics}/${totalTopics}`,
-      description: `${Math.round((completedTopics / totalTopics) * 100)}% completo`,
+      description: `${Math.round((completedTopics / totalTopics) * 100)}% complete`,
       icon: BookOpen,
       color: 'text-green-600',
       bgColor: 'bg-green-50',
       progress: (completedTopics / totalTopics) * 100
     },
     {
-      title: 'Conquistas',
+      title: 'Achievements',
       value: earnedAchievements.length.toString(),
-      description: 'Conquistas desbloqueadas',
+      description: "Achievements unlocked",
       icon: Trophy,
       color: 'text-yellow-600',
       bgColor: 'bg-yellow-50'
     },
     {
-      title: 'Sequência de Estudo',
-      value: `${studyStreak} dias`,
-      description: 'Dias consecutivos estudando',
+      title: 'Study Streak',
+      value: `${studyStreak} days`,
+      description: "Consecutive study days",
       icon: Calendar,
       color: 'text-purple-600',
       bgColor: 'bg-purple-50'
@@ -126,19 +126,19 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ className }) => {
 
   const performanceStats = [
     {
-      label: 'Dominadas',
+      label: 'Mastered',
       value: masteredSessions,
       color: 'bg-green-500',
       icon: Star
     },
     {
-      label: 'Boas',
+      label: 'Good',
       value: completedSessions - masteredSessions - needsWorkSessions,
       color: 'bg-blue-500',
       icon: CheckCircle
     },
     {
-      label: 'Precisam Melhorar',
+      label: 'Needs Work',
       value: needsWorkSessions,
       color: 'bg-orange-500',
       icon: AlertCircle
@@ -147,7 +147,7 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ className }) => {
 
   return (
     <div className={`space-y-6 ${className}`}>
-      {/* Estatísticas principais */}
+      {/* Main Statistics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat, index) => (
           <Card key={index} className="overflow-hidden">
@@ -178,14 +178,14 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ className }) => {
         ))}
       </div>
 
-      {/* Performance e Meta Semanal */}
+      {/* Performance and Weekly Goal */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Performance das Sessões */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <TrendingUp className="h-5 w-5" />
-              Performance das Sessões
+              Session Performance
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -205,7 +205,7 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ className }) => {
             {completedSessions > 0 && (
               <div className="mt-4 pt-4 border-t">
                 <div className="flex justify-between text-sm">
-                  <span>Taxa de Domínio:</span>
+                  <span>Mastery Rate:</span>
                   <span className="font-medium">
                     {Math.round((masteredSessions / completedSessions) * 100)}%
                   </span>
@@ -220,13 +220,13 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ className }) => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Clock className="h-5 w-5" />
-              Meta Semanal
+              Weekly Goal
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">Sessões Concluídas</span>
+                <span className="text-sm font-medium">Sessions Completed</span>
                 <span className="text-2xl font-bold">
                   {weeklyGoal.completed}/{weeklyGoal.target}
                 </span>
@@ -238,8 +238,8 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ className }) => {
               <div className="flex justify-between text-xs text-muted-foreground">
                 <span>
                   {weeklyGoal.target - weeklyGoal.completed > 0 
-                    ? `${weeklyGoal.target - weeklyGoal.completed} restantes` 
-                    : 'Meta atingida!'}
+                    ? `${weeklyGoal.target - weeklyGoal.completed} remaining` 
+                    : 'Goal achieved!'}
                 </span>
                 <span>
                   {Math.round((weeklyGoal.completed / weeklyGoal.target) * 100)}%
@@ -247,9 +247,9 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ className }) => {
               </div>
             </div>
 
-            {/* Atividade da Semana */}
+            {/* Weekly Activity */}
             <div className="mt-6">
-              <h4 className="text-sm font-medium mb-3">Atividade dos Últimos 7 Dias</h4>
+              <h4 className="text-sm font-medium mb-3">Last 7 Days Activity</h4>
               <div className="flex gap-1">
                 {recentActivity.map((day, index) => (
                   <div key={index} className="flex-1 text-center">
@@ -260,10 +260,10 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ className }) => {
                         day.sessions === 2 ? 'bg-green-400' :
                         'bg-green-600'
                       }`}
-                      title={`${day.sessions} sessões em ${new Date(day.date).toLocaleDateString('pt-BR', { weekday: 'short' })}`}
+                      title={`${day.sessions} sessions on ${new Date(day.date).toLocaleDateString("en-GB", { weekday: "short" })}`}
                     />
                     <div className="text-xs text-muted-foreground mt-1">
-                      {new Date(day.date).toLocaleDateString('pt-BR', { weekday: 'short' })}
+                      {new Date(day.date).toLocaleDateString("en-GB", { weekday: "short" })}
                     </div>
                   </div>
                 ))}

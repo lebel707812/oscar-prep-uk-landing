@@ -7,7 +7,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useNotifications, Notification } from '@/contexts/NotificationContext';
 import { formatDistanceToNow } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
+import { enGB } from 'date-fns/locale';
 
 const getNotificationIcon = (type: Notification['type']) => {
   switch (type) {
@@ -87,7 +87,7 @@ const NotificationCenter: React.FC = () => {
         <Card className="border-0 shadow-lg">
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-lg">Notificações</CardTitle>
+              <CardTitle className="text-lg">Notifications</CardTitle>
               <div className="flex gap-2">
                 {unreadCount > 0 && (
                   <Button
@@ -97,7 +97,7 @@ const NotificationCenter: React.FC = () => {
                     className="text-xs"
                   >
                     <CheckCheck className="h-3 w-3 mr-1" />
-                    Marcar todas
+                    Mark all as read
                   </Button>
                 )}
                 {notifications.length > 0 && (
@@ -108,14 +108,14 @@ const NotificationCenter: React.FC = () => {
                     className="text-xs text-destructive hover:text-destructive"
                   >
                     <Trash2 className="h-3 w-3 mr-1" />
-                    Limpar
+                    Clear all
                   </Button>
                 )}
               </div>
             </div>
             {unreadCount > 0 && (
               <p className="text-sm text-muted-foreground">
-                {unreadCount} notificação{unreadCount !== 1 ? 'ões' : ''} não lida{unreadCount !== 1 ? 's' : ''}
+                {unreadCount} unread notification{unreadCount !== 1 ? 's' : ''}
               </p>
             )}
           </CardHeader>
@@ -124,7 +124,7 @@ const NotificationCenter: React.FC = () => {
             {notifications.length === 0 ? (
               <div className="p-6 text-center">
                 <Bell className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
-                <p className="text-muted-foreground">Nenhuma notificação</p>
+                <p className="text-muted-foreground">No notifications</p>
               </div>
             ) : (
               <ScrollArea className="h-96">
@@ -170,7 +170,7 @@ const NotificationCenter: React.FC = () => {
                           <p className="text-xs text-muted-foreground mt-2">
                             {formatDistanceToNow(notification.timestamp, { 
                               addSuffix: true, 
-                              locale: ptBR 
+                              locale: enGB 
                             })}
                           </p>
                         </div>

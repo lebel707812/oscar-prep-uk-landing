@@ -26,7 +26,7 @@ const QuickActions: React.FC<QuickActionsProps> = ({ className }) => {
   const { progress } = useProgress();
   const navigate = useNavigate();
 
-  // Encontrar próxima sessão recomendada
+  // Find next recommended session
   const getNextRecommendedSession = () => {
     for (const topic of learningContent) {
       const topicProgress = progress[topic.id] || {};
@@ -46,7 +46,7 @@ const QuickActions: React.FC<QuickActionsProps> = ({ className }) => {
     return null;
   };
 
-  // Encontrar sessões que precisam de revisão
+  // Find sessions that need review
   const getSessionsNeedingReview = () => {
     const needsReview = [];
     for (const topic of learningContent) {
@@ -63,7 +63,7 @@ const QuickActions: React.FC<QuickActionsProps> = ({ className }) => {
         }
       }
     }
-    return needsReview.slice(0, 3); // Máximo 3 sessões
+    return needsReview.slice(0, 3); // Max 3 sessions
   };
 
   const nextSession = getNextRecommendedSession();
@@ -71,10 +71,10 @@ const QuickActions: React.FC<QuickActionsProps> = ({ className }) => {
 
   const quickActions = [
     {
-      title: 'Continuar Estudando',
+      title: 'Continue Studying',
       description: nextSession 
         ? `${nextSession.topicTitle} - ${nextSession.sessionTitle}`
-        : 'Todas as sessões concluídas!',
+        : "All sessions completed!",
       icon: Play,
       color: 'text-green-600',
       bgColor: 'bg-green-50',
@@ -87,68 +87,65 @@ const QuickActions: React.FC<QuickActionsProps> = ({ className }) => {
         }
       },
       disabled: !nextSession,
-      badge: nextSession ? 'Recomendado' : null
+      badge: nextSession ? "Recommended" : null
     },
     {
       title: 'Mock Exam',
-      description: 'Teste seus conhecimentos com um exame simulado',
+      description: "Test your knowledge with a simulated exam",
       icon: FileText,
       color: 'text-blue-600',
       bgColor: 'bg-blue-50',
       borderColor: 'border-blue-200',
-      action: () => navigate('/dashboard/mock-exams'),
-      badge: 'Prática'
+      action: () => navigate('/dashboard/mock-exams'),      badge: "Practice"'
     },
     {
-      title: 'PacientAI',
-      description: 'Pratique com pacientes virtuais inteligentes',
+      title: "PacientAI",
+      description: "Practice with intelligent virtual patients",
       icon: Brain,
       color: 'text-purple-600',
       bgColor: 'bg-purple-50',
       borderColor: 'border-purple-200',
-      action: () => navigate('/dashboard/pacient-ai'),
-      badge: 'IA'
+      action: () => navigate('/dashboard/pacient-ai'),      badge: "AI"'
     },
     {
-      title: 'Biblioteca de Cenários',
-      description: 'Explore cenários clínicos diversos',
+      title: "Scenario Library",
+      description: "Explore diverse clinical scenarios",
       icon: Library,
       color: 'text-orange-600',
       bgColor: 'bg-orange-50',
       borderColor: 'border-orange-200',
       action: () => navigate('/dashboard/scenario-library'),
-      badge: 'Cenários'
+      badge: "Scenarios"
     },
     {
-      title: 'Conquistas',
-      description: 'Veja seu progresso e conquistas desbloqueadas',
+      title: "Achievements",
+      description: "View your progress and unlocked achievements",
       icon: Trophy,
       color: 'text-yellow-600',
       bgColor: 'bg-yellow-50',
       borderColor: 'border-yellow-200',
-      action: () => navigate('/dashboard/gamification'),
-      badge: 'Gamificação'
+      action: () => navigate('/dashboard/gamification'),      badge: "Gamification"'
     },
     {
-      title: 'Fórum',
-      description: 'Conecte-se com outros estudantes',
+      title: "Forum",
+      description: "Connect with other students",
       icon: MessageCircle,
       color: 'text-indigo-600',
       bgColor: 'bg-indigo-50',
       borderColor: 'border-indigo-200',
       action: () => navigate('/forum'),
-      badge: 'Comunidade'
+      badge: "Community"
     }
   ];
 
   return (
     <div className={`space-y-6 ${className}`}>
-      {/* Ações Rápidas Principais */}
+      {/* Main Quick Actions */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Target className="h-5 w-5" />
-            Ações Rápidas
+            Quick Actions
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -183,13 +180,13 @@ const QuickActions: React.FC<QuickActionsProps> = ({ className }) => {
         </CardContent>
       </Card>
 
-      {/* Sessões que Precisam de Revisão */}
+      {/* Sessions Needing Review */}
       {reviewSessions.length > 0 && (
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <TrendingUp className="h-5 w-5" />
-              Sessões para Revisar
+              Sessions to Review
               <Badge variant="destructive" className="ml-2">
                 {reviewSessions.length}
               </Badge>
@@ -217,7 +214,7 @@ const QuickActions: React.FC<QuickActionsProps> = ({ className }) => {
                     onClick={() => navigate(`/learning-hub/${session.topicId}/${session.sessionId}`)}
                     className="border-orange-300 text-orange-700 hover:bg-orange-100"
                   >
-                    Revisar
+                    Review
                   </Button>
                 </div>
               ))}
@@ -226,23 +223,22 @@ const QuickActions: React.FC<QuickActionsProps> = ({ className }) => {
         </Card>
       )}
 
-      {/* Dica do Dia */}
+      {/* Tip of the Day */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <BookOpen className="h-5 w-5" />
-            Dica do Dia
+            Tip of the Day
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="p-4 rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200">
             <h3 className="font-medium text-sm mb-2 text-blue-900">
-              💡 Técnica de Estudo: Revisão Espaçada
+              💡 Study Technique: Spaced Repetition
             </h3>
             <p className="text-xs text-blue-700 leading-relaxed">
-              Revise o material em intervalos crescentes (1 dia, 3 dias, 1 semana, 2 semanas). 
-              Esta técnica melhora significativamente a retenção de longo prazo e é especialmente 
-              eficaz para memorizar procedimentos médicos e protocolos.
+              Review material at increasing intervals (1 day, 3 days, 1 week, 2 weeks). 
+              This technique significantly improves long-term retention and is especially effective for memorizing medical procedures and protocols.
             </p>
           </div>
         </CardContent>

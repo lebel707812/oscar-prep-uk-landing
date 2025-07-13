@@ -16,7 +16,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
+import { enGB } from 'date-fns/locale';
 import { learningContent } from '@/data/learning-content';
 import { useNavigate } from 'react-router-dom';
 
@@ -45,7 +45,7 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ className }) => {
     const generateActivities = () => {
       const activityList: ActivityItem[] = [];
 
-      // Adicionar atividades de notificações recentes
+      // Add recent notification activities
       notifications.slice(0, 5).forEach(notification => {
         let icon = Clock;
         let color = 'text-blue-600';
@@ -81,7 +81,7 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ className }) => {
         });
       });
 
-      // Adicionar atividades de sessões concluídas recentemente
+      // Add recently completed session activities
       Object.entries(progress).forEach(([topicId, topicSessions]) => {
         const topic = learningContent.find(t => t.id === topicId);
         if (!topic) return;
@@ -92,24 +92,24 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ className }) => {
             if (session) {
               let icon = CheckCircle2;
               let color = 'text-green-600';
-              let statusText = 'Concluída';
+              let statusText = 'Completed';
 
               if (sessionData.status === 'mastered') {
                 icon = Star;
                 color = 'text-yellow-600';
-                statusText = 'Dominada';
+                statusText = 'Mastered';
               } else if (sessionData.status === 'needs-work') {
                 icon = AlertCircle;
                 color = 'text-orange-600';
-                statusText = 'Precisa Melhorar';
+                statusText = 'Needs Work';
               }
 
               activityList.push({
                 id: `${topicId}-${sessionId}`,
                 type: 'session_completed',
-                title: `Sessão ${statusText}`,
+                title: `Session ${statusText}`,
                 description: `${topic.title} - ${session.title}`,
-                timestamp: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000), // Últimos 7 dias
+                timestamp: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000), // Last 7 days
                 icon,
                 color,
                 actionUrl: `/learning-hub/${topicId}/${sessionId}`
@@ -119,7 +119,7 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ className }) => {
         });
       });
 
-      // Ordenar por timestamp (mais recente primeiro) e limitar a 10 itens
+      // Sort by timestamp (most recent first) and limit to 10 items
       activityList.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
       setActivities(activityList.slice(0, 10));
     };
@@ -136,15 +136,15 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ className }) => {
   const getActivityTypeLabel = (type: ActivityItem['type']) => {
     switch (type) {
       case 'session_completed':
-        return 'Sessão';
+        return 'Session';
       case 'achievement_earned':
-        return 'Conquista';
+        return 'Achievement';
       case 'topic_completed':
-        return 'Tópico';
+        return 'Topic';
       case 'milestone_reached':
-        return 'Marco';
+        return 'Milestone';
       default:
-        return 'Atividade';
+        return 'Activity';
     }
   };
 
@@ -169,17 +169,17 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ className }) => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Clock className="h-5 w-5" />
-            Atividade Recente
+            Recent Activity
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="text-center py-8">
             <Calendar className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
             <p className="text-muted-foreground">
-              Nenhuma atividade recente encontrada.
+              No recent activity found.
             </p>
             <p className="text-sm text-muted-foreground mt-1">
-              Complete algumas sessões para ver sua atividade aqui.
+              Complete some sessions to see your activity here.
             </p>
           </div>
         </CardContent>
@@ -193,7 +193,7 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ className }) => {
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
             <Clock className="h-5 w-5" />
-            Atividade Recente
+            Recent Activity
           </CardTitle>
           <Button 
             variant="ghost" 
@@ -201,7 +201,7 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ className }) => {
             onClick={() => navigate('/dashboard/session-history')}
             className="text-sm"
           >
-            Ver Tudo
+            View All
             <ArrowRight className="h-4 w-4 ml-1" />
           </Button>
         </div>
@@ -244,7 +244,7 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ className }) => {
                   <span className="text-xs text-muted-foreground">
                     {formatDistanceToNow(activity.timestamp, { 
                       addSuffix: true, 
-                      locale: ptBR 
+                      locale: enGB 
                     })}
                   </span>
                   {activity.actionUrl && (
@@ -264,7 +264,7 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ className }) => {
               onClick={() => navigate('/dashboard/session-history')}
               className="w-full"
             >
-              Ver Histórico Completo
+              View Full History
               <ArrowRight className="h-4 w-4 ml-2" />
             </Button>
           </div>
