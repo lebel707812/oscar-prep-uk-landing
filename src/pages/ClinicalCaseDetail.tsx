@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Layout from "@/components/ui/Layout";
 import FeedbackSystem from "@/components/ui/FeedbackSystem";
+import "../styles/ui-improvements.css";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -312,9 +313,9 @@ const ClinicalCaseDetail: React.FC = () => {
               {/* Timer and Controls */}
               <div className="flex flex-col items-center lg:items-end gap-4">
                 <div className="text-center lg:text-right">
-                  <div className="text-3xl font-mono font-bold text-blue-600 mb-1">
-                    {formatTime(timeRemaining)}
-                  </div>
+                <div className="text-3xl font-mono font-bold text-blue-600 mb-1 timer-pulse">
+                  {formatTime(timeRemaining)}
+                </div>
                   <div className="text-sm text-gray-500">
                     Step {currentStep + 1} of {caseData.steps.length}
                   </div>
@@ -322,7 +323,7 @@ const ClinicalCaseDetail: React.FC = () => {
                 
                 <div className="flex gap-2">
                   {!caseStarted ? (
-                    <Button onClick={startCase} className="bg-green-600 hover:bg-green-700">
+                    <Button onClick={startCase} className="bg-green-600 hover:bg-green-700 btn-hover-effect focus-enhanced">
                       <Play className="w-4 h-4 mr-2" />
                       Start Case
                     </Button>
@@ -332,6 +333,7 @@ const ClinicalCaseDetail: React.FC = () => {
                         onClick={pauseTimer} 
                         variant="outline"
                         disabled={caseCompleted}
+                        className="btn-hover-effect focus-enhanced"
                       >
                         {isTimerRunning ? (
                           <Pause className="w-4 h-4 mr-2" />
@@ -340,7 +342,7 @@ const ClinicalCaseDetail: React.FC = () => {
                         )}
                         {isTimerRunning ? 'Pause' : 'Resume'}
                       </Button>
-                      <Button onClick={resetCase} variant="outline">
+                      <Button onClick={resetCase} variant="outline" className="btn-hover-effect focus-enhanced">
                         <RotateCcw className="w-4 h-4 mr-2" />
                         Reset
                       </Button>
@@ -356,7 +358,7 @@ const ClinicalCaseDetail: React.FC = () => {
                 <span>Progress</span>
                 <span>{Math.round(getProgressPercentage())}% Complete</span>
               </div>
-              <Progress value={getProgressPercentage()} className="h-2" />
+              <Progress value={getProgressPercentage()} className="h-2 progress-animate" />
             </div>
           </div>
 

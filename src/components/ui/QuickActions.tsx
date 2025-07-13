@@ -146,7 +146,7 @@ const QuickActions: React.FC<QuickActionsProps> = ({ className }) => {
               <Button
                 key={index}
                 variant="outline"
-                className={`h-auto p-4 flex flex-col items-start gap-3 ${action.borderColor} hover:${action.bgColor} transition-colors`}
+                className={`h-auto p-4 flex flex-col items-start gap-3 card-animate btn-hover-effect focus-enhanced interactive-feedback ${action.borderColor} hover:${action.bgColor} transition-colors`}
                 onClick={action.action}
                 disabled={action.disabled}
               >

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
+import "../styles/ui-improvements.css";
 import { Button } from "@/components/ui/button";
 import TopicProgressSection from "@/components/TopicProgressSection";
 import DashboardStats from "@/components/ui/DashboardStats";
