@@ -52,7 +52,7 @@ import { topic4 } from "./topics/topic-4-wound-care";
 import { topic5 } from "./topics/topic-5-vital-signs-monitoring";
 import { topic6 } from "./topics/topic-6-emergency-procedures-cpr";
 import { topic7 } from "./topics/topic-7-patient-safety-risk-assessment";
-import { topic8 } from "./topics/topic-8-vital-signs-monitoring";
+import { topic8 } from "./topics/topic-8-documentation-record-keeping";
 
 export const learningContent: LearningTopic[] = [
   topic1,
