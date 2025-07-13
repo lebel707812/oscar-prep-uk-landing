@@ -93,6 +93,9 @@ const LearningTopicDetail = () => {
     } else if (currentSessionIndex < topic.sessions.length - 1) {
       setCurrentSessionIndex(currentSessionIndex + 1);
       setCurrentSectionIndex(0);
+    } else {
+      // This is the last section of the last session - navigate to topic review
+      navigate(`/learning-hub/topic/${topic.slug}/review`);
     }
   };
 
@@ -293,13 +296,20 @@ const LearningTopicDetail = () => {
                   
                   <Button
                     onClick={navigateToNextSection}
-                    disabled={
-                      currentSessionIndex === topic.sessions.length - 1 && 
-                      currentSectionIndex === currentSessionData.sections.length - 1
-                    }
+                    disabled={false} // Remove the disabled state since we want to allow finishing the topic
                   >
-                    Next
-                    <ChevronRight className="h-4 w-4 ml-2" />
+                    {currentSessionIndex === topic.sessions.length - 1 && 
+                     currentSectionIndex === currentSessionData.sections.length - 1 ? (
+                      <>
+                        Finish Topic
+                        <CheckCircle className="h-4 w-4 ml-2" />
+                      </>
+                    ) : (
+                      <>
+                        Next
+                        <ChevronRight className="h-4 w-4 ml-2" />
+                      </>
+                    )}
                   </Button>
                 </div>
               </CardContent>
