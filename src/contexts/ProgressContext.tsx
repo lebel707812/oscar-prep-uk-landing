@@ -216,29 +216,34 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
 
     const completed = progress[topicId]?.[sessionId]?.completedSections.length || 0;
     const total = session.sections.length;
-    const status = progress[topicId]?.[sessionId]?.status || 'not-started';
+    const status = (progress[topicId]?.[sessionId]?.status || 'not-started') as 'not-started' | 'good' | 'mastered' | 'needs-work';
 
     return { completed, total, status };
   }, [progress]);
 
-  const getOverallProgress = useCallback(() => {
-    let completedTopics = 0;
-    let totalTopics = learningContent.length;
+    const getOverallProgress = useCallback(() => {
     let totalCompletedSectionsAcrossAllTopics = 0;
     let totalSectionsAcrossAllTopics = 0;
 
     learningContent.forEach(topic => {
       const topicProgress = getTopicProgress(topic.id);
-      if (topicProgress.completedSections === topicProgress.totalSections && topicProgress.totalSections > 0) {
-        completedTopics++;
-      }
       totalCompletedSectionsAcrossAllTopics += topicProgress.completedSections;
       totalSectionsAcrossAllTopics += topicProgress.totalSections;
     });
 
     const percentage = totalSectionsAcrossAllTopics > 0 ? Math.round((totalCompletedSectionsAcrossAllTopics / totalSectionsAcrossAllTopics) * 100) : 0;
 
-    return { completedTopics, totalTopics, percentage };
+    // Para o Overall Progress, vamos considerar a porcentagem de seções completadas
+    // e não o número de tópicos completamente finalizados, que é mais granular.
+    // Se o usuário quiser o número de tópicos completos, pode ser uma função separada.
+    return { 
+      completedTopics: learningContent.filter(topic => {
+        const tp = getTopicProgress(topic.id);
+        return tp.completedSections === tp.totalSections && tp.totalSections > 0;
+      }).length,
+      totalTopics: learningContent.length,
+      percentage 
+    };
   }, [getTopicProgress]);
 
   return (
