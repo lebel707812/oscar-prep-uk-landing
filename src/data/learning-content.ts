@@ -63,5 +63,9 @@ export const learningContent: LearningTopic[] = [
   topic6,
   topic7,
   topic8,
+    topic9,
   // Add more topics here
 ];
+
+import { topic9 } from "./topics/topic-9-professional-boundaries-ethics";
+
