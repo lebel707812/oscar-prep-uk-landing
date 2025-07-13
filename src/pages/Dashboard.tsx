@@ -5,7 +5,10 @@ import "react-day-picker/dist/style.css";
 import { Button } from "@/components/ui/button";
 import UnifiedHeader from "@/components/ui/UnifiedHeader";
 import TopicProgressSection from "@/components/TopicProgressSection";
-import { Outlet } from "react-router-dom";
+import DashboardStats from "@/components/ui/DashboardStats";
+import RecentActivity from "@/components/ui/RecentActivity";
+import QuickActions from "@/components/ui/QuickActions";
+import { Outlet, useLocation } from "react-router-dom";
 
 import {
   LineChart,
@@ -89,6 +92,7 @@ const Toast: React.FC<{
 };
 
 const Dashboard: React.FC = () => {
+  const location = useLocation();
   const [sessions, setSessions] = useState<Session[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -115,6 +119,9 @@ const Dashboard: React.FC = () => {
   today.setHours(0, 0, 0, 0);
 
   const categories = ["All", ...Array.from(new Set(Object.values(stationCategories)))];
+
+  // Verificar se estamos na rota principal do dashboard
+  const isMainDashboard = location.pathname === '/dashboard' || location.pathname === '/dashboard/';
 
   const parseDateAsLocal = (dateString: string) => {
     const [year, month, day] = dateString.split("-").map(Number);
@@ -336,11 +343,25 @@ const Dashboard: React.FC = () => {
     <>
       <UnifiedHeader />
       <main className="max-w-7xl mx-auto p-6 flex flex-col lg:flex-row gap-6 overflow-x-hidden">
+        {/* Conteúdo principal */}
         <section className="flex-1 max-w-4xl">
-          <Outlet />
+          {isMainDashboard ? (
+            <div className="space-y-6">
+              {/* Estatísticas do Dashboard */}
+              <DashboardStats />
+              
+              {/* Grid com Ações Rápidas e Atividade Recente */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <QuickActions />
+                <RecentActivity />
+              </div>
+            </div>
+          ) : (
+            <Outlet />
+          )}
         </section>
 
-        {/* Topic Progress Sidebar */}
+        {/* Sidebar com Progresso dos Tópicos */}
         <aside className="lg:w-80 w-full">
           <div className="bg-card border rounded-lg p-6">
             <TopicProgressSection />
@@ -360,5 +381,4 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
-
 

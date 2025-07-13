@@ -3,6 +3,7 @@ import { learningContent } from "@/data/learning-content";
 import { useToast } from "@/components/ui/use-toast";
 import { AchievementDefinition, fetchAchievementDefinitions, updateAchievementProgress, fetchUserAchievements } from '@/integrations/supabase/gamification';
 import { supabase } from '@/integrations/supabase/client'; // Importa a instância única do Supabase
+import { useNotifications } from '@/contexts/NotificationContext';
 
 interface ProgressState {
   [topicId: string]: {
@@ -51,6 +52,7 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
   const [allAchievements, setAllAchievements] = useState<AchievementDefinition[]>([]);
   const [userId, setUserId] = useState<string | null>(null);
   const { toast } = useToast();
+  const { addNotification } = useNotifications();
 
   // Funções de cálculo de progresso (movidas para fora do useCallback para evitar dependências circulares)
   const calculateTopicProgress = (currentProgress: ProgressState, topicId: string) => {
@@ -89,16 +91,16 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const calculateOverallProgress = (currentProgress: ProgressState) => {
-    let totalCompletedSectionsAcrossAllTopics = 0;
-    let totalSectionsAcrossAllTopics = 0;
+    let totalCompletedSessionsAcrossAllTopics = 0;
+    let totalSessionsAcrossAllTopics = 0;
 
     learningContent.forEach(topic => {
-      const topicProgress = calculateTopicProgress(currentProgress, topic.id);
-      totalCompletedSectionsAcrossAllTopics += topicProgress.completedSections;
-      totalSectionsAcrossAllTopics += topicProgress.totalSections;
+      totalSessionsAcrossAllTopics += topic.sessions.length;
+      const completedSessionsInTopic = Object.values(currentProgress[topic.id] || {}).filter(session => session.status !== 'not-started').length;
+      totalCompletedSessionsAcrossAllTopics += completedSessionsInTopic;
     });
 
-    const percentage = totalSectionsAcrossAllTopics > 0 ? Math.round((totalCompletedSectionsAcrossAllTopics / totalSectionsAcrossAllTopics) * 100) : 0;
+    const percentage = totalSessionsAcrossAllTopics > 0 ? Math.round((totalCompletedSessionsAcrossAllTopics / totalSessionsAcrossAllTopics) * 100) : 0;
 
     return {
       completedTopics: learningContent.filter(topic => {
@@ -196,6 +198,15 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
       if (criteriaMet) {
         const newAchievement = { id: achievementDef.id, earnedAt: new Date().toISOString() };
         newlyEarned.push(newAchievement);
+        
+        // Notificação de conquista
+        addNotification({
+          type: 'achievement',
+          title: 'Conquista Desbloqueada!',
+          message: `Você ganhou a conquista: ${achievementDef.name}`,
+          actionUrl: '/dashboard/gamification'
+        });
+        
         toast({
           title: "Conquista Desbloqueada!",
           description: `Você ganhou a conquista: ${achievementDef.name}`,
@@ -332,6 +343,66 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
       return newProgress;
     });
 
+    // Verificar marcos de progresso e enviar notificações
+    const overallProgress = calculateOverallProgress(updatedProgress);
+    const topicProgress = calculateTopicProgress(updatedProgress, topicId);
+    
+    // Notificação para primeira sessão concluída
+    const totalCompletedSessions = Object.values(updatedProgress).reduce((total, topicSessions) => {
+      return total + Object.values(topicSessions).filter(session => session.status !== 'not-started').length;
+    }, 0);
+    
+    if (totalCompletedSessions === 1) {
+      addNotification({
+        type: 'milestone',
+        title: 'Primeira Sessão Concluída!',
+        message: 'Parabéns! Você completou sua primeira sessão de estudo.',
+        actionUrl: '/dashboard'
+      });
+    }
+    
+    // Notificação para tópico completo
+    if (topicProgress.completedSections === topicProgress.totalSections && topicProgress.totalSections > 0) {
+      const topic = learningContent.find(t => t.id === topicId);
+      addNotification({
+        type: 'milestone',
+        title: 'Tópico Concluído!',
+        message: `Você completou o tópico: ${topic?.title || 'Tópico'}`,
+        actionUrl: '/learning-hub'
+      });
+    }
+    
+    // Notificações para marcos de progresso geral
+    if (overallProgress.percentage === 25) {
+      addNotification({
+        type: 'milestone',
+        title: '25% Concluído!',
+        message: 'Você está fazendo um ótimo progresso! Continue assim.',
+        actionUrl: '/dashboard'
+      });
+    } else if (overallProgress.percentage === 50) {
+      addNotification({
+        type: 'milestone',
+        title: 'Meio Caminho Andado!',
+        message: 'Você já completou 50% do seu treinamento!',
+        actionUrl: '/dashboard'
+      });
+    } else if (overallProgress.percentage === 75) {
+      addNotification({
+        type: 'milestone',
+        title: '75% Concluído!',
+        message: 'Você está quase lá! Apenas 25% restantes.',
+        actionUrl: '/dashboard'
+      });
+    } else if (overallProgress.percentage === 100) {
+      addNotification({
+        type: 'milestone',
+        title: 'Treinamento Completo!',
+        message: 'Parabéns! Você completou todo o treinamento OSCE!',
+        actionUrl: '/dashboard/gamification'
+      });
+    }
+
     if (userId) {
       const { error } = await supabase
         .from('user_learning_progress')
@@ -344,7 +415,7 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
         console.error('Error updating session status in Supabase:', error);
       }
     }
-  }, [userId]);
+  }, [userId, addNotification]);
 
   const getTopicProgress = useCallback((topicId: string) => calculateTopicProgress(progress, topicId), [progress]);
 

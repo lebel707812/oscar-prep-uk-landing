@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/contexts/ThemeContext';
+import NotificationCenter from '@/components/ui/NotificationCenter';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -231,6 +232,9 @@ const UnifiedHeader = () => {
             <Moon size={24} className="text-gray-700" />
           )}
         </button>
+
+        {/* Notification Center - only show for authenticated users */}
+        {user && <NotificationCenter />}
 
         {/* Mobile hamburger */}
         <button
