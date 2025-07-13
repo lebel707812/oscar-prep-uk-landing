@@ -90,6 +90,12 @@ const UnifiedHeader = () => {
       requiresAuth: true 
     },
     { 
+      path: '/dashboard/clinical-cases', 
+      label: 'Clinical Cases', 
+      Icon: Library, 
+      requiresAuth: true 
+    },
+    { 
       path: '/dashboard/session-history', 
       label: 'Session History', 
       Icon: History, 

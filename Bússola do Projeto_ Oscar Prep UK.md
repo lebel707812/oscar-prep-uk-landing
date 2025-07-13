@@ -84,7 +84,8 @@ As seguintes tarefas são consideradas primordiais e devem ser o foco do desenvo
 Com a correção do botão "Start Case" e o carregamento da página de detalhes do caso clínico, os próximos passos focam em garantir a funcionalidade completa da plataforma e aprimorar a experiência do usuário:
 
 1.  **Reativar e testar a autenticação:** Concluído. As proteções de rota foram reativadas e o sistema de autenticação está funcionando corretamente.
-2.  **Implementar a lógica de avanço de passos nos casos clínicos:** Atualmente, o caso clínico exibe o primeiro passo e o timer. É necessário implementar a funcionalidade para que o usuário possa avançar entre os passos do caso, marcar passos como concluídos e receber feedback.
+2.  **Implementar a lógica de avanço de passos nos casos clínicos:** Concluído. A funcionalidade para avançar entre os passos do caso está funcionando corretamente, com timer e progresso sendo atualizados adequadamente.
+3.  **Adicionar 'Clinical Cases' ao UnifiedHeader:** Concluído. O item "Clinical Cases" foi adicionado ao menu de navegação e está funcionando corretamente.
 3.  **Desenvolver o feedback inteligente:** A funcionalidade de feedback inteligente nas respostas dos simulados e casos clínicos é uma prioridade. Isso envolve a criação de um sistema que analise as interações do usuário e forneça insights personalizados para o aprendizado.
 4.  **Testar a funcionalidade de timer e simulação de estação:** Garantir que o timer funcione corretamente para cada passo do caso clínico e que a simulação de estação (8-10 min) esteja alinhada com as condições reais do exame OSCE.
 5.  **Revisar e aprimorar a interface do usuário (UI) e a experiência do usuário (UX):** Com as funcionalidades básicas em funcionamento, focar em refinar a UI/UX para tornar a plataforma mais intuitiva e agradável de usar.
