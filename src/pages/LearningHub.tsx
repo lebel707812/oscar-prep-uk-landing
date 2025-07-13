@@ -4,206 +4,35 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
-import { 
-  Stethoscope, 
-  Heart, 
-  Pill, 
-  Shield, 
-  Activity, 
-  Zap, 
-  UserCheck, 
-  FileText, 
-  Scale, 
-  Globe, 
-  Brain, 
-  Users, 
-  ClipboardList, 
+import {
+  Stethoscope,
+  Heart,
+  Pill,
+  Shield,
+  Activity,
+  Zap,
+  UserCheck,
+  FileText,
+  Scale,
+  Globe,
+  Brain,
+  Users,
+  ClipboardList,
   TrendingUp,
   BookOpen,
   Trophy
 } from "lucide-react";
-
-const topics = [
-  {
-    id: 1,
-    title: "History Taking & Communication",
-    description: "Master patient interviews and communication skills",
-    icon: Stethoscope,
-    progress: 75,
-    totalQuestions: 12,
-    completedQuestions: 9,
-    color: "bg-blue-500"
-  },
-  {
-    id: 2,
-    title: "Physical Examination Techniques",
-    description: "Learn systematic examination approaches",
-    icon: Heart,
-    progress: 60,
-    totalQuestions: 15,
-    completedQuestions: 9,
-    color: "bg-red-500"
-  },
-  {
-    id: 3,
-    title: "Medication Management & Calculations",
-    description: "Drug calculations and administration safety",
-    icon: Pill,
-    progress: 85,
-    totalQuestions: 10,
-    completedQuestions: 8,
-    color: "bg-green-500"
-  },
-  {
-    id: 4,
-    title: "Wound Care & Infection Control",
-    description: "Sterile techniques and wound management",
-    icon: Shield,
-    progress: 40,
-    totalQuestions: 8,
-    completedQuestions: 3,
-    color: "bg-purple-500"
-  },
-  {
-    id: 5,
-    title: "Vital Signs & Monitoring",
-    description: "Accurate measurement and interpretation",
-    icon: Activity,
-    progress: 90,
-    totalQuestions: 6,
-    completedQuestions: 5,
-    color: "bg-orange-500"
-  },
-  {
-    id: 6,
-    title: "Emergency Procedures & CPR",
-    description: "Life-saving interventions and protocols",
-    icon: Zap,
-    progress: 30,
-    totalQuestions: 12,
-    completedQuestions: 4,
-    color: "bg-yellow-500"
-  },
-  {
-    id: 7,
-    title: "Patient Safety & Risk Assessment",
-    description: "Identify and mitigate clinical risks",
-    icon: UserCheck,
-    progress: 55,
-    totalQuestions: 9,
-    completedQuestions: 5,
-    color: "bg-indigo-500"
-  },
-  {
-    id: 8,
-    title: "Documentation & Record Keeping",
-    description: "Accurate and legal documentation practices",
-    icon: FileText,
-    progress: 70,
-    totalQuestions: 7,
-    completedQuestions: 5,
-    color: "bg-pink-500"
-  },
-  {
-    id: 9,
-    title: "Professional Boundaries & Ethics",
-    description: "Ethical decision-making and professional conduct",
-    icon: Scale,
-    progress: 45,
-    totalQuestions: 8,
-    completedQuestions: 4,
-    color: "bg-teal-500"
-  },
-  {
-    id: 10,
-    title: "Cultural Competency & Diversity",
-    description: "Culturally sensitive care approaches",
-    icon: Globe,
-    progress: 65,
-    totalQuestions: 6,
-    completedQuestions: 4,
-    color: "bg-cyan-500"
-  },
-  {
-    id: 11,
-    title: "Mental Health Assessment",
-    description: "Mental health screening and support",
-    icon: Brain,
-    progress: 35,
-    totalQuestions: 10,
-    completedQuestions: 4,
-    color: "bg-violet-500"
-  },
-  {
-    id: 12,
-    title: "Pediatric & Elderly Care",
-    description: "Age-specific care considerations",
-    icon: Users,
-    progress: 50,
-    totalQuestions: 11,
-    completedQuestions: 6,
-    color: "bg-emerald-500"
-  },
-  {
-    id: 13,
-    title: "Discharge Planning & Education",
-    description: "Patient education and transition planning",
-    icon: ClipboardList,
-    progress: 80,
-    totalQuestions: 5,
-    completedQuestions: 4,
-    color: "bg-amber-500"
-  },
-  {
-    id: 14,
-    title: "Quality Improvement & Evidence-Based Practice",
-    description: "Research application and quality metrics",
-    icon: TrendingUp,
-    progress: 25,
-    totalQuestions: 9,
-    completedQuestions: 2,
-    color: "bg-rose-500"
-  }
-];
+import { learningContent } from "../data/learning-content";
+import { useProgress } from "../contexts/ProgressContext";
 
 const LearningHub = () => {
   const navigate = useNavigate();
-  const [overallProgress, setOverallProgress] = useState(0);
-  const [totalTopicsCompleted, setTotalTopicsCompleted] = useState(0);
+  const { getOverallProgress, getTopicProgress } = useProgress();
 
-  useEffect(() => {
-    const totalQuestions = topics.reduce((sum, topic) => sum + topic.totalQuestions, 0);
-    const totalCompleted = topics.reduce((sum, topic) => sum + topic.completedQuestions, 0);
-    const completed = topics.filter(topic => topic.progress >= 80).length;
-    
-    setOverallProgress(Math.round((totalCompleted / totalQuestions) * 100));
-    setTotalTopicsCompleted(completed);
-  }, []);
+  const { completedTopics, totalTopics, completedSections: overallCompletedSections, totalSections: overallTotalSections } = getOverallProgress();
 
-  const handleTopicClick = (topicId: number) => {
-    // Map topic IDs to slugs - using the exact slugs from learning-content.ts
-    const topicSlugs: { [key: number]: string } = {
-      1: "history-taking-communication",
-      2: "physical-examination-techniques", 
-      3: "medication-management-calculations",
-      4: "wound-care-infection-control",
-      5: "vital-signs-monitoring",
-      6: "emergency-procedures-cpr",
-      7: "patient-safety-risk-assessment",
-      8: "documentation-record-keeping",
-      9: "professional-boundaries-ethics",
-      10: "cultural-competency-diversity",
-      11: "mental-health-assessment",
-      12: "paediatric-elderly-care",
-      13: "discharge-planning-education",
-      14: "quality-improvement-evidence-based-practice"
-    };
-    
-    const slug = topicSlugs[topicId];
-    console.log("Navigating to topic with ID:", topicId, "and slug:", slug);
-    if (slug) {
-      navigate(`/learning-hub/topic/${slug}`);
-    }
+  const handleTopicClick = (slug: string) => {
+    navigate(`/learning-hub/topic/${slug}`);
   };
 
   const getProgressColor = (progress: number) => {
@@ -237,31 +66,43 @@ const LearningHub = () => {
               <span className="text-sm font-medium text-gray-700">Overall Progress</span>
               <Trophy className="h-5 w-5 text-yellow-500" />
             </div>
-            <Progress value={overallProgress} className="h-3 mb-3" />
+            <Progress value={overallTotalSections > 0 ? (overallCompletedSections / overallTotalSections) * 100 : 0} className="h-3 mb-3" />
             <div className="flex justify-between text-sm text-gray-600">
-              <span>{overallProgress}% Complete</span>
-              <span>{totalTopicsCompleted}/14 Topics Mastered</span>
+              <span>{overallTotalSections > 0 ? Math.round((overallCompletedSections / overallTotalSections) * 100) : 0}% Complete</span>
+              <span>{completedTopics}/{totalTopics} Topics Mastered</span>
             </div>
           </div>
         </div>
 
         {/* Topics Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {topics.map((topic) => {
+          {learningContent.map((topic) => {
             const IconComponent = topic.icon;
+            const topicProgress = getTopicProgress(topic.id);
+            const progressPercentage = topicProgress.totalSections > 0 ? Math.round((topicProgress.completedSections / topicProgress.totalSections) * 100) : 0;
+            const totalQuestions = topicProgress.totalQuizzes + topicProgress.totalCaseStudies;
+            const completedQuestions = topicProgress.completedQuizzes + topicProgress.completedCaseStudies;
+
+            let statusText = "Needs Work";
+            if (progressPercentage >= 80) {
+              statusText = "Mastered";
+            } else if (progressPercentage >= 60) {
+              statusText = "Good";
+            }
+
             return (
               <Card 
                 key={topic.id} 
                 className="cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-[1.02] border-l-4 hover:border-l-blue-500"
-                onClick={() => handleTopicClick(topic.id)}
+                onClick={() => handleTopicClick(topic.slug)}
               >
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between">
-                    <div className={`p-2 rounded-lg ${topic.color} bg-opacity-10`}>
-                      <IconComponent className={`h-6 w-6 ${topic.color.replace('bg-', 'text-')}`} />
+                    <div className={`p-2 rounded-lg bg-blue-500 bg-opacity-10`}>
+                      <IconComponent className={`h-6 w-6 text-blue-500`} />
                     </div>
-                    <Badge variant={getProgressBadgeVariant(topic.progress)}>
-                      {topic.progress}%
+                    <Badge variant={getProgressBadgeVariant(progressPercentage)}>
+                      {progressPercentage}%
                     </Badge>
                   </div>
                   <CardTitle className="text-lg leading-tight">{topic.title}</CardTitle>
@@ -270,13 +111,13 @@ const LearningHub = () => {
                 
                 <CardContent className="pt-0">
                   <div className="space-y-3">
-                    <Progress value={topic.progress} className="h-2" />
+                    <Progress value={progressPercentage} className="h-2" />
                     <div className="flex justify-between items-center text-sm">
                       <span className="text-gray-600">
-                        {topic.completedQuestions}/{topic.totalQuestions} Questions
+                        {completedQuestions}/{totalQuestions} Questions
                       </span>
-                      <span className={`font-medium ${getProgressColor(topic.progress)}`}>
-                        {topic.progress >= 80 ? "Mastered" : topic.progress >= 60 ? "Good" : "Needs Work"}
+                      <span className={`font-medium ${getProgressColor(progressPercentage)}`}>
+                        {statusText}
                       </span>
                     </div>
                   </div>
@@ -291,16 +132,16 @@ const LearningHub = () => {
           <Card>
             <CardHeader className="text-center">
               <CardTitle className="text-2xl font-bold text-blue-600">
-                {topics.reduce((sum, topic) => sum + topic.completedQuestions, 0)}
+                {overallCompletedSections}
               </CardTitle>
-              <CardDescription>Questions Completed</CardDescription>
+              <CardDescription>Sections Completed</CardDescription>
             </CardHeader>
           </Card>
           
           <Card>
             <CardHeader className="text-center">
               <CardTitle className="text-2xl font-bold text-green-600">
-                {totalTopicsCompleted}
+                {completedTopics}
               </CardTitle>
               <CardDescription>Topics Mastered</CardDescription>
             </CardHeader>
@@ -309,9 +150,9 @@ const LearningHub = () => {
           <Card>
             <CardHeader className="text-center">
               <CardTitle className="text-2xl font-bold text-purple-600">
-                {Math.round(topics.reduce((sum, topic) => sum + topic.progress, 0) / topics.length)}%
+                {overallTotalSections > 0 ? Math.round((overallCompletedSections / overallTotalSections) * 100) : 0}%
               </CardTitle>
-              <CardDescription>Average Score</CardDescription>
+              <CardDescription>Overall Progress</CardDescription>
             </CardHeader>
           </Card>
         </div>
@@ -321,3 +162,4 @@ const LearningHub = () => {
 };
 
 export default LearningHub;
+

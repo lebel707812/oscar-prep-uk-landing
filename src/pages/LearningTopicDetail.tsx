@@ -6,13 +6,13 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  ArrowLeft, 
-  BookOpen, 
-  CheckCircle, 
-  Clock, 
-  PlayCircle, 
-  FileText, 
+import {
+  ArrowLeft,
+  BookOpen,
+  CheckCircle,
+  Clock,
+  PlayCircle,
+  FileText,
   HelpCircle,
   Users,
   Trophy,
@@ -25,42 +25,53 @@ import CaseStudy from "@/components/learning/CaseStudy";
 import VideoEmbed from "@/components/learning/VideoEmbed";
 import ProgressTracker from "@/components/learning/ProgressTracker";
 import { learningContent } from "@/data/learning-content";
+import { useProgress } from "../contexts/ProgressContext";
 
 const LearningTopicDetail = () => {
   const { topicSlug } = useParams<{ topicSlug: string }>();
-  console.log("topicSlug from URL params:", topicSlug);
   const navigate = useNavigate();
-  const [currentSession, setCurrentSession] = useState(0);
-  const [currentSection, setCurrentSection] = useState(0);
-  const [completedSections, setCompletedSections] = useState<Set<string>>(new Set());
+  const { progress, markSectionComplete, getSessionProgress, getTopicProgress } = useProgress();
 
-  // Find the topic based on the slug
   const topic = learningContent.find(t => t.slug === topicSlug);
-  console.log("Found topic:", topic);
-  console.log("Full learningContent array:", learningContent);
+
+  const [currentSessionIndex, setCurrentSessionIndex] = useState(0);
+  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
 
   useEffect(() => {
     if (!topic) {
-      navigate('/learning-hub');
+      navigate("/learning-hub");
       return;
     }
-    
-    // Load saved progress from localStorage
-    const savedProgress = localStorage.getItem(`learning-progress-${topicSlug}`);
-    if (savedProgress) {
-      const progress = JSON.parse(savedProgress);
-      setCurrentSession(progress.currentSession || 0);
-      setCurrentSection(progress.currentSection || 0);
-      setCompletedSections(new Set(progress.completedSections || []));
+
+    // Try to find the first incomplete section/session
+    let found = false;
+    for (let sIdx = 0; sIdx < topic.sessions.length; sIdx++) {
+      const session = topic.sessions[sIdx];
+      for (let secIdx = 0; secIdx < session.sections.length; secIdx++) {
+        const section = session.sections[secIdx];
+        const sessionProgress = progress[topic.id]?.[session.id];
+        if (!sessionProgress?.completedSections?.includes(section.id)) {
+          setCurrentSessionIndex(sIdx);
+          setCurrentSectionIndex(secIdx);
+          found = true;
+          break;
+        }
+      }
+      if (found) break;
     }
-  }, [topicSlug, topic, navigate]);
+    if (!found && topic.sessions.length > 0) { // If all completed, go to the last section of the last session
+      setCurrentSessionIndex(topic.sessions.length - 1);
+      setCurrentSectionIndex(topic.sessions[topic.sessions.length - 1].sections.length - 1);
+    }
+
+  }, [topicSlug, topic, navigate, progress]);
 
   if (!topic) {
     return (
       <Layout>
         <div className="max-w-4xl mx-auto p-6 text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Topic not found</h1>
-          <Button onClick={() => navigate('/learning-hub')}>
+          <Button onClick={() => navigate("/learning-hub")}>
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Learning Hub
           </Button>
@@ -69,87 +80,76 @@ const LearningTopicDetail = () => {
     );
   }
 
-  const currentSessionData = topic.sessions[currentSession];
-  const currentSectionData = currentSessionData?.sections[currentSection];
+  const currentSessionData = topic.sessions[currentSessionIndex];
+  const currentSectionData = currentSessionData?.sections[currentSectionIndex];
 
-  const handleSectionComplete = () => {
-    const sectionId = `${currentSession}-${currentSection}`;
-    const newCompleted = new Set(completedSections);
-    newCompleted.add(sectionId);
-    setCompletedSections(newCompleted);
-
-    // Save progress
-    const progress = {
-      currentSession,
-      currentSection,
-      completedSections: Array.from(newCompleted)
-    };
-    localStorage.setItem(`learning-progress-${topicSlug}`, JSON.stringify(progress));
+  const handleSectionComplete = (sectionId: string) => {
+    markSectionComplete(topic.id, currentSessionData.id, sectionId);
   };
 
   const navigateToNextSection = () => {
-    if (currentSection < currentSessionData.sections.length - 1) {
-      setCurrentSection(currentSection + 1);
-    } else if (currentSession < topic.sessions.length - 1) {
-      setCurrentSession(currentSession + 1);
-      setCurrentSection(0);
+    if (currentSectionIndex < currentSessionData.sections.length - 1) {
+      setCurrentSectionIndex(currentSectionIndex + 1);
+    } else if (currentSessionIndex < topic.sessions.length - 1) {
+      setCurrentSessionIndex(currentSessionIndex + 1);
+      setCurrentSectionIndex(0);
     }
   };
 
   const navigateToPreviousSection = () => {
-    if (currentSection > 0) {
-      setCurrentSection(currentSection - 1);
-    } else if (currentSession > 0) {
-      setCurrentSession(currentSession - 1);
-      setCurrentSection(topic.sessions[currentSession - 1].sections.length - 1);
+    if (currentSectionIndex > 0) {
+      setCurrentSectionIndex(currentSectionIndex - 1);
+    } else if (currentSessionIndex > 0) {
+      setCurrentSessionIndex(currentSessionIndex - 1);
+      setCurrentSectionIndex(topic.sessions[currentSessionIndex - 1].sections.length - 1);
     }
   };
 
-  const calculateProgress = () => {
-    const totalSections = topic.sessions.reduce((sum, session) => sum + session.sections.length, 0);
-    return Math.round((completedSections.size / totalSections) * 100);
-  };
+  const topicProgress = getTopicProgress(topic.id);
+  const progressPercentage = topicProgress.totalSections > 0 ? Math.round((topicProgress.completedSections / topicProgress.totalSections) * 100) : 0;
 
   const renderSectionContent = () => {
     if (!currentSectionData) return null;
 
+    const isCompleted = progress[topic.id]?.[currentSessionData.id]?.completedSections?.includes(currentSectionData.id) || false;
+
     switch (currentSectionData.type) {
-      case 'content':
+      case "content":
         return (
           <ContentSection
             title={currentSectionData.title}
             content={currentSectionData.content}
-            onComplete={handleSectionComplete}
-            isCompleted={completedSections.has(`${currentSession}-${currentSection}`)}
+            onComplete={() => handleSectionComplete(currentSectionData.id)}
+            isCompleted={isCompleted}
           />
         );
-      case 'quiz':
+      case "quiz":
         return (
           <InteractiveQuiz
             title={currentSectionData.title}
             questions={currentSectionData.quizQuestions || []}
-            onComplete={handleSectionComplete}
-            isCompleted={completedSections.has(`${currentSession}-${currentSection}`)}
+            onComplete={() => handleSectionComplete(currentSectionData.id)}
+            isCompleted={isCompleted}
           />
         );
-      case 'case-study':
+      case "case-study":
         return (
           <CaseStudy
             title={currentSectionData.title}
             scenario={currentSectionData.caseStudyContent || currentSectionData.content}
             questions={currentSectionData.caseQuestions || []}
-            onComplete={handleSectionComplete}
-            isCompleted={completedSections.has(`${currentSession}-${currentSection}`)}
+            onComplete={() => handleSectionComplete(currentSectionData.id)}
+            isCompleted={isCompleted}
           />
         );
-      case 'video':
+      case "video":
         return (
           <VideoEmbed
             title={currentSectionData.title}
-            videoUrl={currentSectionData.videoUrl || ''}
-            description={currentSectionData.content || ''}
-            onComplete={handleSectionComplete}
-            isCompleted={completedSections.has(`${currentSession}-${currentSection}`)}
+            videoUrl={currentSectionData.videoUrl || ""}
+            description={currentSectionData.content || ""}
+            onComplete={() => handleSectionComplete(currentSectionData.id)}
+            isCompleted={isCompleted}
           />
         );
       default:
@@ -164,7 +164,7 @@ const LearningTopicDetail = () => {
         <div className="mb-8">
           <Button 
             variant="ghost" 
-            onClick={() => navigate('/learning-hub')}
+            onClick={() => navigate("/learning-hub")}
             className="mb-4"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
@@ -182,10 +182,10 @@ const LearningTopicDetail = () => {
           </div>
 
           <ProgressTracker 
-            progress={calculateProgress()}
-            currentSession={currentSession + 1}
+            progress={progressPercentage}
+            currentSession={currentSessionIndex + 1}
             totalSessions={topic.sessions.length}
-            currentSection={currentSection + 1}
+            currentSection={currentSectionIndex + 1}
             totalSections={currentSessionData?.sections.length || 0}
           />
         </div>
@@ -199,30 +199,35 @@ const LearningTopicDetail = () => {
               </CardHeader>
               <CardContent className="p-0">
                 <div className="space-y-1">
-                  {topic.sessions.map((session, index) => (
-                    <button
-                      key={index}
-                      onClick={() => {
-                        setCurrentSession(index);
-                        setCurrentSection(0);
-                      }}
-                      className={`w-full text-left p-3 hover:bg-gray-50 transition-colors ${
-                        currentSession === index ? 'bg-blue-50 border-r-2 border-blue-500' : ''
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <div className="font-medium text-sm">{session.title}</div>
-                          <div className="text-xs text-gray-500">
-                            {session.sections.length} sections
+                  {topic.sessions.map((session, sIdx) => {
+                    const sessionProgress = getSessionProgress(topic.id, session.id);
+                    const isSessionCompleted = sessionProgress.completed === sessionProgress.total && sessionProgress.total > 0;
+                    return (
+                      <button
+                        key={session.id}
+                        onClick={() => {
+                          setCurrentSessionIndex(sIdx);
+                          setCurrentSectionIndex(0);
+                        }}
+                        className={`w-full text-left p-3 hover:bg-gray-50 transition-colors ${
+                          currentSessionIndex === sIdx ? "bg-blue-50 border-r-2 border-blue-500" : ""
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <div className="font-medium text-sm">{session.title}</div>
+                            <div className="text-xs text-gray-500">
+                              {sessionProgress.completed}/{sessionProgress.total} sections
+                              {isSessionCompleted && <span className="ml-2 text-green-600"> (Completed)</span>}
+                            </div>
                           </div>
+                          {currentSessionIndex === sIdx && (
+                            <ChevronRight className="h-4 w-4 text-blue-500" />
+                          )}
                         </div>
-                        {currentSession === index && (
-                          <ChevronRight className="h-4 w-4 text-blue-500" />
-                        )}
-                      </div>
-                    </button>
-                  ))}
+                      </button>
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>
@@ -240,12 +245,12 @@ const LearningTopicDetail = () => {
                   <div>
                     <div className="flex justify-between text-sm mb-1">
                       <span>Completion</span>
-                      <span>{calculateProgress()}%</span>
+                      <span>{progressPercentage}%</span>
                     </div>
-                    <Progress value={calculateProgress()} className="h-2" />
+                    <Progress value={progressPercentage} className="h-2" />
                   </div>
                   <div className="text-sm text-gray-600">
-                    {completedSections.size} of {topic.sessions.reduce((sum, session) => sum + session.sections.length, 0)} sections completed
+                    {topicProgress.completedSections} of {topicProgress.totalSections} sections completed
                   </div>
                 </div>
               </CardContent>
@@ -260,7 +265,7 @@ const LearningTopicDetail = () => {
                   <div>
                     <CardTitle className="text-xl">{currentSessionData?.title}</CardTitle>
                     <CardDescription>
-                      Section {currentSection + 1} of {currentSessionData?.sections.length}
+                      Section {currentSectionIndex + 1} of {currentSessionData?.sections.length}
                     </CardDescription>
                   </div>
                   <Badge variant="outline">
@@ -276,21 +281,21 @@ const LearningTopicDetail = () => {
                   <Button
                     variant="outline"
                     onClick={navigateToPreviousSection}
-                    disabled={currentSession === 0 && currentSection === 0}
+                    disabled={currentSessionIndex === 0 && currentSectionIndex === 0}
                   >
                     <ChevronLeft className="h-4 w-4 mr-2" />
                     Previous
                   </Button>
                   
                   <div className="text-sm text-gray-500">
-                    Session {currentSession + 1}.{currentSection + 1}
+                    Session {currentSessionIndex + 1}.{currentSectionIndex + 1}
                   </div>
                   
                   <Button
                     onClick={navigateToNextSection}
                     disabled={
-                      currentSession === topic.sessions.length - 1 && 
-                      currentSection === currentSessionData.sections.length - 1
+                      currentSessionIndex === topic.sessions.length - 1 && 
+                      currentSectionIndex === currentSessionData.sections.length - 1
                     }
                   >
                     Next
@@ -307,4 +312,5 @@ const LearningTopicDetail = () => {
 };
 
 export default LearningTopicDetail;
+
 

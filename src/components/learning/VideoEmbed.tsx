@@ -3,14 +3,18 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle, PlayCircle, PauseCircle, Volume2, VolumeX } from "lucide-react";
+import { useProgress } from "../../contexts/ProgressContext";
 
 interface VideoEmbedProps {
   title: string;
   videoUrl: string;
   description: string;
-  onComplete: () => void;
+  onComplete: () => void; // This is now primarily for navigating to next section
   isCompleted: boolean;
   duration?: string; // e.g., "5:30"
+  topicId: string;
+  sessionId: string;
+  sectionId: string;
 }
 
 const VideoEmbed: React.FC<VideoEmbedProps> = ({
@@ -19,8 +23,12 @@ const VideoEmbed: React.FC<VideoEmbedProps> = ({
   description,
   onComplete,
   isCompleted,
-  duration = "Unknown"
+  duration = "Unknown",
+  topicId,
+  sessionId,
+  sectionId,
 }) => {
+  const { markSectionComplete, markSessionComplete } = useProgress();
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [watchTime, setWatchTime] = useState(0);
@@ -48,13 +56,15 @@ const VideoEmbed: React.FC<VideoEmbedProps> = ({
   const handleTimeUpdate = () => {
     if (videoRef.current) {
       const currentTime = videoRef.current.currentTime;
-      const duration = videoRef.current.duration;
+      const videoDuration = videoRef.current.duration;
       
       setWatchTime(currentTime);
       
       // Mark as completed if watched 80% of the video
-      if (duration && currentTime / duration >= 0.8 && !hasWatchedMost) {
+      if (videoDuration && currentTime / videoDuration >= 0.8 && !hasWatchedMost) {
         setHasWatchedMost(true);
+        markSectionComplete(topicId, sessionId, sectionId);
+        markSessionComplete(topicId, sessionId, 'good'); // Mark session as good if video watched
         onComplete();
       }
     }
@@ -64,6 +74,8 @@ const VideoEmbed: React.FC<VideoEmbedProps> = ({
     setIsPlaying(false);
     if (!hasWatchedMost) {
       setHasWatchedMost(true);
+      markSectionComplete(topicId, sessionId, sectionId);
+      markSessionComplete(topicId, sessionId, 'good'); // Mark session as good if video watched
       onComplete();
     }
   };
@@ -118,14 +130,9 @@ const VideoEmbed: React.FC<VideoEmbedProps> = ({
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 onLoad={() => {
-                  // YouTube iframe API would be needed for proper tracking
-                  // For now, we'll mark as completed when iframe loads
-                  setTimeout(() => {
-                    if (!hasWatchedMost) {
-                      setHasWatchedMost(true);
-                      onComplete();
-                    }
-                  }, 30000); // Mark complete after 30 seconds
+                  // For YouTube, we'll mark as completed after a short delay or if the user manually marks it.
+                  // Full YouTube API integration for precise watch time is more complex.
+                  // The manual mark as watched button is the primary trigger.
                 }}
               />
             ) : (
@@ -217,6 +224,8 @@ const VideoEmbed: React.FC<VideoEmbedProps> = ({
           onClick={() => {
             if (!hasWatchedMost) {
               setHasWatchedMost(true);
+              markSectionComplete(topicId, sessionId, sectionId);
+              markSessionComplete(topicId, sessionId, 'good'); // Mark session as good if video watched
               onComplete();
             }
           }}
@@ -238,4 +247,5 @@ const VideoEmbed: React.FC<VideoEmbedProps> = ({
 };
 
 export default VideoEmbed;
+
 

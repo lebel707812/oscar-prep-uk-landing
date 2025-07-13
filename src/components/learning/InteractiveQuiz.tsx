@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { CheckCircle, XCircle, HelpCircle, RotateCcw } from "lucide-react";
+import { useProgress } from "../../contexts/ProgressContext";
 
 interface QuizQuestion {
   id: string;
@@ -17,20 +18,27 @@ interface QuizQuestion {
 interface InteractiveQuizProps {
   title: string;
   questions: QuizQuestion[];
-  onComplete: () => void;
+  onComplete: () => void; // This is now primarily for navigating to next section
   isCompleted: boolean;
+  topicId: string;
+  sessionId: string;
+  sectionId: string;
 }
 
 const InteractiveQuiz: React.FC<InteractiveQuizProps> = ({
   title,
   questions,
   onComplete,
-  isCompleted
+  isCompleted,
+  topicId,
+  sessionId,
+  sectionId,
 }) => {
+  const { markSectionComplete, markSessionComplete } = useProgress();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<{ [key: number]: number }>({});
   const [showResults, setShowResults] = useState(false);
-  const [quizCompleted, setQuizCompleted] = useState(isCompleted);
+  const [quizAttempted, setQuizAttempted] = useState(false); // To track if quiz was attempted
 
   const handleAnswerSelect = (questionIndex: number, answerIndex: number) => {
     setSelectedAnswers(prev => ({
@@ -44,10 +52,17 @@ const InteractiveQuiz: React.FC<InteractiveQuizProps> = ({
       setCurrentQuestion(currentQuestion + 1);
     } else {
       setShowResults(true);
-      if (!quizCompleted) {
-        setQuizCompleted(true);
-        onComplete();
+      setQuizAttempted(true);
+      const score = calculateScore();
+      let sessionStatus: 'good' | 'mastered' | 'needs-work' = 'needs-work';
+      if (score >= 80) {
+        sessionStatus = 'mastered';
+      } else if (score >= 60) {
+        sessionStatus = 'good';
       }
+      markSectionComplete(topicId, sessionId, sectionId);
+      markSessionComplete(topicId, sessionId, sessionStatus);
+      onComplete(); // Call parent's onComplete to potentially navigate
     }
   };
 
@@ -61,6 +76,7 @@ const InteractiveQuiz: React.FC<InteractiveQuizProps> = ({
     setCurrentQuestion(0);
     setSelectedAnswers({});
     setShowResults(false);
+    setQuizAttempted(false);
   };
 
   const calculateScore = () => {
@@ -85,8 +101,8 @@ const InteractiveQuiz: React.FC<InteractiveQuizProps> = ({
     return "destructive";
   };
 
-  if (showResults) {
-    const score = calculateScore();
+  if (showResults || isCompleted) {
+    const score = calculateScore(); // Recalculate score if already completed or showing results
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">
@@ -109,7 +125,7 @@ const InteractiveQuiz: React.FC<InteractiveQuizProps> = ({
                 <span className={getScoreColor(score)}>{score}%</span>
               </div>
               <p className="text-gray-600">
-                You answered {questions.filter((_, index) => selectedAnswers[index] === questions[index].correctAnswer).length} out of {questions.length} questions correctly.
+                You answered {questions.filter((question, index) => selectedAnswers[index] === question.correctAnswer).length} out of {questions.length} questions correctly.
               </p>
               
               {score >= 80 ? (
@@ -242,4 +258,5 @@ const InteractiveQuiz: React.FC<InteractiveQuizProps> = ({
 };
 
 export default InteractiveQuiz;
+
 

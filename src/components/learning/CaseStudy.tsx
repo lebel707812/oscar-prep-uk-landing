@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { CheckCircle, Users, FileText, Lightbulb } from "lucide-react";
+import { useProgress } from "../../contexts/ProgressContext";
 
 interface CaseQuestion {
   id: string;
@@ -18,6 +19,9 @@ interface CaseStudyProps {
   questions: CaseQuestion[];
   onComplete: () => void;
   isCompleted: boolean;
+  topicId: string;
+  sessionId: string;
+  sectionId: string;
 }
 
 const CaseStudy: React.FC<CaseStudyProps> = ({
@@ -25,12 +29,15 @@ const CaseStudy: React.FC<CaseStudyProps> = ({
   scenario,
   questions,
   onComplete,
-  isCompleted
+  isCompleted,
+  topicId,
+  sessionId,
+  sectionId,
 }) => {
+  const { markSectionComplete, markSessionComplete } = useProgress();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [userAnswers, setUserAnswers] = useState<{ [key: number]: string }>({});
   const [showSampleAnswers, setShowSampleAnswers] = useState<{ [key: number]: boolean }>({});
-  const [caseCompleted, setCaseCompleted] = useState(isCompleted);
 
   const handleAnswerChange = (questionIndex: number, answer: string) => {
     setUserAnswers(prev => ({
@@ -50,10 +57,15 @@ const CaseStudy: React.FC<CaseStudyProps> = ({
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
-      if (!caseCompleted) {
-        setCaseCompleted(true);
-        onComplete();
+      // When the case study is completed
+      if (!isCompleted) {
+        markSectionComplete(topicId, sessionId, sectionId);
+        // For case studies, we can assume 'good' or 'mastered' if completed, or 'needs-work' if not fully answered
+        // For simplicity, let's mark as 'good' if all questions have some answer, otherwise 'needs-work'
+        const allAnswered = questions.every((_, index) => userAnswers[index] && userAnswers[index].trim().length > 0);
+        markSessionComplete(topicId, sessionId, allAnswered ? 'good' : 'needs-work');
       }
+      onComplete(); // Call parent's onComplete to potentially navigate
     }
   };
 
@@ -77,7 +89,7 @@ const CaseStudy: React.FC<CaseStudyProps> = ({
           <Badge variant="outline">
             Question {currentQuestion + 1} of {questions.length}
           </Badge>
-          {caseCompleted && (
+          {isCompleted && (
             <Badge className="bg-green-100 text-green-800 border-green-200">
               <CheckCircle className="h-3 w-3 mr-1" />
               Completed
@@ -112,6 +124,7 @@ const CaseStudy: React.FC<CaseStudyProps> = ({
             value={userAnswer}
             onChange={(e) => handleAnswerChange(currentQuestion, e.target.value)}
             className="min-h-[120px]"
+            disabled={isCompleted} // Disable if already completed
           />
           
           <div className="flex justify-between items-center">
@@ -119,6 +132,7 @@ const CaseStudy: React.FC<CaseStudyProps> = ({
               variant="outline"
               onClick={() => toggleSampleAnswer(currentQuestion)}
               className="text-sm"
+              disabled={isCompleted} // Disable if already completed
             >
               <Lightbulb className="h-4 w-4 mr-2" />
               {showSampleAnswers[currentQuestion] ? "Hide" : "Show"} Sample Answer
@@ -161,7 +175,7 @@ const CaseStudy: React.FC<CaseStudyProps> = ({
         <Button
           variant="outline"
           onClick={handlePreviousQuestion}
-          disabled={currentQuestion === 0}
+          disabled={currentQuestion === 0 || isCompleted}
         >
           Previous Question
         </Button>
@@ -172,9 +186,9 @@ const CaseStudy: React.FC<CaseStudyProps> = ({
         
         <Button
           onClick={handleNextQuestion}
-          disabled={userAnswer.trim().length === 0}
+          disabled={userAnswer.trim().length === 0 && !isCompleted}
         >
-          {currentQuestion === questions.length - 1 ? "Complete Case Study" : "Next Question"}
+          {currentQuestion === questions.length - 1 ? (isCompleted ? "Completed" : "Complete Case Study") : "Next Question"}
         </Button>
       </div>
 
@@ -184,7 +198,7 @@ const CaseStudy: React.FC<CaseStudyProps> = ({
           <div
             key={index}
             className={`h-2 flex-1 rounded ${
-              index < currentQuestion
+              index < currentQuestion || (isCompleted && index <= currentQuestion)
                 ? "bg-green-500"
                 : index === currentQuestion
                 ? "bg-blue-500"
@@ -198,4 +212,5 @@ const CaseStudy: React.FC<CaseStudyProps> = ({
 };
 
 export default CaseStudy;
+
 

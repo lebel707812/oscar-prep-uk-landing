@@ -7,7 +7,7 @@ import { CheckCircle, BookOpen, Clock } from "lucide-react";
 interface ContentSectionProps {
   title: string;
   content: string;
-  onComplete: () => void;
+  onComplete: () => void; // This will now be called by the parent to mark section complete
   isCompleted: boolean;
   estimatedTime?: number; // in minutes
 }
@@ -19,21 +19,19 @@ const ContentSection: React.FC<ContentSectionProps> = ({
   isCompleted,
   estimatedTime = 5
 }) => {
-  const [isReading, setIsReading] = useState(false);
-
   const handleMarkComplete = () => {
     if (!isCompleted) {
-      onComplete();
+      onComplete(); // Call the onComplete prop which will trigger markSectionComplete in parent
     }
   };
 
   const formatContent = (text: string) => {
     // Convert markdown-like formatting to HTML
     return text
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*(.*?)\*/g, '<em>$1</em>')
-      .replace(/\n\n/g, '</p><p>')
-      .replace(/\n/g, '<br/>');
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\*(.*?)\*/g, "<em>$1</em>")
+      .replace(/\n\n/g, "</p><p>")
+      .replace(/\n/g, "<br/>");
   };
 
   return (
@@ -93,7 +91,7 @@ const ContentSection: React.FC<ContentSectionProps> = ({
       </div>
 
       {/* Key Points Summary */}
-      {content.includes('Key Points:') && (
+      {content.includes("Key Points:") && (
         <Card className="bg-blue-50 border-blue-200">
           <CardHeader>
             <CardTitle className="text-lg text-blue-900">Key Learning Points</CardTitle>
@@ -112,4 +110,5 @@ const ContentSection: React.FC<ContentSectionProps> = ({
 };
 
 export default ContentSection;
+
 
