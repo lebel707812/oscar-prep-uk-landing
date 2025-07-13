@@ -94,7 +94,9 @@ const QuickActions: React.FC<QuickActionsProps> = ({ className }) => {
       icon: FileText,
       color: 'text-blue-600',
       bgColor: 'bg-blue-50',
-      borderColor: 'border-blue-200',      action: () => navigate("/dashboard/mock-exams"),      badge: "Practice"\'
+      borderColor: 'border-blue-200',
+      action: () => navigate("/dashboard/mock-exams"),
+      badge: "Practice"
     },
     {
       title: "Interactive Clinical Cases",
@@ -116,15 +118,17 @@ const QuickActions: React.FC<QuickActionsProps> = ({ className }) => {
       borderColor: 'border-orange-200',
       action: () => navigate('/dashboard/scenario-library'),
       badge: "Scenarios"
-    },
-s",
-      description: "View your progress and unlocked achievements",
-      icon: Trophy,
-      color: 'text-yellow-600',
-      bgColor: 'bg-yellow-50',
-      borderColor: 'border-yellow-200',
-      action: () => navigate('/dashboard/gamification'),      badge: "Gamification"'
-    },
+},
+{
+  title: "Achievements",
+  description: "View your progress and unlocked achievements",
+  icon: Trophy,
+  color: 'text-yellow-600',
+  bgColor: 'bg-yellow-50',
+  borderColor: 'border-yellow-200',
+  action: () => navigate('/dashboard/gamification'),
+  badge: "Gamification"
+},
     {
       title: "Forum",
       description: "Connect with other students",
