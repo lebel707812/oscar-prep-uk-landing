@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Layout from "@/components/ui/Layout";
+import FeedbackSystem from "@/components/ui/FeedbackSystem";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -61,6 +62,15 @@ const ClinicalCaseDetail = () => {
   const [timeRemaining, setTimeRemaining] = useState(0);
   const [caseStarted, setCaseStarted] = useState(false);
   const [caseCompleted, setCaseCompleted] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [stepPerformances, setStepPerformances] = useState<Array<{
+    stepId: string;
+    timeSpent: number;
+    timeLimit: number;
+    completed: boolean;
+    efficiency: 'excellent' | 'good' | 'needs_improvement';
+  }>>([]);
+  const [stepStartTime, setStepStartTime] = useState<number>(0);
 
   // Mock data for demonstration - in real app, this would come from API
   const mockCaseData: { [key: string]: ClinicalCaseData } = {
@@ -484,6 +494,7 @@ const ClinicalCaseDetail = () => {
   const startCase = () => {
     setCaseStarted(true);
     setIsTimerRunning(true);
+    setStepStartTime(Date.now());
   };
 
   const pauseTimer = () => {
@@ -505,6 +516,22 @@ const ClinicalCaseDetail = () => {
   const completeStep = () => {
     if (!caseData) return;
 
+    const currentStepData = caseData.steps[currentStep];
+    const timeSpent = (Date.now() - stepStartTime) / 1000; // Convert to seconds
+    const efficiency = timeSpent <= currentStepData.timeLimit * 0.8 ? 'excellent' : 
+                      timeSpent <= currentStepData.timeLimit ? 'good' : 'needs_improvement';
+
+    // Record step performance
+    const stepPerformance = {
+      stepId: currentStepData.id,
+      timeSpent,
+      timeLimit: currentStepData.timeLimit,
+      completed: true,
+      efficiency
+    };
+
+    setStepPerformances(prev => [...prev, stepPerformance]);
+
     const updatedSteps = [...caseData.steps];
     updatedSteps[currentStep].completed = true;
     setCaseData({ ...caseData, steps: updatedSteps });
@@ -514,9 +541,11 @@ const ClinicalCaseDetail = () => {
       setCurrentStep(nextStep);
       setTimeRemaining(caseData.steps[nextStep].timeLimit);
       setIsTimerRunning(true);
+      setStepStartTime(Date.now());
     } else {
       setCaseCompleted(true);
       setIsTimerRunning(false);
+      setShowFeedback(true);
       toast({
         title: "Case completed!",
         description: "Well done! You have completed this clinical case.",
@@ -577,9 +606,18 @@ const ClinicalCaseDetail = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="mb-6">
+      {showFeedback && caseId ? (
+        <div className="container mx-auto px-4 py-8">
+          <FeedbackSystem 
+            caseId={caseId}
+            stepPerformances={stepPerformances}
+            onClose={() => setShowFeedback(false)}
+          />
+        </div>
+      ) : (
+        <div className="container mx-auto px-4 py-8">
+          {/* Header */}
+          <div className="mb-6">
           <Button 
             variant="ghost" 
             onClick={() => navigate('/dashboard/clinical-cases')}
@@ -848,7 +886,7 @@ const ClinicalCaseDetail = () => {
             </Card>
           </div>
         )}
-      </div>
+      )}
     </Layout>
   );
 };
