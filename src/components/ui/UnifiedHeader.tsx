@@ -101,13 +101,6 @@ const UnifiedHeader = () => {
       Icon: History, 
       requiresAuth: true 
     },
-
-    { 
-      path: '/dashboard/clinical-cases', 
-      label: 'Clinical Cases', 
-      Icon: BookOpen, 
-      requiresAuth: true 
-    },
     { 
       path: '/blog', 
       label: 'Blog', 
@@ -332,4 +325,6 @@ const UnifiedHeader = () => {
 };
 
 export default UnifiedHeader;
+
+
 
