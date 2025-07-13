@@ -65,6 +65,7 @@ export const learningContent: LearningTopic[] = [
   topic8,
     topic9,
     topic10,
+    topic11,
   // Add more topics here
 ];
 
@@ -72,4 +73,7 @@ import { topic9 } from "./topics/topic-9-professional-boundaries-ethics";
 
 
 import { topic10 } from "./topics/topic-10-cultural-competency-diversity";
+
+
+import { topic11 } from "./topics/topic-11-mental-health-assessment";
 
