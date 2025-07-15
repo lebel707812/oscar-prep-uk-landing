@@ -41,6 +41,8 @@ const LazyBlogEditor = lazy(() => import("./pages/BlogEditor"));
 const LazyForumNewTopic = lazy(() => import("./pages/ForumNewTopic"));
 const LazyMockExamRunner = lazy(() => import("./pages/MockExamRunner"));
 const LazyInteractiveClinicalCases = lazy(() => import("./pages/ClinicalCases"));
+const LazySupabaseTest = lazy(() => import("./pages/SupabaseTest"));
+const LazyClinicalCaseDetail = lazy(() => import("./pages/ClinicalCaseDetail"));
 
 const queryClient = new QueryClient();
 
@@ -217,6 +219,8 @@ const App = () => {
                       </ProtectedRoute>
                     }
                   />
+                  <Route path="/supabase-test" element={<LazySupabaseTest />} />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
             </BrowserRouter>
@@ -228,10 +232,4 @@ const App = () => {
 };
 
 export default App;
-
-
-const LazyClinicalCaseDetail = lazy(() => import("./pages/ClinicalCaseDetail"));
-
-
-                  <Route path="*" element={<NotFound />} />
 
