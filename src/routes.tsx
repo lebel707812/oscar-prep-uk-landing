@@ -1,5 +1,6 @@
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 import Index from './pages/Index';
+import MarketingLanding from './pages/MarketingLanding';
 import Auth from './pages/Auth';
 import Dashboard from './pages/Dashboard';
 import StartFreeTrial from './pages/StartFreeTrial';
@@ -20,7 +21,15 @@ import Layout from './components/ui/Layout';
 const router = createBrowserRouter([
   {
     path: '/',
+    element: <MarketingLanding />,
+  },
+  {
+    path: '/home',
     element: <Index />,
+  },
+  {
+    path: '/marketing',
+    element: <MarketingLanding />,
   },
   {
     path: '/auth',

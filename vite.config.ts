@@ -9,6 +9,9 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    allowedHosts: [
+      "8080-i06glmkxshngixu6v3zwp-78877c6d.manusvm.computer"
+    ]
   },
   plugins: [
     react(),
