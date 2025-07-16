@@ -2,11 +2,17 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
 
 const HeroSection = () => {
-  const heroImage = "https://images.pexels.com/photos/7084406/pexels-photo-7084406.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
-
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-background via-secondary/10 to-primary/5 min-h-screen flex items-center">
-      <div className="container mx-auto px-6 py-20 lg:py-32">
+      {/* Background Image */}
+      <img
+        src="/images/landingpage.png"
+        alt="Background - International nurses celebrating OSCE certification"
+        className="absolute inset-0 w-full h-full object-cover -z-10"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-background/30 -z-10"></div>
+
+      <div className="container mx-auto px-6 py-20 lg:py-32 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Content */}
           <div className="space-y-10">
@@ -25,7 +31,7 @@ const HeroSection = () => {
               </h1>
               
               <p className="body-large text-muted-foreground max-w-2xl leading-relaxed">
-                Join international nurses from India, Philippines, Nigeria, and Brazil who successfully passed their OSCE with our AI-powered preparation platform designed specifically for healthcare professionals.
+                Join international nurses from India, Philippines, Nigeria, and Brazil who successfully passed their OSCE with our AI-powered preparation platform.
               </p>
             </div>
 
@@ -65,18 +71,18 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Image */}
+          {/* Image Card */}
           <div className="relative">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
               <img 
-                src={heroImage} 
+                src="/images/landingpage.png"
                 alt="International nurses preparing for OSCE exam"
                 className="w-full h-auto object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent"></div>
             </div>
             
-            {/* Floating cards com melhor espaçamento */}
+            {/* Floating cards */}
             <div className="absolute -top-6 -right-6 bg-white/95 backdrop-blur-sm p-6 rounded-2xl shadow-xl border border-border/50">
               <div className="flex items-center space-x-3">
                 <div className="w-4 h-4 bg-success rounded-full animate-pulse"></div>
@@ -96,4 +102,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-

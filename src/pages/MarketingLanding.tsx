@@ -112,28 +112,30 @@ const MarketingLanding = () => {
               </div>
             </div>
 
-            <div className="relative">
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-                <img 
-                  src="https://images.pexels.com/photos/7084406/pexels-photo-7084406.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
-                  alt="Nurses preparing for OSCE exam"
-                  className="w-full h-auto object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent"></div>
-              </div>
-              
-              <div className="absolute -top-4 -right-4 bg-white/95 backdrop-blur-sm p-4 rounded-2xl shadow-xl">
-                <div className="flex items-center space-x-2">
-                  <Zap className="w-5 h-5 text-primary" />
-                  <span className="font-semibold text-sm">AI-Powered Feedback</span>
-                </div>
-              </div>
-              
-              <div className="absolute -bottom-4 -left-4 bg-white/95 backdrop-blur-sm p-4 rounded-2xl shadow-xl">
-                <div className="text-2xl font-bold text-primary">1000+</div>
-                <div className="text-sm text-muted-foreground">Practice Scenarios</div>
-              </div>
+            <div className="relative h-[80vh] rounded-xl overflow-hidden shadow-lg">
+            {/* Hero Image */}
+            <img
+              src="/images/landingpage.png"
+              alt="Diverse immigrant nurses celebrating OSCE certification in UK"
+              className="h-full w-full object-cover"
+            />
+            
+            {/* Darker Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-blue-900/70 via-blue-800/40 to-transparent"></div>
+
+            {/* CTA Container */}
+            <div className="absolute bottom-8 left-8 right-8 md:right-auto md:w-1/2 bg-white/90 backdrop-blur-sm p-6 rounded-xl border border-gray-200">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                Your NHS Career Starts Here!
+              </h2>
+              <p className="text-gray-700 mb-4">
+                Join 5,000+ international nurses who passed OSCE with our prep course
+              </p>
+              <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors shadow-md">
+                Start Free 7-Day Trial
+              </button>
             </div>
+          </div>
           </div>
         </div>
       </section>

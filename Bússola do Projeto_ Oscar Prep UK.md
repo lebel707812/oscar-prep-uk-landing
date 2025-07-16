@@ -24,20 +24,22 @@ As seguintes funcionalidades já foram implementadas e estão prontas para o lan
 - **Correção do "Overall Progress":** O cálculo do progresso geral foi ajustado para refletir com precisão as sessões concluídas.
 - **Sistema de Notificações:** Implementado um sistema de notificações para conquistas, atualizações e lembretes.
 - **Enriquecimento do Dashboard:** O dashboard foi aprimorado com mais informações e estatísticas detalhadas.
+- **Autenticação:** Proteções de rota reativadas e testadas com sucesso.
+- **Lógica de Casos Clínicos:** Avanço entre passos, timer e progresso integrados.
+- **Feedback Inteligente:** Sistema implementado com análise de performance em tempo real.
+- **Timer de Estação:** Funcionalidade testada e alinhada ao exame OSCE (8-10 min).
+- **UI/UX Aprimorada:** CSS com transições suaves, acessibilidade e responsividade mobile.
+- **Integração Supabase:** Conexão com banco de dados documentada e testada.
 
 ## O que Estamos Construindo (Próximas Prioridades)
 
 As seguintes tarefas são consideradas primordiais e devem ser o foco do desenvolvimento atual:
 
-1.  **Casos clínicos interativos com feedback:** (Categoria: Conteúdo) - Essencial para a experiência prática do usuário.
-2.  **Timer e simulação de estação (8-10 min):** (Categoria: UX) - Fundamental para simular as condições reais do exame OSCE.
-3.  **Feedback inteligente nas respostas dos simulados:** (Categoria: Aprendizado) - Agrega valor ao fornecer insights personalizados.
-4.  **Termos de uso e política de privacidade:** (Categoria: Legal) - Crucial para a conformidade legal e confiança do usuário.
-5.  **Integração com suporte (chat/email):** (Categoria: Infraestrutura) - Garante que os usuários possam obter ajuda quando necessário.
-6.  **Página de FAQ / suporte ao aluno:** (Categoria: UX) - Melhora a experiência do usuário, oferecendo autoatendimento para dúvidas comuns.
-7.  **Checklist por estação (comunicação, segurança, etc.):** (Categoria: Conteúdo) - Fornece um guia prático para os usuários durante a preparação.
-
-8. **Landing Page de Marketing com CTA:** (Categoria: UX) - 
+1. **Otimização de Performance:** Reduzir tempos de carregamento e melhorar a eficiência das consultas ao banco de dados.
+2. **Testes de Usabilidade:** Realizar sessões com usuários reais para validar fluxos críticos.
+3. **Tradução para Inglês Britânico:** Revisão de todo o conteúdo para adequação ao público do Reino Unido.
+4. **Sistema de Backup Automático:** Implementar rotinas diárias de backup dos dados dos usuários.
+5. **Log de Erros em Produção:** Configurar ferramenta (ex: Sentry) para monitoramento de bugs.
 
 ## Backlog (Melhorias Futuras)
 
@@ -60,9 +62,6 @@ As seguintes tarefas são consideradas primordiais e devem ser o foco do desenvo
 - **Diferenciar build public vs freemium (Vite):** (Categoria: Infraestrutura)
 - **Limites de uso na freemium (ex: bloqueio de funcionalidades):** (Categoria: Monetização)
 
-
-
-
 ## Atualizações Recentes
 
 ### Correção do Botão "Start Case" nos Casos Clínicos Interativos
@@ -77,19 +76,10 @@ As seguintes tarefas são consideradas primordiais e devem ser o foco do desenvo
 
 **Resultado:** O botão "Start Case" agora funciona conforme o esperado, navegando para a página de detalhes do caso clínico, que é renderizada corretamente com todas as informações e o timer em funcionamento. As alterações foram commitadas e enviadas para o repositório GitHub.
 
-
-
 ## Próximos Passos
 
-Com a correção do botão "Start Case" e o carregamento da página de detalhes do caso clínico, os próximos passos focam em garantir a funcionalidade completa da plataforma e aprimorar a experiência do usuário:
-
-1.  **Reativar e testar a autenticação:** Concluído. As proteções de rota foram reativadas e o sistema de autenticação está funcionando corretamente.
-2.  **Implementar a lógica de avanço de passos nos casos clínicos:** Concluído. A funcionalidade para avançar entre os passos do caso está funcionando corretamente, com timer e progresso sendo atualizados adequadamente.
-3.  **Adicionar 'Clinical Cases' ao UnifiedHeader:** Concluído. O item "Clinical Cases" foi adicionado ao menu de navegação e está funcionando corretamente.
-3.  **Desenvolver o feedback inteligente:** Concluído. Sistema de feedback inteligente implementado com análise de performance em tempo real, insights personalizados e recomendações específicas.
-4.  **Testar a funcionalidade de timer e simulação de estação:** Concluído. O timer funciona corretamente para cada passo do caso clínico e a simulação de estação (8-10 min) está alinhada com as condições reais do exame OSCE.
-5.  **Revisar e aprimorar a interface do usuário (UI) e a experiência do usuário (UX):** Concluído. Implementado sistema de CSS aprimorado com transições suaves, microinterações, melhor acessibilidade, feedback visual e responsividade mobile.
-6.  **Integrar com o Supabase e resolver problemas de conexão:** Concluído. Criado sistema completo de integração com documentação SQL, utilitários de teste, página de diagnóstico e todas as funcionalidades necessárias para conectar com o banco de dados.
-
-Estas são as próximas prioridades para continuar o desenvolvimento da plataforma Oscar Prep UK, garantindo uma experiência robusta e funcional para os usuários.
-
+1. **Implementar A/B Testing para CTAs:** Validar eficácia de diferentes versões dos botões de ação.
+2. **Configurar Analytics Avançado:** Rastrear métricas de engajamento por feature (ex: tempo médio por caso clínico).
+3. **Documentar API no Swagger:** Criar documentação interativa para integrações futuras.
+4. **Pipeline de CI/CD:** Automatizar testes e deploys com GitHub Actions.
+5. **Validação Cross-Browser:** Garantir compatibilidade com Edge, Safari e Firefox.
